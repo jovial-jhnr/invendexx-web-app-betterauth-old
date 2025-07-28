@@ -118,7 +118,7 @@ function BankForm({ className }) {
       <div className="form-section">
         <div className="gap-4">
           {/* Bank Name */}
-          <div className="field">
+          <div className="field my-2">
             <Label htmlFor="bank-name">Bank Name*</Label>
             <Controller
               control={control}
@@ -148,7 +148,7 @@ function BankForm({ className }) {
           </div>
 
           {/* Account Number */}
-          <div className="field">
+          <div className="field my-2">
             <Label htmlFor="account-number">Account Number*</Label>
             <Input
               type="number"
@@ -161,7 +161,7 @@ function BankForm({ className }) {
           </div>
 
           {/* Account Name */}
-          <div className="field">
+          <div className="field my-2">
             <Label htmlFor="account-name">Account Name</Label>
             <Input
               type="text"

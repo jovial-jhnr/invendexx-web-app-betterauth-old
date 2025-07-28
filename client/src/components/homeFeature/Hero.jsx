@@ -5,20 +5,20 @@ function Hero() {
   return (
     <>
       <div
-        className="bg-blue-50 min-h-[450px] flex flex-col md:flex-row
+        className="light:bg-blue-50  min-h-[450px] flex flex-col md:flex-row
          items-center justify-between px-6 py-10 md:py-20"
       >
         <div className="w-full md:w-1/2 text-left p-4">
           <span
-            className=" inline-block p-2 mb-3 bg-gray-100  border-black text-inherit 
+            className=" inline-block p-2 mb-3 light:bg-gray-100 dark:bg-inherit  dark:border-white text-inherit 
            font-semibold font-inter text-sm border border-md rounded-full shadow-sm"
           >
             Best Products for Businesses 🎉
           </span>
-          <h1 className="text-4xl sm:text-5xl font-bold font-mono text-gray-900 mb-6">
+          <h1 className="text-4xl sm:text-5xl font-bold font-mono light:text-gray-900 mb-6">
             Simplify Your Inventory & Boost Your Business
           </h1>
-          <p className="text-base font-roboto  sm:text-lg text-gray-700 mb-8">
+          <p className="text-base font-roboto  sm:text-lg light:text-gray-700 mb-8">
             Track stock levels, manage orders, and analyze sales—all in one
             powerful system. Automate your workflow and prevent stockouts
             effortlessly.

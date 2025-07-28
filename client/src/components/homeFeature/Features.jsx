@@ -2,25 +2,25 @@ import Inven_dpage_1 from "../../assets/Inven_dpage_1.png";
 
 export default function Features() {
   return (
-    <div className="bg-gray-100 m-2 rounded-xs">
+    <div className="light:bg-gray-100 m-2 rounded-xs">
       {/* Features Overview */}
       <section className="py-16 px-8 text-center">
-        <h2 className="text-3xl font-bold text-gray-900">
+        <h2 className="text-3xl font-bold light:text-gray-900">
           Manage Business Like a Pro
         </h2>
-        <p className="max-w-xl mx-auto text-gray-700 mb-8">
+        <p className="max-w-xl mx-auto light:text-gray-700 mb-8">
           Track stock levels, fulfill orders, and get real-time insights—all in
           one powerful system.
         </p>
         <img
           src={Inven_dpage_1} // Replace with a real dashboard image
           alt="Inventory Management Dashboard Preview"
-          className=" my-8 mx-auto bg-gray-50 border border-blue-200 block shadow-lg rounded-lg"
+          className=" my-8 mx-auto dark:bg-gray-50 border border-blue-200 block shadow-lg rounded-lg"
         />
       </section>
 
       {/* Detailed Features */}
-      <section className="bg-white py-16 px-8">
+      <section className="light:bg-white py-16 px-8">
         <h3 className="text-center font-bold font-opensans text-2xl mb-8 text-blue-600">
           Key Features
         </h3>

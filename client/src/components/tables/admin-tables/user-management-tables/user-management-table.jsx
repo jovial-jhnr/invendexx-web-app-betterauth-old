@@ -42,7 +42,7 @@ import { authClient } from "@/lib/auth-client";
 
 // Users are fetches here
 const fetchUsers = async ({ queryKey }) => {
-  const [_key, pageSize = 10, pageIndex = 0] = queryKey;
+  const [_key, pageSize, pageIndex] = queryKey;
   const res = await authClient.admin.listUsers({
     query: {
       limit: pageSize,
@@ -263,8 +263,8 @@ export function UserManagementTable() {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
+    pageIndex: 0 ?? 0,
+    pageSize: 10 ?? 10,
   });
 
   // Users from the json
@@ -273,7 +273,7 @@ export function UserManagementTable() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["users", pagination.pageIndex || 0, pagination.pageSize || 10],
+    queryKey: ["users", pagination.pageIndex, pagination.pageSize],
     queryFn: fetchUsers,
     keepPreviousData: true,
   });
@@ -393,26 +393,13 @@ export function UserManagementTable() {
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
-          {/* <div>
+          <div>
             <p className="text-sm font-mono">
-              Page {table.getState().pagination.pageIndex + 1} of {""}
+              Page {table.getState().pagination.pageIndex + 1} {""}
               {table.getPageCount().toLocaleString}
             </p>
-          </div> */}
-          {/* <div>
-            <select
-              value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value));
-              }}
-            >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
-          </div> */}
+          </div>
+
           <div className="space-x-2">
             {/* To first page */}
             <Button
@@ -450,3 +437,21 @@ export function UserManagementTable() {
 }
 
 export default UserManagementTable;
+
+//
+{
+  /* <div className="text-sm font-semibold">
+  <select
+    value={table.getState().pagination.pageSize}
+    onChange={(e) => {
+      table.setPageSize(Number(e.target.value));
+    }}
+  >
+    {[10, 20, 30, 40, 50].map((pageSize) => (
+      <option key={pageSize} value={pageSize}>
+        Show {pageSize}
+      </option>
+    ))}
+  </select>
+</div>; */
+}

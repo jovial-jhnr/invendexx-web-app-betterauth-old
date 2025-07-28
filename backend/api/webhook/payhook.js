@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import crypto from "crypto";
 import { Paystack } from "@paystack/paystack-sdk";
 import prisma from "../../lib/db.js";
-import { sendEmail } from "../../lib/EmailService.js";
+import { sendEmail } from "../../services/EmailService.js";
 
 // Load environment variables
 dotenv.config();

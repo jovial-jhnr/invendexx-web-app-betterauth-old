@@ -1,0 +1,32 @@
+model Supplier {
+    id               String       @id @default(uuid())
+    supplierName     String
+    email            String
+    phoneNumber      String
+    personOfSupplier String
+    location         String
+    purchase         Purchase[]
+    storeId          String
+    store            Organization @relation(fields: [storeId], references: [id])
+    createdAt        DateTime     @default(now())
+    updatedAt        DateTime     @updatedAt
+
+    @@map("supplier")
+}
+
+model Purchase {
+    id              String       @id @default(uuid())
+    status          String
+    downloadUrl     String
+    toalCost        Decimal
+    storeSupplierId String
+    storeId         String
+    deliveryDate    DateTime
+    storeSupplier   Supplier     @relation(fields: [storeSupplierId], references: [id])
+    store           Organization @relation(fields: [storeId], references: [id])
+    products        Product[]
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+
+    @@map("purchase")
+}

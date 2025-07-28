@@ -1,0 +1,667 @@
+model Cart {
+  id          String     @id @default(uuid())
+  storeId     String
+  customerId  String
+  orderId     String     @unique
+  cartItems   CartItem[]
+  totalAmount Float
+  order       Order      @relation(fields: [orderId], references: [id])
+  customer    Customer   @relation(fields: [customerId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("cart")
+}
+
+model CartItem {
+  id        String @id @default(uuid())
+  cartId    String
+  cart      Cart   @relation(fields: [cartId], references: [id])
+  productId String // assumes you have a Product model
+  quantity  Int
+  price     Float // price per unit at the time it was added to cart
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cartitem")
+}
+
+model Customer {
+  id                  String                @id @default(uuid())
+  name                String
+  email               String?               @unique
+  phoneNumber         String?
+  avatar              String?
+  isGuest             Boolean               @default(true)
+  customerType        CustomerType          @default(New)
+  storeId             String?
+  orders              Order[]
+  carts               Cart[]
+  purchaseHistory     PurchaseHistory[]
+  pos                 POS[]
+  customerGroupMember CustomerGroupMember[]
+  store               Organization?         @relation(fields: [storeId], references: [id])
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  @@map("customer")
+}
+
+enum CustomerType {
+  New
+  Old
+  Vip
+}
+
+model PurchaseHistory {
+  id          String   @id @default(uuid())
+  orderId     String
+  totalAmount Float
+  date        DateTime
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("purchasehistory")
+}
+
+model CustomerGroups {
+  id                  String                @id @default(uuid())
+  name                String
+  storeId             String
+  store               Organization          @relation(fields: [storeId], references: [id])
+  customerGroupMember CustomerGroupMember[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  @@map("customergroup")
+}
+
+model CustomerGroupMember {
+  customerId      String
+  customerGroupId String
+  customer        Customer       @relation(fields: [customerId], references: [id])
+  customerGroup   CustomerGroups @relation(fields: [customerGroupId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@id([customerId, customerGroupId])
+  @@map("customergroupmember")
+}
+
+model Expense {
+  id              String            @id @default(uuid())
+  name            String?
+  amount          Float?
+  description     String?
+  paymentMethod   String?
+  paymentStatus   String?
+  date            DateTime?
+  locationId      String
+  expenseCategory ExpenseCategory[]
+  store           Organization      @relation(fields: [storeId], references: [id])
+  storeId         String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@map("expense")
+}
+
+model ExpenseCategory {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  date        DateTime
+  expenseId   String   @unique
+  expense     Expense  @relation(fields: [expenseId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("expensecategory")
+}
+
+model BankDetails {
+  id            String       @id @default(uuid())
+  bankName      String
+  bankCode      String
+  accountName   String
+  accountNumber String
+  storeId       String       @unique
+  store         Organization @relation(fields: [storeId], references: [id])
+  createdAt     DateTime
+  updatedAt     DateTime     @updatedAt
+
+  @@map("bankdetails")
+}
+
+model Wallet {
+  id        String       @id @default(uuid())
+  balance   Decimal
+  storeId   String       @unique
+  store     Organization @relation(fields: [storeId], references: [id])
+  createdAt DateTime
+  updatedAt DateTime     @updatedAt
+
+  @@map("wallet")
+}
+
+model Location {
+  id                String       @id @default(uuid())
+  name              String
+  address           String?
+  country           String?
+  region            String?
+  city              String?
+  storeId           String
+  isdefaultLocation Boolean?
+  user              User[]
+  order             Order[]
+  store             Organization @relation(fields: [storeId], references: [id])
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@map("location")
+}
+
+model Order {
+  id                     String        @id @default(uuid())
+  customerId             String
+  locationId             String
+  createdBy              String?
+  storeId                String?
+  shippingMethodId       String?
+  grandTotal             Float
+  iscustomerAssigned     Boolean       @default(false)
+  status                 OrderStatus   @default(pending)
+  paymentStatus          PaymentStatus @default(UNPAID)
+  paymentMethod          PaymentMethod
+  deliveryTrackingNumber Int
+  totalAmount            Float
+  subtotalAmount         Float
+  discountAmount         Float
+  taxAmount              Float
+  shippingFee            Float
+  shippingZoneName       String?
+  shippingAddress        String?
+  shippingStatus         String?
+  orderItems             OrderItem[]
+  pos                    POS?
+  cart                   Cart?
+  channel                String?
+  isposConfirmed         Boolean?      @default(false)
+  customer               Customer      @relation(fields: [customerId], references: [id])
+  location               Location?     @relation(fields: [locationId], references: [id])
+  store                  Organization? @relation(fields: [storeId], references: [id])
+  posConfirmedAt         DateTime?
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  @@map("order")
+}
+
+model OrderItem {
+  id       String @id @default(uuid())
+  quantity Int
+  price    Float
+  orderId  String
+  order    Order  @relation(fields: [orderId], references: [id])
+
+  @@map("orderitem")
+}
+
+enum OrderStatus {
+  pending
+  awaiting_review
+  completed
+  shipped
+  shipping
+  cancelled
+}
+
+enum PaymentStatus {
+  PAID
+  PARTLY_PAID
+  UNPAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  TERMINAL
+}
+
+model POS {
+  id          String    @id @default(uuid())
+  staffId     String
+  orderId     String    @unique
+  customerId  String
+  terminalId  String
+  confirmed   Boolean   @default(false)
+  confirmedAt DateTime?
+  customer    Customer  @relation(fields: [customerId], references: [id])
+  staff       User      @relation(fields: [staffId], references: [id])
+  order       Order     @relation(fields: [orderId], references: [id])
+
+  @@map("pos")
+}
+
+model PointOfSale {
+  id              String       @id @default(uuid())
+  storeId         String       @unique
+  staffAssignedId String       @unique
+  store           Organization @relation(fields: [storeId], references: [id])
+  staffAssigned   User         @relation(fields: [staffAssignedId], references: [id])
+  createdAt       DateTime
+  updatedAt       DateTime     @updatedAt
+
+  @@map("pointofsale")
+}
+
+model Product {
+  id                String             @id @default(uuid())
+  name              String
+  description       String?
+  sku               String?            @unique
+  stock             Int?
+  price             Float
+  shippingWeight    String?
+  handleTime        String?
+  freeShipping      Boolean?
+  packaging         String?
+  discountedPrice   String?
+  unitSold          String?
+  length            String?
+  width             String?
+  height            String?
+  quantitySize      String?
+  productStatus     String?
+  imageUrl          String[] // Prisma supports arrays in PostgreSQL and MongoDB
+  storeId           String
+  productCategoryId Int
+  purchaseOrderId   String
+  locationId        String?
+  warehouseId       String?
+  collectionId      String?
+  ProductVariation  ProductVariation[]
+  collection        ProductCollection? @relation(fields: [collectionId], references: [id])
+  purchase          Purchase           @relation(fields: [purchaseOrderId], references: [id])
+  productCategory   ProductCategory?   @relation(fields: [productCategoryId], references: [id])
+  store             Organization       @relation(fields: [storeId], references: [id])
+  warehouse         Warehouse?         @relation(fields: [warehouseId], references: [id])
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@map("product")
+}
+
+model ProductCategory {
+  id          Int       @id @default(autoincrement())
+  name        String?
+  description String
+  productId   Int
+  product     Product[]
+  createdAt   DateTime
+  updatedAt   DateTime  @updatedAt
+
+  @@map("productcategory")
+}
+
+model ProductCollection {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  products    Product[]
+  createdAt   DateTime
+  updatedAt   DateTime  @updatedAt
+
+  @@map("productcollection")
+}
+
+model ProductVariation {
+  id        String  @id @default(uuid())
+  productId String
+  color     String?
+  size      String?
+  sku       String? @unique
+  price     Float?
+  stock     Int?
+  imageUrl  String?
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("productvariation")
+}
+
+model Supplier {
+  id               String       @id @default(uuid())
+  supplierName     String
+  email            String
+  phoneNumber      String
+  personOfSupplier String
+  location         String
+  purchase         Purchase[]
+  storeId          String
+  store            Organization @relation(fields: [storeId], references: [id])
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@map("supplier")
+}
+
+model Purchase {
+  id              String       @id @default(uuid())
+  status          String
+  downloadUrl     String
+  toalCost        Decimal
+  storeSupplierId String
+  storeId         String
+  deliveryDate    DateTime
+  storeSupplier   Supplier     @relation(fields: [storeSupplierId], references: [id])
+  store           Organization @relation(fields: [storeId], references: [id])
+  products        Product[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@map("purchase")
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+}
+
+model User {
+  id            String       @id @default(uuid())
+  name          String
+  firstName     String
+  middleName    String?
+  lastName      String
+  email         String
+  phoneNumber   String?
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  Location      Location?    @relation(fields: [locationId], references: [id])
+  locationId    String?
+  PointOfSale   PointOfSale?
+  Warehouse     Warehouse?
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  members       Member[]
+  invitations   Invitation[]
+  POS           POS[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id                   String   @id
+  expiresAt            DateTime
+  token                String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  ipAddress            String?
+  userAgent            String?
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy       String?
+  activeOrganizationId String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Organization {
+  id             String           @id
+  name           String
+  slug           String?
+  logo           String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  metadata       String?
+  members        Member[]
+  invitations    Invitation[]
+  bankDetails    BankDetails?
+  wallet         Wallet?
+  location       Location[]
+  order          Order[]
+  customer       Customer[]
+  customerGroups CustomerGroups[]
+  expense        Expense[]
+  pointOfSale    PointOfSale?
+  product        Product[]
+  supplier       Supplier[]
+  purchase       Purchase[]
+  settlement     Settlement[]
+  subscription   Subscription?
+  transaction    Transaction[]
+  warehouse      Warehouse[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("member")
+}
+
+model Invitation {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String
+  expiresAt      DateTime
+  inviterId      String
+  user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("invitation")
+}
+
+model Settlement {
+  id        String       @id @default(uuid())
+  amount    Decimal
+  storeId   String
+  store     Organization @relation(fields: [storeId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@map("settlement")
+}
+
+model Shipping {
+  id Int @id
+
+  @@map("shipping")
+}
+
+model ShippingMethod {
+  id Int @id
+
+  @@map("shippingmethod")
+}
+
+// model Store {
+//     id                 Int              @id @default(autoincrement())
+//     name               String
+//     businessName       String?
+//     businessType       String?
+//     ownerId            Int?             @unique
+//     owner              User?            @relation(fields: [ownerId], references: [id])
+//     logo               String?
+//     storeBaseCurrency  String           @default("GH")
+//     banner             String?
+//     phoneNumber        String?
+//     email              String?
+//     website            String?
+//     about              String?
+//     country            String?
+//     address            String?
+//     state              String?
+//     region             String?
+//     zipCode            String?
+//     city               String?
+//     status             String?
+//     storeTag           String?
+//     whitlabel          String?
+//     facebook           String?
+//     instagram          String?
+//     tiktok             String?
+//     twitter            String?
+//     linkedin           String?
+//     currency           String           @default("GH")
+//     storeUrl           String?
+//     storeApproval      Boolean?
+//     modifyProductState String?
+//     wallet             Wallet?
+//     locations          Location[]
+//     product            Product[]
+//     hasAccess          Boolean?
+//     banks              BankDetails[]
+//     warehouses         Warehouse[]
+//     subscription       Subscription[]
+//     settlement         Settlement[]
+//     order              Order[]
+//     customer           Customer[]
+//     customerGroups     CustomerGroups[]
+//     expense            Expense[]
+//     supplier           Supplier[]
+//     purchase           Purchase[]
+//     transaction        Transaction[]
+//     pos                PointOfSale?
+//     createdAt          DateTime         @default(now())
+//     updatedAt          DateTime         @updatedAt
+
+// }
+// 
+
+model Subscription {
+  id                Int           @id @default(autoincrement())
+  amount            Decimal?
+  channel           String?
+  customersId       Int?
+  customersCode     String?
+  storeId           String?       @unique
+  authorizationCode String?
+  status            String?
+  cardType          String?
+  cardBank          String?
+  cardBrand         String?
+  countryCode       String?
+  accountName       String?
+  cardBin           Int?
+  cardLast4         Int?
+  expMonth          Int?
+  expYear           Int?
+  interval          String?
+  emailToken        String?
+  store             Organization? @relation(fields: [storeId], references: [id])
+  startDate         DateTime?
+  endsAt            DateTime?
+  cancelledAt       DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@map("subscription")
+}
+
+model Plan {
+  id        Int      @id @default(autoincrement())
+  plansName String
+  plansCode String
+  plansId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("plan")
+}
+
+model Transaction {
+  id        String        @id @default(uuid())
+  storeId   String?
+  store     Organization? @relation(fields: [storeId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("transaction")
+}
+
+model Warehouse {
+  id                String       @id @default(uuid())
+  name              String
+  inventory         Product[]
+  isDefaultLocation Boolean?
+  staffId           String       @unique
+  storeId           String
+  staffAssigned     User         @relation(fields: [staffId], references: [id])
+  store             Organization @relation(fields: [storeId], references: [id])
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@map("warehouse")
+}
+
+model Inventory {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("inventory")
+}

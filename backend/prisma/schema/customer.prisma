@@ -1,0 +1,63 @@
+model Customer {
+    id                  String                @id @default(uuid())
+    name                String
+    email               String?               @unique
+    phoneNumber         String?
+    avatar              String?
+    isGuest             Boolean               @default(true)
+    customerType        CustomerType          @default(New)
+    storeId             String?
+    orders              Order[]
+    carts               Cart[]
+    purchaseHistory     PurchaseHistory[]
+    pos                 POS[]
+    customerGroupMember CustomerGroupMember[]
+    store               Organization?         @relation(fields: [storeId], references: [id])
+    createdAt           DateTime              @default(now())
+    updatedAt           DateTime              @updatedAt
+
+    @@map("customer")
+}
+
+enum CustomerType {
+    New
+    Old
+    Vip
+}
+
+model PurchaseHistory {
+    id          String   @id @default(uuid())
+    orderId     String
+    totalAmount Float
+    date        DateTime
+    customerId  String
+    customer    Customer @relation(fields: [customerId], references: [id])
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@map("purchasehistory")
+}
+
+model CustomerGroups {
+    id                  String                @id @default(uuid())
+    name                String
+    storeId             String
+    store               Organization          @relation(fields: [storeId], references: [id])
+    customerGroupMember CustomerGroupMember[]
+    createdAt           DateTime              @default(now())
+    updatedAt           DateTime              @updatedAt
+
+    @@map("customergroup")
+}
+
+model CustomerGroupMember {
+    customerId      String
+    customerGroupId String
+    customer        Customer       @relation(fields: [customerId], references: [id])
+    customerGroup   CustomerGroups @relation(fields: [customerGroupId], references: [id])
+    createdAt       DateTime       @default(now())
+    updatedAt       DateTime       @updatedAt
+
+    @@id([customerId, customerGroupId])
+    @@map("customergroupmember")
+}

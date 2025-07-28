@@ -1,0 +1,68 @@
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import EditLocationModal from "@/app/Modal/LocationModal/EditLocationModal";
+import AddLocationModal from "@/app/Modal/LocationModal/AddLocationModal";
+import ReportsDashCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ReportsDashCard";
+import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
+
+function LocationV1() {
+  return (
+    <>
+      <div>
+        {/* Header title */}
+        <div className="m-3">
+          <h1 className="text-2xl font-semibold">Locations</h1>
+          {/* <p className="text-sm">This is the Products page.</p> */}
+        </div>
+
+        {/* Stats */}
+        <ReportsDashCard />
+
+        {/* Location modal */}
+        <div className="text-end m-2 gap-2">
+          <AddLocationModal />
+          <EditLocationModal />
+        </div>
+
+        {/* Body content */}
+        <div>
+          <div>
+            <Tabs defaultValue="all-locations">
+              <TabsList>
+                <TabsTrigger value="all-locations">All</TabsTrigger>
+                <TabsTrigger value="disabled">Disabled</TabsTrigger>
+                <TabsTrigger value="deactivated">Deactivated</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="all-locations">
+                <div>
+                  <div>
+                    <LocationTable />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="disabled">
+                <div>
+                  <div>
+                    <LocationTable />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="deactivated">
+                <div>
+                  <div>
+                    <LocationTable />
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default LocationV1;

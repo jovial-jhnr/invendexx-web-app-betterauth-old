@@ -1,0 +1,53 @@
+// model Store {
+//     id                 Int              @id @default(autoincrement())
+//     name               String
+//     businessName       String?
+//     businessType       String?
+//     ownerId            Int?             @unique
+//     owner              User?            @relation(fields: [ownerId], references: [id])
+//     logo               String?
+// storeBaseCurrency  String           @default("GH")
+// banner             String?
+// phoneNumber        String?
+// email              String?
+// website            String?
+// about              String?
+// country            String?
+// address            String?
+// state              String?
+// region             String?
+// zipCode            String?
+// city               String?
+// status             String?
+// storeTag           String?
+// whitlabel          String?
+// facebook           String?
+// instagram          String?
+// tiktok             String?
+// twitter            String?
+// linkedin           String?
+// currency           String           @default("GH")
+// storeUrl           String?
+// storeApproval      Boolean?
+// modifyProductState String?
+//     wallet             Wallet?
+//     locations          Location[]
+//     product            Product[]
+//     hasAccess          Boolean?
+//     banks              BankDetails[]
+//     warehouses         Warehouse[]
+//     subscription       Subscription[]
+//     settlement         Settlement[]
+//     order              Order[]
+//     customer           Customer[]
+//     customerGroups     CustomerGroups[]
+//     expense            Expense[]
+//     supplier           Supplier[]
+//     purchase           Purchase[]
+//     transaction        Transaction[]
+//     pos                PointOfSale?
+//     createdAt          DateTime         @default(now())
+//     updatedAt          DateTime         @updatedAt
+
+// }
+// 

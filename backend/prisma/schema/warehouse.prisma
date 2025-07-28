@@ -1,0 +1,22 @@
+model Warehouse {
+    id                String       @id @default(uuid())
+    name              String
+    inventory         Product[]
+    isDefaultLocation Boolean?
+    staffId           String       @unique
+    storeId           String
+    staffAssigned     User         @relation(fields: [staffId], references: [id])
+    store             Organization @relation(fields: [storeId], references: [id])
+    createdAt         DateTime     @default(now())
+    updatedAt         DateTime     @updatedAt
+
+    @@map("warehouse")
+}
+
+model Inventory {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("inventory")
+}

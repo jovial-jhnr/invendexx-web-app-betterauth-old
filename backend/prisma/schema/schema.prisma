@@ -1,0 +1,179 @@
+// Datasource
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+}
+
+model User {
+  id            String       @id @default(uuid())
+  name          String?
+  firstName     String
+  middleName    String?
+  lastName      String
+  email         String
+  phoneNumber   String?
+  emailVerified Boolean?
+  image         String?
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  members       Member[]
+  invitations   Invitation[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  // Custom section
+  location      Location?    @relation(fields: [locationId], references: [id])
+  locationId    String?
+  PointOfSale   PointOfSale?
+  warehouse     Warehouse?
+
+  POS POS[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id                   String   @id
+  expiresAt            DateTime
+  token                String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  ipAddress            String?
+  userAgent            String?
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy       String?
+  activeOrganizationId String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Organization {
+  id                 String           @id
+  name               String
+  slug               String?
+  logo               String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  metadata           String?
+  members            Member[]
+  invitations        Invitation[]
+  // Custom section
+  storeBaseCurrency  String?          @default("GH")
+  banner             String?
+  phoneNumber        String?
+  email              String?
+  website            String?
+  description        String?
+  country            String?
+  address            String?
+  state              String?
+  region             String?
+  zipCode            String?
+  city               String?
+  status             String?
+  storeTag           String?
+  whitelabel         String?
+  facebook           String?
+  instagram          String?
+  tiktok             String?
+  twitter            String?
+  linkedin           String?
+  currency           String?          @default("GH")
+  storeUrl           String?
+  storeApproval      Boolean?
+  modifyProductState Boolean?
+  bankDetails        BankDetails?
+  wallet             Wallet?
+  location           Location[]
+  order              Order[]
+  customer           Customer[]
+  customerGroups     CustomerGroups[]
+  expense            Expense[]
+  invoice            Invoice[]
+  pointOfSale        PointOfSale?
+  product            Product[]
+  supplier           Supplier[]
+  purchase           Purchase[]
+  settlements        Settlement[]
+  subscription       Subscription?
+  transaction        Transaction[]
+  warehouse          Warehouse[]
+  ShippingMethod     ShippingMethod[]
+  ShippingZone       ShippingZone[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("member")
+}
+
+model Invitation {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  role           String?
+  status         String
+  expiresAt      DateTime
+  inviterId      String
+  user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("invitation")
+}

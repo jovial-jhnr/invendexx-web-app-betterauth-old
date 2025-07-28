@@ -1,0 +1,11 @@
+model PointOfSale {
+    id              String       @id @default(uuid())
+    storeId         String       @unique
+    staffAssignedId String       @unique
+    store           Organization @relation(fields: [storeId], references: [id])
+    staffAssigned   User         @relation(fields: [staffAssignedId], references: [id])
+    createdAt       DateTime
+    updatedAt       DateTime     @updatedAt
+
+    @@map("pointofsale")
+}

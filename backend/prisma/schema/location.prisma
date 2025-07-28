@@ -1,0 +1,17 @@
+model Location {
+    id                String       @id @default(uuid())
+    name              String
+    address           String?
+    country           String?
+    region            String?
+    city              String?
+    storeId           String
+    isdefaultLocation Boolean?
+    user              User[]
+    order             Order[]
+    store             Organization @relation(fields: [storeId], references: [id])
+    createdAt         DateTime     @default(now())
+    updatedAt         DateTime     @updatedAt
+
+    @@map("location")
+}

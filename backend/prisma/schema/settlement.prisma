@@ -1,0 +1,10 @@
+model Settlement {
+    id        String       @id @default(uuid())
+    amount    Decimal
+    storeId   String
+    store     Organization @relation(fields: [storeId], references: [id])
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+
+    @@map("settlement")
+}

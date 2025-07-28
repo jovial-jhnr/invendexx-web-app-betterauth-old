@@ -1,0 +1,40 @@
+model Subscription {
+    id                Int           @id @default(autoincrement())
+    amount            Decimal?
+    channel           String?
+    customersId       Int?
+    customersCode     String?
+    storeId           String?       @unique
+    authorizationCode String?
+    status            String?
+    cardType          String?
+    cardBank          String?
+    cardBrand         String?
+    countryCode       String?
+    accountName       String?
+    cardBin           Int?
+    cardLast4         Int?
+    expMonth          Int?
+    expYear           Int?
+    interval          String?
+    emailToken        String?
+    store             Organization? @relation(fields: [storeId], references: [id])
+    startDate         DateTime?
+    endsAt            DateTime?
+    cancelledAt       DateTime?
+    createdAt         DateTime      @default(now())
+    updatedAt         DateTime      @updatedAt
+
+    @@map("subscription")
+}
+
+model Plan {
+    id        Int      @id @default(autoincrement())
+    plansName String
+    plansCode String
+    plansId   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("plan")
+}

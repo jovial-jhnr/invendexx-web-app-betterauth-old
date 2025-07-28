@@ -1,0 +1,81 @@
+model Shipping {
+    id                String          @id @default(uuid())
+    orderId           String // References your order system
+    shippingMethodId  String
+    shippingMethod    ShippingMethod  @relation(fields: [shippingMethodId], references: [id])
+    trackingNumber    String?
+    carrier           String? // e.g., "FedEx", "UPS"
+    status            ShippingStatus  @default(PENDING)
+    estimatedDelivery DateTime?
+    actualDelivery    DateTime?
+    shippingAddress   String
+    shippingZoneName  String?
+    shippingFee       Decimal         @default(0)
+    weight            Float?
+    dimensions        String? // "LxWxH" format
+    notes             String?
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @updatedAt
+    auditLogs         ShippingAudit[]
+
+    @@map("shipping")
+}
+
+model ShippingMethod {
+    id              String         @id @default(uuid())
+    name            String // e.g., "Standard", "Express"
+    storeId         String
+    store           Organization   @relation(fields: [storeId], references: [id])
+    description     String?
+    carrier         String? // Specific carrier if fixed
+    deliveryTime    String // e.g., "3-5 business days"
+    baseCost        Float
+    costCalculation String? // JSON for complex calculations
+    isActive        Boolean        @default(true)
+    shippingZones   ShippingZone[]
+    createdAt       DateTime       @default(now())
+    updatedAt       DateTime       @updatedAt
+    Shipping        Shipping[]
+
+    @@map("shippingmethod")
+}
+
+model ShippingZone {
+    id              String           @id @default(uuid())
+    name            String
+    storeId         String
+    store           Organization     @relation(fields: [storeId], references: [id])
+    countries       String[] // Country codes
+    regions         String[] // State/region names
+    postalCodes     String[]
+    shippingMethods ShippingMethod[]
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+
+    @@map("shippingzone")
+}
+
+model ShippingAudit {
+    id         String   @id @default(uuid())
+    shippingId String
+    shipping   Shipping @relation(fields: [shippingId], references: [id])
+    action     String // e.g., "Label Created", "In Transit"
+    details    String?
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    userId     String?
+    metadata   Json?
+
+    @@map("shippingaudit")
+}
+
+enum ShippingStatus {
+    PENDING
+    PROCESSING
+    LABEL_CREATED
+    IN_TRANSIT
+    OUT_FOR_DELIVERY
+    DELIVERED
+    RETURNED
+    FAILED
+}

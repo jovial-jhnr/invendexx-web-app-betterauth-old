@@ -1,0 +1,82 @@
+model Order {
+    id                     String        @id @default(uuid())
+    customerId             String
+    locationId             String
+    createdBy              String?
+    storeId                String?
+    shippingMethodId       String?
+    grandTotal             Float
+    iscustomerAssigned     Boolean       @default(false)
+    status                 OrderStatus   @default(pending)
+    paymentStatus          PaymentStatus @default(UNPAID)
+    paymentMethod          PaymentMethod
+    deliveryTrackingNumber Int
+    totalAmount            Float
+    subtotalAmount         Float
+    discountAmount         Float
+    taxAmount              Float
+    shippingFee            Float
+    shippingZoneName       String?
+    shippingAddress        String?
+    shippingStatus         String?
+    orderItems             OrderItem[]
+    pos                    POS?
+    cart                   Cart?
+    channel                String?
+    isposConfirmed         Boolean?      @default(false)
+    customer               Customer      @relation(fields: [customerId], references: [id])
+    location               Location?     @relation(fields: [locationId], references: [id])
+    store                  Organization? @relation(fields: [storeId], references: [id])
+    posConfirmedAt         DateTime?
+    createdAt              DateTime      @default(now())
+    updatedAt              DateTime      @updatedAt
+
+    @@map("order")
+}
+
+model OrderItem {
+    id       String @id @default(uuid())
+    quantity Int
+    price    Float
+    orderId  String
+    order    Order  @relation(fields: [orderId], references: [id])
+
+    @@map("orderitem")
+}
+
+enum OrderStatus {
+    pending
+    awaiting_review
+    completed
+    shipped
+    shipping
+    cancelled
+}
+
+enum PaymentStatus {
+    PAID
+    PARTLY_PAID
+    UNPAID
+    REFUNDED
+}
+
+enum PaymentMethod {
+    CASH
+    BANK_TRANSFER
+    TERMINAL
+}
+
+model POS {
+    id          String    @id @default(uuid())
+    staffId     String
+    orderId     String    @unique
+    customerId  String
+    terminalId  String
+    confirmed   Boolean   @default(false)
+    confirmedAt DateTime?
+    customer    Customer  @relation(fields: [customerId], references: [id])
+    staff       User      @relation(fields: [staffId], references: [id])
+    order       Order     @relation(fields: [orderId], references: [id])
+
+    @@map("pos")
+}

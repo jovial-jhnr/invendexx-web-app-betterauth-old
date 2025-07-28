@@ -1,0 +1,74 @@
+model Product {
+    id                String             @id @default(uuid())
+    name              String
+    description       String?
+    sku               String?            @unique
+    stock             Int?
+    price             Float
+    shippingWeight    String?
+    handleTime        String?
+    freeShipping      Boolean?
+    packaging         String?
+    discountedPrice   String?
+    unitSold          String?
+    length            String?
+    width             String?
+    height            String?
+    quantitySize      String?
+    productStatus     String?
+    imageUrl          String[] // Prisma supports arrays in PostgreSQL and MongoDB
+    storeId           String
+    productCategoryId Int
+    purchaseOrderId   String
+    locationId        String?
+    warehouseId       String?
+    collectionId      String?
+    cartItems         CartItem[]
+    ProductVariation  ProductVariation[]
+    collection        ProductCollection? @relation(fields: [collectionId], references: [id])
+    purchase          Purchase           @relation(fields: [purchaseOrderId], references: [id])
+    productCategory   ProductCategory?   @relation(fields: [productCategoryId], references: [id])
+    store             Organization       @relation(fields: [storeId], references: [id])
+    warehouse         Warehouse?         @relation(fields: [warehouseId], references: [id])
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @updatedAt
+
+    @@map("product")
+}
+
+model ProductCategory {
+    id          Int       @id @default(autoincrement())
+    name        String?
+    description String
+    productId   Int
+    product     Product[]
+    createdAt   DateTime
+    updatedAt   DateTime  @updatedAt
+
+    @@map("productcategory")
+}
+
+model ProductCollection {
+    id          String    @id @default(uuid())
+    name        String
+    description String?
+    products    Product[]
+    createdAt   DateTime
+    updatedAt   DateTime  @updatedAt
+
+    @@map("productcollection")
+}
+
+model ProductVariation {
+    id        String  @id @default(uuid())
+    productId String
+    color     String?
+    size      String?
+    sku       String? @unique
+    price     Float?
+    stock     Int?
+    imageUrl  String?
+    product   Product @relation(fields: [productId], references: [id])
+
+    @@map("productvariation")
+}

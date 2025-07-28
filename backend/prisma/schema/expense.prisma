@@ -1,0 +1,30 @@
+model Expense {
+    id              String            @id @default(uuid())
+    name            String?
+    amount          Float?
+    description     String?
+    paymentMethod   String?
+    paymentStatus   String?
+    date            DateTime?
+    locationId      String
+    expenseCategory ExpenseCategory[]
+    store           Organization      @relation(fields: [storeId], references: [id])
+    storeId         String
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @updatedAt
+
+    @@map("expense")
+}
+
+model ExpenseCategory {
+    id          String   @id @default(uuid())
+    name        String
+    description String
+    date        DateTime
+    expenseId   String   @unique
+    expense     Expense  @relation(fields: [expenseId], references: [id])
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@map("expensecategory")
+}

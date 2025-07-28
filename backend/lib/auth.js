@@ -4,7 +4,7 @@ import { admin } from "better-auth/plugins";
 import { emailOTP } from "better-auth/plugins";
 import { organization } from "better-auth/plugins";
 import prisma from "./db.js";
-import { sendEmail } from "./EmailService.js";
+import { sendEmail } from "../services/EmailService.js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {

@@ -18,7 +18,7 @@ router.post("/stores/store/:storeId/products/add-product", async (req, res) => {
         price: parseFloat(price),
         quantity: parseInt(quantity),
         category: {
-          connect: { id: parseInt(categoryId) },
+          connect: { id: categoryId },
         },
       },
     });

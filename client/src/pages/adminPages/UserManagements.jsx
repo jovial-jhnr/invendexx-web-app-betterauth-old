@@ -1,18 +1,11 @@
-import UserManagementTable from "@/components/tables/admin-tables/user-management-tables/user-management-table";
+import UserManagementsV1 from "@/features/admin-features/user-management/User-MangementV1";
 import { authClient } from "@/lib/auth-client";
 
 function UserManagements() {
   return (
     <>
       <div>
-        {/* Title section */}
-        <div className="m-3 text-xl font-semibold font-notoserif">
-          <h1>User Management</h1>
-        </div>
-
-        <div>
-          <UserManagementTable />
-        </div>
+        <UserManagementsV1 />
       </div>
     </>
   );

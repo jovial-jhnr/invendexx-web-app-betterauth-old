@@ -344,9 +344,9 @@ export function UserManagementTable() {
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="bg-green-100">
+                <TableRow key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="text-center">
+                    <TableHead key={header.id} className="text-start">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -411,7 +411,7 @@ export function UserManagementTable() {
               }}
               className="text-inherit"
             >
-              {[10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
+              {[1, 2, 5, 10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
@@ -429,6 +429,7 @@ export function UserManagementTable() {
             >
               {"<<"}
             </Button>
+
             {/* Previous Button */}
             <Button
               variant="outline"
@@ -447,6 +448,16 @@ export function UserManagementTable() {
               disabled={!table.getCanNextPage()}
             >
               Next
+            </Button>
+
+            {/* Last Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.lastPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {">>"}
             </Button>
           </div>
         </div>

@@ -484,3 +484,21 @@ export default UserManagementTable;
 //     ))}
 //   </select>
 // </div>;
+
+{
+  /* <div className="text-sm font-semibold">
+  <input
+    type="number"
+    min={1}
+    value={table.getState().pagination.pageSize}
+    onChange={(e) => {
+      const newSize = Number(e.target.value);
+      if (!isNaN(newSize) && newSize > 0) {
+        table.setPageSize(newSize);
+      }
+    }}
+    className="text-inherit w-20 px-2 py-1 border rounded"
+    placeholder="Page size"
+  />
+</div>; */
+}

@@ -1,5 +1,5 @@
 /* We are using the betterauth organization plugin as the store, user that signs up
- is the owner(store owner), if you see store is the organization,and vis-a-vis.
+//  is the owner(store owner), if you see store is the organization,and vis-a-vis.
 */
 // src/auth/create-organization.jsx
 import React from "react";
@@ -33,10 +33,7 @@ import { authClient } from "@/lib/auth-client";
 const organizationSchema = z.object({
   name: z.string().min(3, "Store name must be at least 3 characters"),
   slug: z.string().min(3, "Store slug required. Egs. connet-store"),
-  // logo: z.string().url().optional(),
-  //   type: z.string().min(1, "Organization type is required"),
-  //   industry: z.string().optional(),
-  //   size: z.string().optional(),
+  logo: z.string().optional(),
 });
 
 export function CreateOrganization({ className, ...props }) {
@@ -63,6 +60,8 @@ export function CreateOrganization({ className, ...props }) {
     if (!slugCheck) {
       toast.error("Slug already in use. Change yours to something else");
       return true;
+    } else {
+      toast.success("Slug available to use");
     }
 
     await authClient.organization.create(
@@ -70,9 +69,6 @@ export function CreateOrganization({ className, ...props }) {
         name: name,
         slug: slug,
         logo: logo,
-        // data: {
-        //   storeBaseCurrency: "GH",
-        // },
       },
       {
         onSuccess(ctx) {

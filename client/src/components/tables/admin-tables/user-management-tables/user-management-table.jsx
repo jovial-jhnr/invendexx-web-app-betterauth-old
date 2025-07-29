@@ -45,8 +45,8 @@ const fetchUsers = async ({ queryKey }) => {
   const [_key, pageSize, pageIndex] = queryKey;
   const res = await authClient.admin.listUsers({
     query: {
-      limit: pageSize,
-      offset: pageIndex * pageSize,
+      limit: pageIndex,
+      offset: pageSize * pageIndex,
     },
   });
   // console.log("Fetched users", res.data);
@@ -388,16 +388,35 @@ export function UserManagementTable() {
             </TableBody>
           </Table>
         </div>
+
+        {/* Number of rows selected */}
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
+          {/* THe page numbers */}
           <div>
             <p className="text-sm font-mono">
               Page {table.getState().pagination.pageIndex + 1} {""}
               {table.getPageCount().toLocaleString}
             </p>
+          </div>
+          {/* This lets you select the limit you want */}
+          <div className="text-sm  font-semibold">
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+              className="text-inherit"
+            >
+              {[10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="space-x-2">
@@ -439,19 +458,18 @@ export function UserManagementTable() {
 export default UserManagementTable;
 
 //
-{
-  /* <div className="text-sm font-semibold">
-  <select
-    value={table.getState().pagination.pageSize}
-    onChange={(e) => {
-      table.setPageSize(Number(e.target.value));
-    }}
-  >
-    {[10, 20, 30, 40, 50].map((pageSize) => (
-      <option key={pageSize} value={pageSize}>
-        Show {pageSize}
-      </option>
-    ))}
-  </select>
-</div>; */
-}
+
+//   <div className="text-sm font-semibold">
+//   <select
+//     value={table.getState().pagination.pageSize}
+//     onChange={(e) => {
+//       table.setPageSize(Number(e.target.value));
+//     }}
+//   >
+//     {[10, 20, 30, 40, 50].map((pageSize) => (
+//       <option key={pageSize} value={pageSize}>
+//         Show {pageSize}
+//       </option>
+//     ))}
+//   </select>
+// </div>;

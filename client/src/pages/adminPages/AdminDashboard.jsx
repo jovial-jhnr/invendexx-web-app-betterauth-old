@@ -18,7 +18,9 @@ function AdminDashboard() {
           {/* Admin information here */}
           <div>
             <div className="mt-2 pl-1">
-              <h1>Hail! {session?.user?.firstName} </h1>
+              <h1 className="text-xl font-mono font-semibold">
+                Hail! {session?.user?.firstName}{" "}
+              </h1>
               <p className="font-medium">
                 This is the summary of everything going on!
               </p>

@@ -1,6 +1,7 @@
 model Product {
     id                String             @id @default(uuid())
     name              String
+    shortdescription  String?
     description       String?
     sku               String?            @unique
     stock             Int?
@@ -9,7 +10,7 @@ model Product {
     handleTime        String?
     freeShipping      Boolean?
     packaging         String?
-    discountedPrice   String?
+    discountedPrice   Float?
     unitSold          String?
     length            String?
     width             String?
@@ -24,7 +25,7 @@ model Product {
     warehouseId       String?
     collectionId      String?
     cartItems         CartItem[]
-    ProductVariation  ProductVariation[]
+    productVariation  ProductVariation[]
     collection        ProductCollection? @relation(fields: [collectionId], references: [id])
     purchase          Purchase           @relation(fields: [purchaseOrderId], references: [id])
     productCategory   ProductCategory?   @relation(fields: [productCategoryId], references: [id])

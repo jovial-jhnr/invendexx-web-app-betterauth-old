@@ -13,7 +13,7 @@ model Order {
     deliveryTrackingNumber Int
     totalAmount            Float
     subtotalAmount         Float
-    discountAmount         Float
+    discountAmount         Float?
     taxAmount              Float
     shippingFee            Float
     shippingZoneName       String?
@@ -27,6 +27,10 @@ model Order {
     customer               Customer      @relation(fields: [customerId], references: [id])
     location               Location?     @relation(fields: [locationId], references: [id])
     store                  Organization? @relation(fields: [storeId], references: [id])
+    // Fixed custormer details
+    customerName           String
+    customerEmail          String
+    customerPhoneNumber    String
     posConfirmedAt         DateTime?
     createdAt              DateTime      @default(now())
     updatedAt              DateTime      @updatedAt

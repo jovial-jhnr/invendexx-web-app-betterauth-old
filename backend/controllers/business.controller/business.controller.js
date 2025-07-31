@@ -61,7 +61,7 @@ const allBusinesses = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "All business accounts fetched",
-      result: { allBusinesses },
+      result: allBusinesses,
     });
   } catch (error) {
     return res.status(500).json({

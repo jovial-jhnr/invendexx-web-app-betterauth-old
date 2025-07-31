@@ -267,7 +267,7 @@ export function AppStoreSidebar(props) {
         <SidebarContent>
           <NavMain items={filteredNavMain} className="text-xl" />
           {/* <NavProjects projects={data.projects} /> */}
-          {(session?.user?.role === "user" ||
+          {(session?.user?.role === "owner" ||
             session?.user?.role === "admin") && (
             <NavSecondary
               items={data.navSecondary}

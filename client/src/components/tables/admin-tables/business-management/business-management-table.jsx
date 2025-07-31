@@ -39,24 +39,27 @@ import {
 import { Trash2, Ban, VenetianMask, ShieldCheck } from "lucide-react";
 import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
+import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";
 
 // Users are fetches here from the backend
-const fetchUsers = async ({ queryKey }) => {
+const fetchBusinesses = async ({ queryKey }) => {
   const [_key, pageSize, pageIndex] = queryKey;
-  const res = await authClient.admin.listUsers({
+  const res = await backendUrl.get("/admin/businesses/get-all-businesses", {
     query: {
       limit: pageIndex,
       offset: pageSize * pageIndex,
     },
   });
-  // console.log("Fetched users", res.data);
-  return {
-    users: res?.data?.users,
-    total: res?.data?.total,
-    limit: res?.data?.limit,
-    offset: res?.data?.offset,
-  };
+  console.log("Fetched all Stores", res?.data?.result);
+  return res?.data?.result;
+  //   return {
+  //     stores: res?.data?.result,
+  //     // users: res?.data?.users,
+  //     // total: res?.data?.total,
+  //     // limit: res?.data?.limit,
+  //     // offset: res?.data?.offset,
+  //   };
 };
 
 const columns = [
@@ -84,10 +87,10 @@ const columns = [
   },
 
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "name",
+    header: "Store Name",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("firstName")}</div>
+      <div className="capitalize font-semibold">{row.getValue("name")}</div>
     ),
 
     enableSorting: false,
@@ -95,24 +98,33 @@ const columns = [
   },
 
   {
-    accessorKey: "middleName",
-    header: "Middle Name",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("middleName")}</div>
-    ),
+    accessorKey: "slug",
+    header: "Store Slug",
+    cell: ({ row }) => <div className="">{row.getValue("slug")}</div>,
+
     enableSorting: false,
     enableHiding: false,
   },
 
-  {
-    accessorKey: "lastName",
-    header: "Last Name",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("lastName")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  //   {
+  //     accessorKey: "middleName",
+  //     header: "Middle Name",
+  //     cell: ({ row }) => (
+  //       <div className="capitalize">{row.getValue("middleName")}</div>
+  //     ),
+  //     enableSorting: false,
+  //     enableHiding: false,
+  //   },
+
+  //   {
+  //     accessorKey: "lastName",
+  //     header: "Last Name",
+  //     cell: ({ row }) => (
+  //       <div className="capitalize">{row.getValue("lastName")}</div>
+  //     ),
+  //     enableSorting: false,
+  //     enableHiding: false,
+  //   },
 
   {
     accessorKey: "email",
@@ -144,17 +156,6 @@ const columns = [
     cell: ({ row }) => <div className="capitalize">{row.getValue("role")}</div>,
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: "emailVerified",
-    header: "Email Verified",
-    cell: ({ row }) => (
-      <div className="capitalize">
-        {row.getValue("emailVerified")?.emailVerified}
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
   },
 
   {
@@ -317,7 +318,7 @@ const columns = [
 ];
 
 //  ==== MAIN TABLE FUNCTION ===
-export function UserManagementTable() {
+export function BusinessManagementTable() {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -329,20 +330,20 @@ export function UserManagementTable() {
 
   // Users from the json
   const {
-    data: users,
+    data: stores,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["users", pagination.pageIndex, pagination.pageSize],
-    queryFn: fetchUsers,
+    queryKey: ["stores", pagination.pageIndex, pagination.pageSize],
+    queryFn: fetchBusinesses,
     keepPreviousData: true,
   });
 
   const table = useReactTable({
-    data: users?.users ?? [],
+    data: stores ?? [],
     columns,
     manualPagination: true, // <--- ADD THIS
-    pageCount: Math.ceil(users?.total / pagination.pageSize) ?? -1, // <-- add this
+    // pageCount: Math.ceil(users?.total / pagination.pageSize) ?? -1, // <-- add this
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -406,7 +407,7 @@ export function UserManagementTable() {
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="text-start">
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -459,7 +460,7 @@ export function UserManagementTable() {
           <div>
             <p className="text-sm font-mono">
               Page {table.getState().pagination.pageIndex + 1} of {""}
-              {Math?.ceil(users?.total / Number(users?.limit))}
+              {Math?.ceil(stores?.total / Number(stores?.limit))}
             </p>
           </div>
           {/* This lets you select the limit you want */}
@@ -526,7 +527,7 @@ export function UserManagementTable() {
   );
 }
 
-export default UserManagementTable;
+export default BusinessManagementTable;
 
 //
 

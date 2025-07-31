@@ -72,7 +72,14 @@ export default function SignIn({ className, ...props }) {
       },
       {
         onError(ctx) {
-          toast.error("Login failed. Please try again." || message);
+          console.log(ctx.error);
+          const errorCode = ctx?.data?.code;
+
+          if (errorCode === "BANNED_USER") {
+            toast.error("🚫 Your account has been banned. Contact support.");
+          } else {
+            toast.error("❌ Login failed. Please try again.");
+          }
         },
       }
     );

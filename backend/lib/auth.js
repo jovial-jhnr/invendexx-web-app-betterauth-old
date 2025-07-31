@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
 import { emailOTP } from "better-auth/plugins";
 import { organization } from "better-auth/plugins";
 import prisma from "./db.js";
@@ -59,9 +59,10 @@ export const auth = betterAuth({
   // Rate limiting on authentication.
   // rateLimit: {
   //   window: 10, // time window in seconds
-  //   max: 100, // max requests in the window
+  //   max: 10, // max requests in the window
   // },
 
+  // Allow user to delete .
   deleteUser: {
     enabled: true,
   },
@@ -75,9 +76,10 @@ export const auth = betterAuth({
     }),
 
     // Admin plugin setup
-    admin({
+    adminPlugin({
       adminRoles: ["admin", "superadmin"],
       adminUserIds: ["", ""],
+      defaultRole: "owner",
       bannedUserMessage:
         "Your account has been banned, if its wrong reach out to support",
     }),
@@ -95,80 +97,80 @@ export const auth = betterAuth({
           inviteLink,
         });
       },
-      schema: {
-        organization: {
-          additionalFields: {
-            storeUrl: {
-              type: "string",
-            },
-            storeTag: {
-              type: "string",
-            },
-            banner: {
-              type: "string",
-            },
-            status: {
-              type: "string",
-            },
-            description: {
-              type: "string",
-            },
+      // schema: {
+      //   organization: {
+      //     additionalFields: {
+      //       storeUrl: {
+      //         type: "string",
+      //       },
+      //       storeTag: {
+      //         type: "string",
+      //       },
+      //       banner: {
+      //         type: "string",
+      //       },
+      //       status: {
+      //         type: "string",
+      //       },
+      //       description: {
+      //         type: "string",
+      //       },
 
-            whitelabel: {
-              type: "string",
-            },
-            phoneNumber: {
-              type: "string",
-            },
-            website: {
-              type: "string",
-            },
-            city: {
-              type: "string",
-            },
-            region: {
-              type: "string",
-            },
-            address: {
-              type: "string",
-            },
-            country: {
-              type: "string",
-            },
-            zipCode: {
-              type: "string",
-            },
-            currency: {
-              type: "string",
-            },
-            facebook: {
-              type: "string",
-            },
-            instagram: {
-              type: "string",
-            },
-            twitter: {
-              type: "string",
-            },
-            tiktok: {
-              type: "string",
-            },
-            linkedin: {
-              type: "string",
-            },
-            storeBaseCurrency: {
-              type: "string",
-            },
+      //       whitelabel: {
+      //         type: "string",
+      //       },
+      //       phoneNumber: {
+      //         type: "string",
+      //       },
+      //       website: {
+      //         type: "string",
+      //       },
+      //       city: {
+      //         type: "string",
+      //       },
+      //       region: {
+      //         type: "string",
+      //       },
+      //       address: {
+      //         type: "string",
+      //       },
+      //       country: {
+      //         type: "string",
+      //       },
+      //       zipCode: {
+      //         type: "string",
+      //       },
+      //       currency: {
+      //         type: "string",
+      //       },
+      //       facebook: {
+      //         type: "string",
+      //       },
+      //       instagram: {
+      //         type: "string",
+      //       },
+      //       twitter: {
+      //         type: "string",
+      //       },
+      //       tiktok: {
+      //         type: "string",
+      //       },
+      //       linkedin: {
+      //         type: "string",
+      //       },
+      //       storeBaseCurrency: {
+      //         type: "string",
+      //       },
 
-            modifyProductState: {
-              type: "boolean",
-            },
-            storeApproval: {
-              type: "boolean",
-            },
-          },
-        },
-      },
+      //       modifyProductState: {
+      //         type: "boolean",
+      //       },
+      //       storeApproval: {
+      //         type: "boolean",
+      //       },
+      //     },
+      //   },
+      // },
     }),
   ],
 

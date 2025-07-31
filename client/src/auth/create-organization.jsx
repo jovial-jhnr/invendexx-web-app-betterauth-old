@@ -59,7 +59,7 @@ export function CreateOrganization({ className, ...props }) {
 
     if (!slugCheck) {
       toast.error("Slug already in use. Change yours to something else");
-      return true;
+      return;
     } else {
       toast.success("Slug available to use");
     }

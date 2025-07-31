@@ -1,5 +1,6 @@
 import React from "react";
 import { authClient } from "@/lib/auth-client";
+import DashboardCard from "@/components/ui/dashboard-card";
 
 function Wallet() {
   const { data: session, error } = authClient.useSession;
@@ -15,6 +16,11 @@ function Wallet() {
 
         {/* Main Body */}
         <div>
+          {/* Wallet Details Balance */}
+
+          <div>
+            <p> Your Account Balance: ₵ 100, 000</p>
+          </div>
           {/* Wallet Stats here */}
           <div></div>
 

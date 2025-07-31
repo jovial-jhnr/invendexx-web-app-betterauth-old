@@ -63,7 +63,7 @@ app.use("", customerRoute);
 app.use("/api", createUser);
 
 // Business Account endpoint
-app.use("", businessRoute);
+app.use(businessRoute);
 
 // Store route endpoint for store things.
 app.use(storeRoutes);

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import backendUrl from "@/lib/backendUrl.jsx";
+import toast from "react-hot-toast";
 import AuthPageLayout from "@/auth/auth-layout";
 import { authClient } from "@/lib/auth-client";
 

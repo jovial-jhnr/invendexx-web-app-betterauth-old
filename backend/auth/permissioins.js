@@ -31,7 +31,7 @@ const statement = {
   warehouse: ["create", "view", "share", "update", "delete"],
 };
 
-const ac = createAccessControl(statement);
+export const ac = createAccessControl(statement);
 
 export const admin = ac.newRole({
   ...adminAc.statements,
@@ -43,7 +43,7 @@ export const app_staff = ac.newRole({
   product: [],
 });
 
-export const app_waldeveloper = ac.newRole({
+export const app_developer = ac.newRole({
   project: ["create"],
   product: [],
 });
@@ -77,7 +77,7 @@ export const cashier = ac.newRole({
 
 export const marketer = ac.newRole({
   project: ["create"],
-  product,
+  product: ["view"],
   marketing: ["create", "view", ""],
 });
 

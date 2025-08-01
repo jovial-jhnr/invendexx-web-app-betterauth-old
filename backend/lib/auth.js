@@ -5,6 +5,20 @@ import { emailOTP } from "better-auth/plugins";
 import { organization } from "better-auth/plugins";
 import prisma from "./db.js";
 import { sendEmail } from "../services/EmailService.js";
+import {
+  // the statement control
+  ac,
+  // Admin roles
+  admin,
+  app_developer,
+
+  // Store roles
+  owner,
+  manager,
+  cashier,
+  marketer,
+  customer_support,
+} from "../auth/permissioins.js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -82,6 +96,9 @@ export const auth = betterAuth({
       defaultRole: "owner",
       bannedUserMessage:
         "Your account has been banned, if its wrong reach out to support",
+      ac,
+      admin,
+      app_developer,
     }),
 
     // Organization plugin setup
@@ -96,6 +113,16 @@ export const auth = betterAuth({
           // teamName: data.organization?.name,
           inviteLink,
         });
+      },
+
+      // The role and statement setup
+      ac,
+      roles: {
+        owner,
+        manager,
+        cashier,
+        marketer,
+        customer_support,
       },
       // schema: {
       //   organization: {

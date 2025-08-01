@@ -27,7 +27,7 @@ const createStore = async (req, res) => {
 
 // Delete business
 const deleteBusiness = async (req, res) => {
-  const storeId = parseInt(req.params.storeId);
+  const storeId = req.params.storeId;
 
   if (!storeId) {
     return res.json({
@@ -43,7 +43,7 @@ const deleteBusiness = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Successfully deleted biz account",
-      result: deleteBusiness,
+      // result: deleteBusiness,
     });
   } catch (error) {
     return res.status(500).json({
@@ -57,7 +57,7 @@ const deleteBusiness = async (req, res) => {
 const allBusinesses = async (req, res) => {
   try {
     const offset = parseInt(req.query.offset) || 0;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 20;
 
     const allBusinesses = await prisma.organization.findMany({
       skip: offset * limit,

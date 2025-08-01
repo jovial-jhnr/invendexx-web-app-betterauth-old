@@ -4,24 +4,17 @@ import prisma from "../../lib/db.js";
 // Get all users
 const allUsers = async (req, res) => {
   try {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 30;
+
     const allUsers = await prisma.user.findMany({
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        phone: true,
-        role: true,
-        createdAt: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
+      skip: offset,
+      take: limit,
     });
 
     return res.status(200).json({
       message: "All users available retrieved",
-      result: { allUsers },
+      result: allUsers,
     });
   } catch (error) {
     console.log("Error", error);

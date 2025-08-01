@@ -197,26 +197,12 @@ const columns = [
           }
         );
 
-      // Remove (Delete) user function.
-      const deleteUser = async () => {
-        // Checks for the users role before deleting
-        if (users?.role === "admin") {
-          toast.error("User is Admin, Cannot delete");
-          return;
-        }
+      // Remove (Delete) Store function.
+      const deleteStore = async () => {
+        const storeId = stores?.id;
 
-        await authClient.admin.removeUser(
-          {
-            userId: users?.id,
-          },
-          {
-            onSuccess(ctx) {
-              toast.success("Successfully deleted User permanently");
-            },
-            onError(ctx) {
-              toast.error("Failed to delete User");
-            },
-          }
+        await backendUrl.post(
+          `/admin/businesses/store/${storeId}/delete-store`
         );
       };
 
@@ -312,10 +298,10 @@ const columns = [
             {/* Deleter user dropdown */}
             <DropdownMenuItem
               className="text-red-500 font-medium"
-              onClick={deleteUser}
+              onClick={deleteStore}
             >
               <Trash2 className="text-red-500" />
-              Delete User
+              Delete Store
             </DropdownMenuItem>
 
             {/* <DropdownMenuItem onClick={deleteUser}>
@@ -338,6 +324,10 @@ export function BusinessManagementTable() {
     pageIndex: 0 ?? 0,
     pageSize: 10 ?? 10,
   });
+
+  // User details to confirm user
+  const { data: session } = authClient.useSession();
+  const userRole = session?.user?.role;
 
   // Users from the json
   const {

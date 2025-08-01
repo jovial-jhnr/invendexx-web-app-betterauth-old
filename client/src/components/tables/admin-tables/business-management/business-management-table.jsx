@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
+import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -9,6 +10,7 @@ import {
   ChevronDown,
   MoreHorizontal,
   UserRoundCog,
+  Store,
 } from "lucide-react";
 import {
   flexRender,
@@ -44,22 +46,19 @@ import { authClient } from "@/lib/auth-client";
 
 // Users are fetches here from the backend
 const fetchBusinesses = async ({ queryKey }) => {
-  const [_key, pageSize, pageIndex] = queryKey;
+  const [_key, pageIndex, pageSize] = queryKey;
   const res = await backendUrl.get("/admin/businesses/get-all-businesses", {
-    query: {
-      limit: pageIndex,
-      offset: pageSize * pageIndex,
+    params: {
+      limit: pageSize,
+      offset: pageIndex,
     },
   });
-  console.log("Fetched all Stores", res?.data?.result);
-  return res?.data?.result;
-  //   return {
-  //     stores: res?.data?.result,
-  //     // users: res?.data?.users,
-  //     // total: res?.data?.total,
-  //     // limit: res?.data?.limit,
-  //     // offset: res?.data?.offset,
-  //   };
+  // console.log("Fetched all Stores", res?.data);
+  // return res?.data?.result;
+  return {
+    stores: res?.data?.result,
+    total: res?.data?.total,
+  };
 };
 
 const columns = [
@@ -163,7 +162,9 @@ const columns = [
     header: "Actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const users = row.original;
+      const stores = row.original;
+
+      const updateStore = async () => {};
 
       // Function to impersonate users.
       const impersonatedSession = async () =>
@@ -272,6 +273,16 @@ const columns = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
+            {/* Upsate store details */}
+            <StoreSettingsModal />
+            {/* <DropdownMenuItem
+              onClick={StoreSettingsModal}
+              className="font-medium"
+            >
+              <Store />
+              Update Store
+            </DropdownMenuItem> */}
+
             {/* Impersonate User Session */}
             <DropdownMenuItem
               onClick={impersonatedSession}
@@ -340,10 +351,10 @@ export function BusinessManagementTable() {
   });
 
   const table = useReactTable({
-    data: stores ?? [],
+    data: stores?.stores ?? [],
     columns,
     manualPagination: true, // <--- ADD THIS
-    // pageCount: Math.ceil(users?.total / pagination.pageSize) ?? -1, // <-- add this
+    pageCount: Math.ceil(stores?.total / pagination.pageSize) ?? -1, // <-- add this
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -369,10 +380,10 @@ export function BusinessManagementTable() {
       <MetricCard>
         <div className="flex items-center py-4">
           <Input
-            placeholder="Filter emails..."
-            value={table.getColumn("email")?.getFilterValue() ?? ""}
+            placeholder="Filter store name..."
+            value={table.getColumn("name")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -460,7 +471,7 @@ export function BusinessManagementTable() {
           <div>
             <p className="text-sm font-mono">
               Page {table.getState().pagination.pageIndex + 1} of {""}
-              {Math?.ceil(stores?.total / Number(stores?.limit))}
+              {Math?.ceil(stores?.total / pagination?.pageSize)}
             </p>
           </div>
           {/* This lets you select the limit you want */}

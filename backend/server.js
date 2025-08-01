@@ -9,17 +9,17 @@ import { toNodeHandler, fromNodeHeaders } from "better-auth/node";
 import { auth } from "./lib/auth.js";
 // import sessionRoutes from "./routes/sessionRoutes.js";
 import paystackPayment from "./payments/paystackPayment.js";
-import userRoutes from "./logicRoutes/users/userRoutes.js";
-import createUser from "./logicRoutes/users/createUsers.js";
-import customerRoute from "./logicRoutes/customers/customerRoute.js";
-import featureflagRoute from "./logicRoutes/feature-flags/featureflagRoute.js";
-import productRoutes from "./logicRoutes/products/productRoutes.js";
-import locationRoute from "./logicRoutes/locations/locationRoute.js";
-import orderRoutes from "./logicRoutes/orders/orderRoutes.js";
-import storeRoutes from "./logicRoutes/stores/storeRoutes.js";
-import businessRoute from "./logicRoutes/business/businessRoute.js";
-import bankDetailsRoute from "./logicRoutes/bankdetails/bankDetailsRoute.js";
-import subscriptionStatus from "./logicRoutes/subscriptions/subscriptionStatus.js";
+import userRoutes from "./routes/users/userRoutes.js";
+import createUser from "./routes/users/createUsers.js";
+import customerRoute from "./routes/customers/customerRoute.js";
+import featureflagRoute from "./routes/feature-flags/featureflagRoute.js";
+import productRoutes from "./routes/products/productRoutes.js";
+import locationRoute from "./routes/locations/locationRoute.js";
+import orderRoutes from "./routes/orders/orderRoutes.js";
+import storeRoutes from "./routes/stores/storeRoutes.js";
+import businessRoute from "./routes/business/businessRoute.js";
+import bankDetailsRoute from "./routes/bankdetails/bankDetailsRoute.js";
+import subscriptionStatus from "./routes/subscriptions/subscriptionStatus.js";
 
 // .env file path to load stuff
 dotenv.config();
@@ -33,6 +33,7 @@ app.disable("x-powered-by");
 // The connection between the frontend and the backend.
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
+// Endpoint route for the authentication, must be above the express.json.
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 // JSON is parsed as it comes from the frontend.

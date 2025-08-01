@@ -43,10 +43,10 @@ import { authClient } from "@/lib/auth-client";
 
 // Users are fetches here from the backend
 const fetchUsers = async ({ queryKey }) => {
-  const [_key, pageSize, pageIndex] = queryKey;
+  const [_key, pageIndex, pageSize] = queryKey;
   const res = await authClient.admin.listUsers({
     query: {
-      limit: pageIndex,
+      limit: pageSize,
       offset: pageSize * pageIndex,
     },
   });

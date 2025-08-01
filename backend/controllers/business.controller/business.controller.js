@@ -43,7 +43,7 @@ const deleteBusiness = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Successfully deleted biz account",
-      result: { deleteBusiness },
+      result: deleteBusiness,
     });
   } catch (error) {
     return res.status(500).json({
@@ -56,16 +56,26 @@ const deleteBusiness = async (req, res) => {
 
 const allBusinesses = async (req, res) => {
   try {
-    const allBusinesses = await prisma.organization.findMany({});
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const allBusinesses = await prisma.organization.findMany({
+      skip: offset * limit,
+      take: limit,
+    });
+
+    // Total businesses in the app available
+    const total = await prisma.organization.count();
 
     return res.status(200).json({
-      success: true,
+      status: true,
       message: "All business accounts fetched",
       result: allBusinesses,
+      total,
     });
   } catch (error) {
     return res.status(500).json({
-      success: false,
+      status: false,
       message: "Failed to fetch business accounts",
       error: error.message,
     });

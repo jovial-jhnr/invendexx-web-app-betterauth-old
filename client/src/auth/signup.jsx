@@ -142,7 +142,7 @@ export function SignUp({ className, ...props }) {
                         id="first-name"
                         type="text"
                         {...register("firstName")}
-                        placeholder="Anders"
+                        placeholder="Egs. Anders"
                       />
                       {errors.firstName && (
                         <p className="text-red-500 text-sm">
@@ -157,7 +157,7 @@ export function SignUp({ className, ...props }) {
                         id="last-name"
                         type="text"
                         {...register("lastName")}
-                        placeholder="Wilson"
+                        placeholder="Egs. Wilson"
                       />
                       {errors.lastName && (
                         <p className="text-red-500 text-sm">
@@ -182,7 +182,7 @@ export function SignUp({ className, ...props }) {
                     )}
                   </div>
 
-                  <div className="grid gap-2">
+                  <div className="grid gap-2 ">
                     <Label htmlFor="email">Phone Number</Label>
                     <Controller
                       control={control}
@@ -191,6 +191,7 @@ export function SignUp({ className, ...props }) {
                         <PhoneInput
                           {...field}
                           defaultCountry="gh"
+                          placeholder="Egs. 240000000"
                           className="w-full"
                           value={field.value}
                           onChange={field.onChange}
@@ -249,7 +250,7 @@ export function SignUp({ className, ...props }) {
           </CardContent>
         </Card>
         <div
-          className="text-balance text-center text-xs text-muted-foreground 
+          className="text-balance text-center text-sm text-muted-foreground 
         [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
         >
           By clicking continue, you agree to our{" "}

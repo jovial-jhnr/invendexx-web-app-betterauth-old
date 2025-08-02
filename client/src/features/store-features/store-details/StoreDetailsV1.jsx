@@ -9,7 +9,7 @@ import { authClient } from "@/lib/auth-client";
 
 function StoreDetailsV1() {
   const { data: activeOrganization } = authClient.useActiveOrganization();
-  //   console.log("Store Details:", activeOrganization);
+  // console.log("Store Details:", activeOrganization);
 
   return (
     <>

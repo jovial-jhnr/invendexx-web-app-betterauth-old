@@ -371,7 +371,7 @@ export function FileUploader({
     <div className={cn("w-full space-y-4", className)}>
       <Card
         className={cn(
-          "relative border-2 border-dashed transition-colors duration-200",
+          "relative border-2 border-dashed transition-colors   duration-200",
           dragActive ? "border-primary bg-primary/5" : "border-muted",
           files.length >= maxFiles && "opacity-50 pointer-events-none"
         )}
@@ -380,19 +380,19 @@ export function FileUploader({
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <CardContent className="flex flex-col items-center justify-center p-8 text-center">
+        <CardContent className="flex flex-col items-center justify-center p-4 text-center">
           <div
             className={cn(
-              "flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-colors",
+              "flex items-center justify-center w-10 h-10 rounded-full mb-4 transition-colors",
               dragActive
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted/50 text-muted-foreground"
             )}
           >
-            <Upload className="w-8 h-8" />
+            <Upload className="w-6 h-6" />
           </div>
 
-          <h3 className="text-lg font-semibold mb-2">
+          <h3 className="text- font-semibold mb-2">
             {dragActive ? "Drop files here" : "Upload Files"}
           </h3>
 
@@ -507,30 +507,29 @@ export function FileUploader({
                       <Progress value={fileData.progress} className="h-2" />
                     )}
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    {enableCropping && fileData.preview && !fileData.error && (
-                      <>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => openCropDialog(fileData)}
-                          className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100"
-                          title="Crop image"
-                        >
-                          <CropIcon className="w-4 h-4" />
-                        </Button>
-                      </>
-                    )}
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => removeFile(fileData.id)}
-                      className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
+                </div>
+                <div className="flex  items-center gap-2">
+                  {enableCropping && fileData.preview && !fileData.error && (
+                    <>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => openCropDialog(fileData)}
+                        className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100"
+                        title="Crop image"
+                      >
+                        <CropIcon className="w-4 h-4" />
+                      </Button>
+                    </>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeFile(fileData.id)}
+                    className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>

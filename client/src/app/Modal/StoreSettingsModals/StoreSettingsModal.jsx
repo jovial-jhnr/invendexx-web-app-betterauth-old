@@ -37,7 +37,7 @@ export default function StoreSettingsModal() {
         <DialogTrigger asChild>
           <Button variant="outline">Store Information</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[400px] max-h-[100vh]">
+        <DialogContent className="sm:max-w-[500px] max-h-[100vh]">
           <DialogHeader>
             <DialogTitle>Store Settings</DialogTitle>
             <DialogDescription>

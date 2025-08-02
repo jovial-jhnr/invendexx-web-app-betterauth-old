@@ -30,10 +30,17 @@ import Spinner from "@/components/ui/spinner";
 /* Function to fetch all countries from the API and 
  return an array of country names sorted alphabetically */
 const allCountries = async () => {
-  const res = await axios.get("https://restcountries.com/v3.1/all?fields=name");
-  return res.data
-    .map((country) => country?.name?.common)
-    .sort((a, b) => a.localeCompare(b));
+  try {
+    const res = await axios.get(
+      "https://restcountries.com/v3.1/all?fields=name"
+    );
+    return res.data
+      .map((country) => country?.name?.common)
+      .sort((a, b) => a.localeCompare(b));
+  } catch (error) {
+    console.error("Failed to fetch countries:", error);
+    throw error;
+  }
 };
 
 function StoreSettingsFormV2({ className }) {
@@ -50,32 +57,32 @@ function StoreSettingsFormV2({ className }) {
     queryFn: allCountries,
   });
 
-  const updateStoreSchema = z.object({
-    name: z.string().optional(),
-    slug: z.string().optional(),
-    logo: z.any().optional(),
-    banner: z.string().optional(),
-    phoneNumber: z.string().optional(),
-    email: z.email("Invalid email").optional(),
-    website: z.string().optional(),
-    description: z.string().optional(),
-    country: z.string().optional(),
-    address: z.string().optional(),
-    state: z.string().optional(),
-    region: z.string().optional(),
-    zipCode: z.string().optional(),
-    city: z.string().optional(),
-    status: z.string().optional(),
-    storeTag: z.string().optional(),
-    whitelabel: z.string().optional(),
-    facebook: z.string().optional(),
-    instagram: z.string().optional(),
-    tiktok: z.string().optional(),
-    twitter: z.string().optional(),
-    linkedin: z.string().optional(),
-    currency: z.string().optional(),
-    storeUrl: z.string().optional(),
-  });
+  // const updateStoreSchema = z.object({
+  //   name: z.string().optional(),
+  //   slug: z.string().optional(),
+  //   logo: z.any().optional(),
+  //   banner: z.string().optional(),
+  //   phoneNumber: z.string().optional(),
+  //   email: z.string().email("Invalid email").optional(),
+  //   website: z.string().optional(),
+  //   description: z.string().optional(),
+  //   country: z.string().optional(),
+  //   address: z.string().optional(),
+  //   state: z.string().optional(),
+  //   region: z.string().optional(),
+  //   zipCode: z.string().optional(),
+  //   city: z.string().optional(),
+  //   status: z.string().optional(),
+  //   storeTag: z.string().optional(),
+  //   whitelabel: z.string().optional(),
+  //   facebook: z.string().optional(),
+  //   instagram: z.string().optional(),
+  //   tiktok: z.string().optional(),
+  //   twitter: z.string().optional(),
+  //   linkedin: z.string().optional(),
+  //   currency: z.string().optional(),
+  //   storeUrl: z.string().optional(),
+  // });
 
   const {
     register,
@@ -113,39 +120,12 @@ function StoreSettingsFormV2({ className }) {
   });
 
   const onSubmit = async (data) => {
-    console.log("SUBMITTING DATA", data);
-    const {
-      name,
-      slug,
-      logo,
-      banner,
-      phoneNumber,
-      email,
-      website,
-      description,
-      country,
-      address,
-      state,
-      region,
-      zipCode,
-      city,
-      status,
-      storeTag,
-      whitelabel,
-      facebook,
-      instagram,
-      tiktok,
-      twitter,
-      linkedin,
-      currency,
-      storeUrl,
-    } = data;
-    await backendUrl.post(
-      `stores/store/${storeId}/settings/update-store-details`,
-      {
+    // console.log("SUBMITTING DATA", data);
+    try {
+      const {
         name,
-        logo,
         slug,
+        logo,
         banner,
         phoneNumber,
         email,
@@ -167,15 +147,49 @@ function StoreSettingsFormV2({ className }) {
         linkedin,
         currency,
         storeUrl,
-      }
-    );
+      } = data;
+      await backendUrl.post(
+        `stores/store/${storeId}/settings/update-store-details`,
+        {
+          name,
+          logo,
+          slug,
+          banner,
+          phoneNumber,
+          email,
+          website,
+          description,
+          country,
+          address,
+          state,
+          region,
+          zipCode,
+          city,
+          status,
+          storeTag,
+          whitelabel,
+          facebook,
+          instagram,
+          tiktok,
+          twitter,
+          linkedin,
+          currency,
+          storeUrl,
+        }
+      );
+      toast.success("Store details updated successfully");
+    } catch (error) {
+      toast.error("Could not update store details");
+    }
   };
-
   if (!activeOrganization) {
     return (
       <>
         <div>
           <Spinner />
+        </div>
+        <div>
+          toast.error("No active store available. Login again to set it up.")
         </div>
       </>
     );
@@ -186,7 +200,7 @@ function StoreSettingsFormV2({ className }) {
       onSubmit={handleSubmit(onSubmit)}
       className={cn("grid gap-1", className)}
     >
-      <div className=" gap-2">
+      <div className=" gap-2 ">
         <Label htmlFor="logo">Store Logo</Label>
         <FileUploader
           maxFiles={1}
@@ -303,6 +317,14 @@ function StoreSettingsFormV2({ className }) {
       </div>
 
       <div className="grid gap-2">
+        <Label htmlFor="storeUrl">Store URL</Label>
+        <Input type="text" id="storeUrl" {...register("storeUrl")} />
+        {errors.storeUrl && (
+          <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
+        )}
+      </div>
+
+      <div className="grid gap-2">
         <Label htmlFor="whitlabel">White Label</Label>
         <Input type="text" id="whitlabel" {...register("whitelabel")} />
         {errors.whitelabel && (
@@ -347,13 +369,7 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.linkedin.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
-        <Label htmlFor="storeUrl">Store URL</Label>
-        <Input type="text" id="storeUrl" {...register("storeUrl")} />
-        {errors.storeUrl && (
-          <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
-        )}
-      </div>
+
       <div className="grid gap-2">
         <Label htmlFor="location">Select Country</Label>
         <Controller

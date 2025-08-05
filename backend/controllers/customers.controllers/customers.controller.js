@@ -44,12 +44,19 @@ const createCustomer = async (req, res) => {
 
 const updateCustomer = async (req, res) => {
   try {
-    const { customerType } = req.body;
-
+    const { firstName, lastName, phoneNumber, email } = req.body;
+    const updateCustomer = await prisma.customer.update({
+      data: {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+      },
+    });
     return res.status(201).json({
       status: true,
-      message: "",
-      result: {},
+      message: "Customer updated successfully",
+      result: updateCustomer,
     });
   } catch (error) {
     console.error("Customer error:", error);
@@ -62,8 +69,41 @@ const updateCustomer = async (req, res) => {
   }
 };
 
+// Store get all customer
+const allStoreCustomers = async (req, res) => {
+  const storeId = req.params.storeId;
+  const limit = req.params.limit;
+  const offset = req.params.offset;
+
+  try {
+    const allStoreCustomers = await prisma.customer.findMany({
+      where: { storeId },
+      skip: offset,
+      take: limit,
+    });
+
+    const totalCount = await prisma.customer.count();
+
+    return res.status(200).json({
+      success: true,
+      message: " All Store subscription status",
+      result: allStoreCustomers,
+      meta: {
+        totalCount,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch all Store subscription status",
+      error: error.message,
+    });
+  }
+};
+
 //                         ===ADMIN SECTIONS===
 
+// Admin create customer
 const createCus = async (req, res) => {
   try {
     const { firstName, lastName, phoneNumber, email } = req.body;
@@ -90,7 +130,7 @@ const createCus = async (req, res) => {
     return res.status(201).json({
       status: true,
       message: "Customer  created  successfully!",
-      result: { createCus },
+      result: createCus,
     });
   } catch (error) {
     console.error("Customer error:", error);
@@ -101,4 +141,42 @@ const createCus = async (req, res) => {
   }
 };
 
-export { createCustomer, createCus, updateCustomer };
+// Admin get all customers
+const allCustomers = async (req, res) => {
+  const storeId = req.params.storeId;
+  const limit = req.params.limit;
+  const offset = req.params.offset;
+
+  try {
+    const allCustomers = await prisma.customer.findMany({
+      where: { storeId },
+      skip: offset,
+      take: limit,
+    });
+
+    const totalCount = await prisma.customer.count();
+
+    return res.status(200).json({
+      success: true,
+      message: " All Store subscription status",
+      result: allCustomers,
+      meta: {
+        totalCount,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch all Store subscription status",
+      error: error.message,
+    });
+  }
+};
+
+export {
+  createCustomer,
+  createCus,
+  allStoreCustomers,
+  updateCustomer,
+  allCustomers,
+};

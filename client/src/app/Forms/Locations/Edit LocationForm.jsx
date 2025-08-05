@@ -59,13 +59,17 @@ export default function EditLocationForm({ className }) {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(editLocationSchema),
-    defaultValues,
+    defaultValues: {
+      name,
+      address,
+    },
   });
 
   const onSubmit = async (data) => {
-    const [_key, storeId] = queryKey;
+    const { name, address, city, region, country } = data;
     const res = await backendUrl.post(
-      `stores/store/${storeId}/update-location`
+      `/stores/store/${storeId}/locations/${locationId}/update-location`,
+      { name, address, city, region, country }
     );
   };
 
@@ -84,6 +88,12 @@ export default function EditLocationForm({ className }) {
             <p className="text-red-500 text-sm">{errors.name.message}</p>
           )}
         </div>
+
+        <div className="field my-2">
+          <Label htmlFor="address">Address</Label>
+          <Input type="text" id="address" {...register("address")} />
+        </div>
+
         <div className="field">
           <Label htmlFor="city">City</Label>
           <Input type="text" id="city" {...register("city")} />
@@ -93,24 +103,32 @@ export default function EditLocationForm({ className }) {
           <Input type="text" id="region" {...register("region")} />
         </div>
 
-        <div className="grid gap-2">
-          <Controller />
+        <div className="grid gap-2 my-2">
           <Label htmlFor="location">Select Country</Label>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select Country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Select Country</SelectLabel>
-                {countries?.map((country) => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Controller
+            control={control}
+            name="country"
+            // rules={{ required: "Country is required" }}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Country">
+                    {field.value || "Select country"}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select Country</SelectLabel>
+                    {countries?.map((country) => (
+                      <SelectItem key={country} value={country}>
+                        {country}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
         </div>
 
         {/* Optional Description */}

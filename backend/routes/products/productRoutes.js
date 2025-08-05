@@ -18,7 +18,7 @@ router.post("/stores/store/:storeId/products/add-product", addProduct);
 
 // Store update products here
 router.post(
-  "/stores/store/:storeId/products/product/update-product/:productId",
+  "/stores/store/:storeId/products/product/:productId/update-product",
   updateProduct
 );
 
@@ -27,7 +27,7 @@ router.get("/stores/store/:storeId/products/fetch-all-products", fetchProducts);
 
 // Store delete products
 router.post(
-  "/stores/store/:storeId/products/delete-product/:productId",
+  "/stores/store/:storeId/products/product/:productId/delete-product",
   deleteProduct
 );
 

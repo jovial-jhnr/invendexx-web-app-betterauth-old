@@ -60,6 +60,7 @@ model ProductCollection {
     @@map("productcollection")
 }
 
+
 model ProductVariation {
     id        String  @id @default(uuid())
     productId String
@@ -70,6 +71,18 @@ model ProductVariation {
     stock     Int?
     imageUrl  String?
     product   Product @relation(fields: [productId], references: [id])
+    createdAt   DateTime
+    updatedAt   DateTime  @updatedAt
 
     @@map("productvariation")
+}
+
+model FeaturedBrands{
+    id String @id @default(uuid())
+    name  String 
+    storeId String
+    store Organization  @relation(fields: [storeId], references: [id])
+    createdAt   DateTime
+    updatedAt   DateTime  @updatedAt
+    @@map("featuredbrands")
 }

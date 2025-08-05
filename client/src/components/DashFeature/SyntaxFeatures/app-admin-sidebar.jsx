@@ -16,6 +16,7 @@ import {
   Workflow,
   CircleUserRound,
   Flag,
+  MapPinHouse,
 } from "lucide-react";
 
 import { ScrollArea } from "../../ui/scroll-area";
@@ -85,6 +86,13 @@ const data = {
       title: "Order Overview",
       url: "/syntaxdashboard/order-overview",
       icon: ShoppingBag,
+      // permission: "manage_order_overview"
+    },
+
+    {
+      title: "Location Overview",
+      url: "/syntaxdashboard/location-overview",
+      icon: MapPinHouse,
       // permission: "manage_order_overview"
     },
 

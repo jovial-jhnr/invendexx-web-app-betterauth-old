@@ -406,7 +406,7 @@ export function UserManagementTable() {
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="text-start">
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(

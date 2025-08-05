@@ -217,11 +217,6 @@ export function AppStoreSidebar(props) {
     refetch, //refetch the session
   } = authClient.useSession();
 
-  // const organization = async() => await authClient.organization.getFullOrganization({
-  //   query: { organizationId: "organization-id" }
-  // })
-  // console.log("User session", session);
-
   const { data: activeOrganization } = authClient.useActiveOrganization();
   // console.log("Store", activeOrganization);
 

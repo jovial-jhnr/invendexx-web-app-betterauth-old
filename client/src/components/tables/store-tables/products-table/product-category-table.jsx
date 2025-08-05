@@ -1,10 +1,17 @@
 "use client";
 import React from "react";
+import toast from "react-hot-toast";
+import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
-
+import {
+  ArrowUpDown,
+  ChevronDown,
+  MoreHorizontal,
+  UserRoundCog,
+  Store,
+} from "lucide-react";
 import {
   flexRender,
   getCoreRowModel,
@@ -13,7 +20,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -32,40 +38,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import MetricCard from "../ui/metric-card";
+import { Trash2, Ban, VenetianMask, ShieldCheck } from "lucide-react";
+import MetricCard from "@/components/ui/metric-card";
+import { useQuery } from "@tanstack/react-query";
+import backendUrl from "@/lib/backendUrl";
+import { authClient } from "@/lib/auth-client";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-];
+// Users are fetches here from the backend
+const fetchProductCategory = async ({ queryKey }) => {
+  const [_key, storeId, pageIndex, pageSize] = queryKey;
+  const res = await backendUrl.get(
+    `/stores/store/${storeId}/products/product-category/all-product-category`,
+    {
+      params: {
+        limit: pageSize,
+        offset: pageIndex * pageSize,
+      },
+    }
+  );
+
+  return {
+    location: res?.data?.result,
+    total: res?.data?.meta?.totalCount,
+  };
+};
 
 const columns = [
   {
@@ -90,44 +86,92 @@ const columns = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Email
-        <ArrowUpDown />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "GHS",
-      }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
+  {
+    accessorKey: "name",
+    header: "Category",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("category")}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
+
+  {
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("description")}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+
+  {
+    accessorKey: "product",
+    header: "Product Quantity",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("product")}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+
+  // {
+  //   accessorKey: "address",
+  //   header: "Address",
+  //   cell: ({ row }) => (
+  //     <div className="capitalize">{row.getValue("address")}</div>
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
+
+  // {
+  //   accessorKey: "email",
+  //   header: ({ column }) => (
+  //     <Button
+  //       variant="ghost"
+  //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //     >
+  //       Email
+  //       <ArrowUpDown />
+  //     </Button>
+  //   ),
+  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+  // },
+
+  // {
+  //   accessorKey: "phoneNumber",
+  //   header: "Phone Number",
+  //   cell: ({ row }) => (
+  //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: true,
+  // },
+
+  //  Actions for the table
   {
     id: "actions",
+    header: "Actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const product = row.original;
+      const productscategory = row.original;
+
+      const updateStore = async () => {};
+
+      // Remove (Delete) Store function.
+      const deleteLocation = async (storeId) => {
+        // const storeId =
+        const productCategoryId = productscategory?.id;
+
+        await backendUrl.post(
+          `/stores/store/${storeId}/products/product-category/${productCategoryId}/delete-category`
+        );
+      };
+
+      // Change user role here
 
       return (
         <DropdownMenu>
@@ -139,14 +183,21 @@ const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            {/* Deleter user dropdown */}
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id)}
+              className="text-red-500 font-medium"
+              onClick={deleteLocation}
             >
-              Copy payment ID
+              <Trash2 className="text-red-500" />
+              Delete Location
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+
+            {/* <DropdownMenuItem onClick={deleteUser}>
+              Delete User
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -154,19 +205,42 @@ const columns = [
   },
 ];
 
+//  ==== MAIN TABLE FUNCTION ===
 export function ProductCategoryTable() {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0 ?? 0,
+    pageSize: 30 ?? 10,
+  });
+
+  const { data: activeOrganization } = authClient.useActiveOrganization();
+  const storeId = activeOrganization?.id;
+
+  // Users from the json
+  const {
+    data: productCategory,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["locations", storeId, pagination.pageIndex, pagination.pageSize],
+    queryFn: fetchProductCategory,
+    enabled: !!storeId,
+    keepPreviousData: true,
+  });
 
   const table = useReactTable({
-    data,
+    data: productCategory?.location ?? [],
     columns,
+    manualPagination: true, // <--- ADD THIS
+    pageCount: Math.ceil(productCategory?.total / pagination.pageSize) ?? -1, // <-- add this
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -176,18 +250,21 @@ export function ProductCategoryTable() {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination,
     },
   });
+
+  // console.log(table.getHeaderGroups());
 
   return (
     <div className="w-full">
       <MetricCard>
         <div className="flex items-center py-4">
           <Input
-            placeholder="Filter emails..."
-            value={table.getColumn("email")?.getFilterValue() ?? ""}
+            placeholder="Filter store name..."
+            value={table.getColumn("name")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -216,11 +293,11 @@ export function ProductCategoryTable() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="grid rounded-md border text-center">
+        <div className="rounded-md border grid grid-cols-1 text-center">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="bg-green-100">
+                <TableRow key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => (
                     <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
@@ -255,7 +332,7 @@ export function ProductCategoryTable() {
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-24 text-center"
+                    className="h-28 text-center"
                   >
                     No results.
                   </TableCell>
@@ -264,12 +341,49 @@ export function ProductCategoryTable() {
             </TableBody>
           </Table>
         </div>
+
+        {/* Number of rows selected */}
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
+          {/* THe page numbers */}
+          <div>
+            <p className="text-sm font-mono">
+              Page {table.getState().pagination.pageIndex + 1} of {""}
+              {Math?.ceil(productCategory?.total / pagination?.pageSize)}
+            </p>
+          </div>
+          {/* This lets you select the limit you want */}
+          <div className="text-sm  font-semibold">
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+              className="text-inherit"
+            >
+              {[1, 2, 5, 10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="space-x-2">
+            {/* To first page */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.firstPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              {"<<"}
+            </Button>
+
+            {/* Previous Button */}
             <Button
               variant="outline"
               size="sm"
@@ -278,6 +392,8 @@ export function ProductCategoryTable() {
             >
               Previous
             </Button>
+
+            {/* Next Button */}
             <Button
               variant="outline"
               size="sm"
@@ -285,6 +401,16 @@ export function ProductCategoryTable() {
               disabled={!table.getCanNextPage()}
             >
               Next
+            </Button>
+
+            {/* Last Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.lastPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {">>"}
             </Button>
           </div>
         </div>

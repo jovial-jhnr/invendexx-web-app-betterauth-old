@@ -80,24 +80,36 @@ const updateProduct = async (req, res) => {
 const fetchProducts = async (req, res) => {
   const storeId = req.params.storeId;
 
+  const limit = parseInt(req.params.limit);
+  const offset = parseInt(req.params.offset);
+
   try {
     const fetchProducts = await prisma.product.findMany({
       where: {
         storeId: storeId,
       },
-      include: {
-        category: true, // optional: if you want category info too
+      skip: offset,
+      take: limit,
+    });
+
+    const totalCount = await prisma.product.count({
+      where: {
+        storeId,
       },
     });
 
     return res.status(200).json({
       status: true,
-      message: "All products fetched successfully",
-      result: { fetchProducts },
+      message: "All store products fetched successfully",
+      result: fetchProducts,
+      meta: {
+        totalCount,
+        limit,
+      },
     });
   } catch (error) {
     return res.status(500).json({
-      message: "Failed to fetch all products",
+      message: "Failed to fetch all store products ",
       error: error.message,
     });
   }
@@ -131,7 +143,7 @@ const deleteProduct = async (req, res) => {
     return res.status(200).json({
       status: true,
       message: "Product deleted successfully",
-      result: { product }, // You return the old product data
+      // result: { product }, // You return the old product data
     });
   } catch (error) {
     console.error("Delete error:", error);
@@ -171,10 +183,10 @@ const deleteAllProducts = async (req, res) => {
     return res.status(200).json({
       status: true,
       message: "Product deleted successfully",
-      result: { product }, // You return the old product data
+      // result:  product , // You return the old product data
     });
   } catch (error) {
-    console.error("Delete error:", error);
+    // console.error("Delete error:", error);
     return res.status(500).json({
       message: "Failed to delete product",
       error: error.message,
@@ -261,18 +273,24 @@ const updatedProduct = async (req, res) => {
 // Admin gets all products
 const fetchedProducts = async (req, res) => {
   // const storeId = parseInt(req.params.storeId);
+  const limit = parseInt(req.params.limit);
+  const offset = parseInt(req.params.offset);
 
   try {
     const fetchedProducts = await prisma.product.findMany({
-      include: {
-        category: true,
-      },
+      take: limit,
+      skip: offset,
     });
+
+    const totalCount = await prisma.product.count({});
 
     return res.status(200).json({
       status: true,
       message: "Products fetched successfully",
       result: fetchedProducts,
+      meta: {
+        totalCount,
+      },
     });
   } catch (error) {
     return res.status(500).json({

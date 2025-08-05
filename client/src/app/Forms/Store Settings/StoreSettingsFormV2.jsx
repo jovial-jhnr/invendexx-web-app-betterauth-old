@@ -34,6 +34,7 @@ const allCountries = async () => {
     const res = await axios.get(
       "https://restcountries.com/v3.1/all?fields=name"
     );
+    // console.log("All countries", res.data);
     return res.data
       .map((country) => country?.name?.common)
       .sort((a, b) => a.localeCompare(b));
@@ -57,32 +58,32 @@ function StoreSettingsFormV2({ className }) {
     queryFn: allCountries,
   });
 
-  // const updateStoreSchema = z.object({
-  //   name: z.string().optional(),
-  //   slug: z.string().optional(),
-  //   logo: z.any().optional(),
-  //   banner: z.string().optional(),
-  //   phoneNumber: z.string().optional(),
-  //   email: z.string().email("Invalid email").optional(),
-  //   website: z.string().optional(),
-  //   description: z.string().optional(),
-  //   country: z.string().optional(),
-  //   address: z.string().optional(),
-  //   state: z.string().optional(),
-  //   region: z.string().optional(),
-  //   zipCode: z.string().optional(),
-  //   city: z.string().optional(),
-  //   status: z.string().optional(),
-  //   storeTag: z.string().optional(),
-  //   whitelabel: z.string().optional(),
-  //   facebook: z.string().optional(),
-  //   instagram: z.string().optional(),
-  //   tiktok: z.string().optional(),
-  //   twitter: z.string().optional(),
-  //   linkedin: z.string().optional(),
-  //   currency: z.string().optional(),
-  //   storeUrl: z.string().optional(),
-  // });
+  const updateStoreSchema = z.object({
+    name: z.string().optional(),
+    slug: z.string().optional(),
+    logo: z.any().optional(),
+    banner: z.string().optional(),
+    phoneNumber: z.string().optional(),
+    email: z.email("Invalid email or wrong email").optional(),
+    website: z.string().optional(),
+    description: z.string().optional(),
+    country: z.string().optional(),
+    address: z.string().optional(),
+    state: z.string().optional(),
+    region: z.string().optional(),
+    zipCode: z.string().optional(),
+    city: z.string().optional(),
+    status: z.string().optional(),
+    storeTag: z.string().optional(),
+    whitelabel: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+    tiktok: z.string().optional(),
+    twitter: z.string().optional(),
+    linkedin: z.string().optional(),
+    currency: z.string().optional(),
+    storeUrl: z.string().optional(),
+  });
 
   const {
     register,
@@ -90,7 +91,7 @@ function StoreSettingsFormV2({ className }) {
     control,
     formState: { errors, isSubmitting },
   } = useForm({
-    // resolver: zodResolver(updateStoreSchema),
+    resolver: zodResolver(updateStoreSchema),
     defaultValues: {
       name: activeOrganization?.name,
       slug: activeOrganization?.slug,
@@ -189,7 +190,7 @@ function StoreSettingsFormV2({ className }) {
           <Spinner />
         </div>
         <div>
-          toast.error("No active store available. Login again to set it up.")
+          {toast.error("No active store available. Login again to set it up.")}
         </div>
       </>
     );
@@ -200,7 +201,7 @@ function StoreSettingsFormV2({ className }) {
       onSubmit={handleSubmit(onSubmit)}
       className={cn("grid gap-1", className)}
     >
-      <div className=" gap-2 ">
+      <div className="gap-2 my-2">
         <Label htmlFor="logo">Store Logo</Label>
         <FileUploader
           maxFiles={1}
@@ -215,24 +216,21 @@ function StoreSettingsFormV2({ className }) {
           cropMinHeight={56}
         />
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="name">Store Name</Label>
         <Input type="text" id="name" {...register("name")} />
         {errors.name && (
           <p className="text-red-500 text-sm">{errors.name.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="banner">Banner</Label>
         <Input type="text" id="banner" {...register("banner")} />
         {errors.banner && (
           <p className="text-red-500 text-sm">{errors.banner.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="phoneNumber">Phone Number</Label>
         <Controller
           control={control}
@@ -251,126 +249,112 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" {...register("email")} />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="website">Website</Label>
         <Input type="text" id="website" {...register("website")} />
         {errors.website && (
           <p className="text-red-500 text-sm">{errors.website.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="address">Address</Label>
         <Input type="text" id="address" {...register("address")} />
         {errors.address && (
           <p className="text-red-500 text-sm">{errors.address.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="region">Region</Label>
         <Input type="text" id="region" {...register("region")} />
         {errors.region && (
           <p className="text-red-500 text-sm">{errors.region.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="zipCode">Zip Code</Label>
         <Input type="text" id="zipCode" {...register("zipCode")} />
         {errors.zipCode && (
           <p className="text-red-500 text-sm">{errors.zipCode.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="city">City</Label>
         <Input type="text" id="city" {...register("city")} />
         {errors.city && (
           <p className="text-red-500 text-sm">{errors.city.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="status">Status</Label>
         <Input type="text" id="status" {...register("status")} />
         {errors.status && (
           <p className="text-red-500 text-sm">{errors.status.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="storeTag">Store Tag</Label>
         <Input type="text" id="storeTag" {...register("storeTag")} />
         {errors.storeTag && (
           <p className="text-red-500 text-sm">{errors.storeTag.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="storeUrl">Store URL</Label>
         <Input type="text" id="storeUrl" {...register("storeUrl")} />
         {errors.storeUrl && (
           <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="whitlabel">White Label</Label>
         <Input type="text" id="whitlabel" {...register("whitelabel")} />
         {errors.whitelabel && (
           <p className="text-red-500 text-sm">{errors.whitelabel.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="facebook">Facebook</Label>
         <Input type="text" id="facebook" {...register("facebook")} />
         {errors.facebook && (
           <p className="text-red-500 text-sm">{errors.facebook.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="instagram">Instagram</Label>
         <Input type="text" id="instagram" {...register("instagram")} />
         {errors.instagram && (
           <p className="text-red-500 text-sm">{errors.instagram.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="tiktok">TikTok</Label>
         <Input type="text" id="tiktok" {...register("tiktok")} />
         {errors.tiktok && (
           <p className="text-red-500 text-sm">{errors.tiktok.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="twitter">Twitter</Label>
         <Input type="text" id="twitter" {...register("twitter")} />
         {errors.twitter && (
           <p className="text-red-500 text-sm">{errors.twitter.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="linkedin">LinkedIn</Label>
         <Input type="text" id="linkedin" {...register("linkedin")} />
         {errors.linkedin && (
           <p className="text-red-500 text-sm">{errors.linkedin.message}</p>
         )}
       </div>
-
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="location">Select Country</Label>
         <Controller
           control={control}
@@ -398,7 +382,7 @@ function StoreSettingsFormV2({ className }) {
         />
       </div>
       {/* Select option For staff location type */}
-      <div className="grid gap-2">
+      <div className="grid gap-2 my-2">
         <Label htmlFor="currency">Currency</Label>
         <Controller
           name="currency"
@@ -420,9 +404,8 @@ function StoreSettingsFormV2({ className }) {
             </Select>
           )}
         />
-      </div>
-
-      <div className="grid gap-2">
+      </div>{" "}
+      <div className="grid gap-2 my-2">
         <Label htmlFor="description">Description (Optional)</Label>
         <Textarea
           type="textarea"
@@ -434,8 +417,7 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.description.message}</p>
         )}
       </div>
-
-      <div className="w-full">
+      <div className=" my-2 w-full">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save Changes"}
         </Button>

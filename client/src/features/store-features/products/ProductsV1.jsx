@@ -1,3 +1,5 @@
+import ProductCategoryTable from "@/components/tables/store-tables/products-table/product-category-table";
+import ProductTable from "@/components/tables/store-tables/products-table/products-table";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -31,16 +33,20 @@ function ProductsV1() {
                   <div>
                     <Button>Product</Button>
                   </div>
-                  <div></div>
+                  <div>
+                    <ProductTable />
+                  </div>
                 </div>
               </TabsContent>
 
               <TabsContent value="category">
                 <div>
                   <div>
-                    <Button></Button>
+                    <Button>Featured</Button>
                   </div>
-                  <div></div>
+                  <div>
+                    <ProductCategoryTable />
+                  </div>
                 </div>
               </TabsContent>
 

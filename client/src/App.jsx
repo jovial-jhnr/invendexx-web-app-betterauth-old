@@ -32,6 +32,7 @@ import AppTransactions from "./pages/adminPages/AppTransactions.jsx";
 import AppAccount from "./pages/adminPages/AppAccount";
 import ProductCatalogs from "./pages/adminPages/ProductCatalogs.jsx";
 import OrderOverview from "./pages/adminPages/OrderOverview.jsx";
+import LocationOverview from "./pages/adminPages/LocationOverview";
 import UserManagements from "./pages/adminPages/UserManagements.jsx";
 import BusinessAccounts from "./pages/adminPages/Businessaccounts.jsx";
 import FeatureFlags from "./pages/adminPages/FeatureFlags.jsx";
@@ -112,6 +113,10 @@ function App() {
                 <Route path="subscriptions" element={<Subscriptions />} />
                 <Route path="product-catalogs" element={<ProductCatalogs />} />
                 <Route path="order-overview" element={<OrderOverview />} />
+                <Route
+                  path="location-overview"
+                  element={<LocationOverview />}
+                />
                 <Route
                   path="reports-and-analytics"
                   element={<ReportsandAnalytics />}

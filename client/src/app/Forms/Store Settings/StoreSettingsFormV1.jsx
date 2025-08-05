@@ -149,9 +149,9 @@ function StoreSettingsForm({ className }) {
           slug,
           banner,
           phoneNumber,
-          // email,
+          email,
           website,
-          // description,
+          description,
           country,
           address,
           state,
@@ -160,7 +160,7 @@ function StoreSettingsForm({ className }) {
           city,
           status,
           storeTag,
-          // whitelabel,
+          whitelabel,
           facebook,
           instagram,
           tiktok,
@@ -215,7 +215,7 @@ function StoreSettingsForm({ className }) {
         />
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="name">Store Name</Label>
         <Input type="text" id="name" {...register("name")} />
         {errors.name && (
@@ -223,7 +223,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="banner">Banner</Label>
         <Input type="text" id="banner" {...register("banner")} />
         {errors.banner && (
@@ -231,7 +231,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="phoneNumber">Phone Number</Label>
         <Controller
           control={control}
@@ -251,7 +251,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" {...register("email")} />
         {errors.email && (
@@ -267,7 +267,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="address">Address</Label>
         <Input type="text" id="address" {...register("address")} />
         {errors.address && (
@@ -275,7 +275,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="region">Region</Label>
         <Input type="text" id="region" {...register("region")} />
         {errors.region && (
@@ -283,7 +283,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="zipCode">Zip Code</Label>
         <Input type="text" id="zipCode" {...register("zipCode")} />
         {errors.zipCode && (
@@ -291,7 +291,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="city">City</Label>
         <Input type="text" id="city" {...register("city")} />
         {errors.city && (
@@ -299,7 +299,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="status">Status</Label>
         <Input type="text" id="status" {...register("status")} />
         {errors.status && (
@@ -307,7 +307,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="storeTag">Store Tag</Label>
         <Input type="text" id="storeTag" {...register("storeTag")} />
         {errors.storeTag && (
@@ -315,7 +315,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="whitlabel">White Label</Label>
         <Input type="text" id="whitlabel" {...register("whitelabel")} />
         {errors.whitelabel && (
@@ -323,7 +323,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="facebook">Facebook</Label>
         <Input type="text" id="facebook" {...register("facebook")} />
         {errors.facebook && (
@@ -331,7 +331,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="instagram">Instagram</Label>
         <Input type="text" id="instagram" {...register("instagram")} />
         {errors.instagram && (
@@ -339,35 +339,35 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="tiktok">TikTok</Label>
         <Input type="text" id="tiktok" {...register("tiktok")} />
         {errors.tiktok && (
           <p className="text-red-500 text-sm">{errors.tiktok.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="twitter">Twitter</Label>
         <Input type="text" id="twitter" {...register("twitter")} />
         {errors.twitter && (
           <p className="text-red-500 text-sm">{errors.twitter.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="linkedin">LinkedIn</Label>
         <Input type="text" id="linkedin" {...register("linkedin")} />
         {errors.linkedin && (
           <p className="text-red-500 text-sm">{errors.linkedin.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="storeUrl">Store URL</Label>
         <Input type="text" id="storeUrl" {...register("storeUrl")} />
         {errors.storeUrl && (
           <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
         )}
       </div>
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="location">Select Country</Label>
         <Controller
           control={control}
@@ -394,8 +394,9 @@ function StoreSettingsForm({ className }) {
           )}
         />
       </div>
+
       {/* Select option For staff location type */}
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="currency">Currency</Label>
         <Controller
           name="currency"
@@ -419,7 +420,7 @@ function StoreSettingsForm({ className }) {
         />
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid my-2 gap-2">
         <Label htmlFor="description">Description (Optional)</Label>
         <Textarea
           type="textarea"
@@ -432,7 +433,7 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="w-full">
+      <div className=" my-2 w-full">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save Changes"}
         </Button>

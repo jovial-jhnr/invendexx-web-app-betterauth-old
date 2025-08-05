@@ -43,13 +43,12 @@ import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
 import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";
-import Spinner from "@/components/ui/spinner";
 
 // Users are fetches here from the backend
 const fetchBusinesses = async ({ queryKey }) => {
-  const [_key, storeId, pageIndex, pageSize] = queryKey;
+  const [_key, pageIndex, pageSize] = queryKey;
   const res = await backendUrl.get(
-    `/stores/store/${storeId}/locations/location/all-store-locations`,
+    `/admin/locations/location/list-all-locations`,
     {
       params: {
         limit: pageSize,
@@ -57,6 +56,7 @@ const fetchBusinesses = async ({ queryKey }) => {
       },
     }
   );
+  // console.log("Fetched all Stores", res?.data?.result);
 
   return {
     location: res?.data?.result,
@@ -107,7 +107,7 @@ const columns = [
     header: "City",
     cell: ({ row }) => <div className="capitalize">{row.getValue("city")}</div>,
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
 
   {
@@ -117,7 +117,7 @@ const columns = [
       <div className="capitalize">{row.getValue("region")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
 
   {
@@ -127,7 +127,7 @@ const columns = [
       <div className="capitalize">{row.getValue("country")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
 
   {
@@ -137,7 +137,7 @@ const columns = [
       <div className="capitalize">{row.getValue("address")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
 
   // {
@@ -175,12 +175,11 @@ const columns = [
       const updateStore = async () => {};
 
       // Remove (Delete) Store function.
-      const deleteLocation = async (storeId) => {
-        // const storeId =
+      const deleteLocation = async () => {
         const locationId = locations?.id;
 
         await backendUrl.post(
-          `/stores/store/${storeId}/locations/${locationId}/delete-location`
+          `/admin/locations/location/${locationId}/delete-location`
         );
       };
 
@@ -206,10 +205,6 @@ const columns = [
               <Trash2 className="text-red-500" />
               Delete Location
             </DropdownMenuItem>
-
-            {/* <DropdownMenuItem onClick={deleteUser}>
-              Delete User
-            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -218,7 +213,7 @@ const columns = [
 ];
 
 //  ==== MAIN TABLE FUNCTION ===
-export function LocationTable() {
+export function LocationOverviewTable() {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -228,13 +223,8 @@ export function LocationTable() {
     pageSize: 10 ?? 10,
   });
 
-  const { data: activeOrganization } = authClient.useActiveOrganization();
-  const storeId = activeOrganization?.id;
-
-  if (!storeId) {
-    return <Spinner />;
-    <p className="text-2xl font-inter">Fetching the information</p>;
-  }
+  //   const { data: activeOrganization } = authClient.useActiveOrganization();
+  //   const storeId = activeOrganization?.id;
 
   // Users from the json
   const {
@@ -242,9 +232,8 @@ export function LocationTable() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["locations", storeId, pagination.pageIndex, pagination.pageSize],
+    queryKey: ["locations", pagination.pageIndex, pagination.pageSize],
     queryFn: fetchBusinesses,
-    enabled: !!storeId,
     keepPreviousData: true,
   });
 
@@ -436,4 +425,4 @@ export function LocationTable() {
   );
 }
 
-export default LocationTable;
+export default LocationOverviewTable;

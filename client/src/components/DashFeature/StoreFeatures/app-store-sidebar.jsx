@@ -259,6 +259,7 @@ export function AppStoreSidebar(props) {
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
+        
         <SidebarContent>
           <NavMain items={filteredNavMain} className="text-xl" />
           {/* <NavProjects projects={data.projects} /> */}

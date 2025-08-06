@@ -42,7 +42,7 @@ router.post("/paystack", async (req, res) => {
 
     // Data from webhook
     const data = webhook.data;
-    console.log("Webhook Data:", JSON.stringify(data, null, 2));
+    // console.log("Webhook Data:", JSON.stringify(data, null, 2));
 
     // User email from webhook data
     const userEmail = data.customer?.email;
@@ -52,12 +52,16 @@ router.post("/paystack", async (req, res) => {
     user = await prisma.user.findUnique({
       where: { email: userEmail },
       include: {
-        stores: true,
+        members: {
+          include: {
+            organization: true,
+          },
+        },
       },
     });
 
     // Change the [0], if it not working
-    const storeId = user?.stores[0]?.id;
+    const storeId = user?.members[0]?.organizationId;
 
     switch (webhook.event) {
       case "charge.success":

@@ -271,6 +271,7 @@ export const auth = betterAuth({
               ...(member?.organizationId && {
                 activeOrganizationId: member?.organizationId,
               }),
+              status: "active",
             },
           };
         },

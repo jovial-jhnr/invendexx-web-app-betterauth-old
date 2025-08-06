@@ -203,7 +203,7 @@ router.post("/paystack", async (req, res) => {
             },
           });
 
-          await prisma.store.update({
+          await prisma.organization.update({
             where: {
               id: storeId,
             },
@@ -285,8 +285,9 @@ router.post("/paystack", async (req, res) => {
       message: "Webhook received successfully",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
+      status: false,
       message: "Error!!! Could not get the webhook events and data",
       error: error.message,
     });

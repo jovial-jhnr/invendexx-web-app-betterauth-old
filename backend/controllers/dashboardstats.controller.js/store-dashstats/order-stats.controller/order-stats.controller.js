@@ -14,12 +14,20 @@ const orderStats = async (req, res) => {
       where: { storeId },
     });
 
+    const totalCompleteOrder = await prisma.order.count({
+      where: {
+        storeId,
+        status: "completed",
+      },
+    });
+
     return res.status(200).json({
       status: true,
       message: "Store Order stats available",
       result: {
         orderRevenue,
         totalOrders,
+        totalCompleteOrder,
       },
     });
   } catch (error) {

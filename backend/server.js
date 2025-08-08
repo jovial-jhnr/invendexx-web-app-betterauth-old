@@ -20,7 +20,9 @@ import storeRoutes from "./routes/stores/storeRoutes.js";
 import businessRoute from "./routes/business/businessRoute.js";
 import bankDetailsRoute from "./routes/bankdetails/bankDetailsRoute.js";
 import subscriptionStatus from "./routes/subscriptions/subscriptionStatus.js";
-
+// Stats import for the app and store
+import mainDashstatsRoute from "./routes/dashboardstats/main-dashstats-route/mainDashstatsRoute.js";
+import orderStatsRoute from "./routes/dashboardstats/order-stats-route/orderStatsRoute.js";
 // .env file path to load stuff
 dotenv.config();
 
@@ -92,6 +94,13 @@ app.use(featureflagRoute);
 
 // Webhook endpoint  for Paystack
 app.use("/api/webhook", payhook);
+
+// Stats sections
+
+app.use(mainDashstatsRoute);
+
+// Orders store stats
+app.use(orderStatsRoute);
 
 // SignOut Endpoint
 // app.use("/api", signOut);

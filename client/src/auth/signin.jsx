@@ -24,7 +24,7 @@ import {
 
 // Zod Schema for validation
 const signInSchema = z.object({
-  email: z.string().email("Invalid email or wrong email typed"),
+  email: z.email("Invalid email or wrong email typed"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -32,6 +32,9 @@ const signInSchema = z.object({
 export default function SignIn({ className, ...props }) {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
+
+  // Users active Store
+  const { data: activeOrganization } = authClient.useActiveOrganization();
 
   // The user's session to get their role.
   const { data: session, isPending, error, refresh } = authClient.useSession();
@@ -61,7 +64,7 @@ export default function SignIn({ className, ...props }) {
         password: password,
       },
       {
-        onSuccess(ctx) {
+        onSuccess(ctx, userRole) {
           if (userRole === "admin") {
             navigate("/syntaxdashboard");
             toast.success("💰💰 Admin Logged in Successfully!💰💰");

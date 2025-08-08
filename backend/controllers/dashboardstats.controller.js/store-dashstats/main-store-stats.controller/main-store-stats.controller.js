@@ -7,11 +7,18 @@ const mainStoreStats = async (req, res) => {
       where: { storeId },
     });
 
+    const totalOrderRevenue = await prisma.order.aggregate({
+      where: { storeId },
+      _sum: {
+        grandTotal: true,
+      },
+    });
+
     const totalCustomers = await prisma.customer.count({
       where: { storeId },
     });
 
-    totalProduct = await prisma.product.count({
+    const totalProduct = await prisma.product.count({
       where: { storeId },
     });
 
@@ -19,6 +26,7 @@ const mainStoreStats = async (req, res) => {
       status: true,
       message: "Main Store Stats fetched successfully",
       result: {
+        totalOrderRevenue,
         totalOrders,
         totalCustomers,
         totalProduct,

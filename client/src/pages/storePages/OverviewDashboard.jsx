@@ -5,10 +5,9 @@ import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/Sta
 import TotalCustomers from "@/components/DashFeature/StoreFeatures/storeCharts/TotalCustomers";
 import OverallSalesCard from "@/components/DashFeature/StoreFeatures/storeCharts/OverallSalesCard";
 import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/AdminSalesCard";
-import TableData from "@/components/GeneralFeatures/TableData";
-import FeatFlagModal from "@/app/Modal/FeatFlagModal/FeatFlagModal";
 import StoreSwitcher from "@/components/GeneralFeatures/store-swittcher";
 import { authClient } from "@/lib/auth-client";
+import MainStoreDashStats from "@/dashboard-stats/store-dashstats/main-store-dashstats";
 
 function OverviewDashboard() {
   // const { data: user } = useSession();
@@ -52,7 +51,7 @@ function OverviewDashboard() {
       </div> */}
 
       <div className="m-1 pl-2">
-        <StatCard />
+        <MainStoreDashStats />
       </div>
 
       <div className="flex flex-col lg:flex-row  p-1 gap-3 ">

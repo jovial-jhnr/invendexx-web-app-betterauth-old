@@ -6,6 +6,7 @@ import { SystemHealthCard } from "@/components/DashFeature/SyntaxFeatures/syntax
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/useSession";
+import MainAdminDashStats from "@/dashboard-stats/admin-dashstats/main-admin-dashstats";
 
 function AdminDashboard() {
   // const {data: user } = useSession();
@@ -37,10 +38,14 @@ function AdminDashboard() {
             </Button>
           </div>
 
-          {/* Dashboard stat and details below here */}
           <div className="m-2 pl-1">
-            <StatCard />
+            <MainAdminDashStats />
           </div>
+
+          {/* Dashboard stat and details below here */}
+          {/* <div className="m-2 pl-1">
+            <StatCard />
+          </div> */}
 
           <div className="flex lg:flex-row flex-col p-1 gap-3">
             <div className="pt-1 w-full sm:w-2/3 lg:w-2/3 ">

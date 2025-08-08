@@ -18,9 +18,7 @@ export default function DashboardCard({
     <Card className="rounded-lg p-2">
       <CardHeader className="p-0 mb-2 font-sans">
         <div className="flex items-center justify-between">
-          {title && (
-            <CardTitle className="text-sm font-medium">{title}</CardTitle>
-          )}
+          {title && <CardTitle className="text-sm">{title}</CardTitle>}
           {Icon && <Icon className="w-5 h-5 size-4 text-green-600" />}
         </div>
       </CardHeader>

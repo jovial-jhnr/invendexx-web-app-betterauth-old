@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import EditLocationModal from "@/app/Modal/LocationModal/EditLocationModal";
 import AddLocationModal from "@/app/Modal/LocationModal/AddLocationModal";
-import ReportsDashCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ReportsDashCard";
 import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
+import LocationStoreStats from "@/dashboard-stats/store-dashstats/location-store-stats";
 
 function LocationV1() {
   return (
@@ -16,7 +16,9 @@ function LocationV1() {
         </div>
 
         {/* Stats */}
-        <ReportsDashCard />
+        <div className="m-1">
+          <LocationStoreStats />
+        </div>
 
         {/* Location modal */}
         <div className="text-end m-2 gap-2">

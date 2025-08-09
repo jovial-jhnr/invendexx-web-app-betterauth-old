@@ -231,10 +231,10 @@ export function LocationTable() {
   const { data: activeOrganization } = authClient.useActiveOrganization();
   const storeId = activeOrganization?.id;
 
-  if (!storeId) {
-    return <Spinner />;
-    <p className="text-2xl font-inter">Fetching the information</p>;
-  }
+  // if (!storeId) {
+  //   return <Spinner />;
+  //   <p className="text-2xl font-inter">Fetching the information</p>;
+  // }
 
   // Users from the json
   const {

@@ -1,6 +1,6 @@
 /* The Store is represented by the ORGANIZATION we're using the betterauth 
- and their organization plugin were using that as the store.
- If you see organization is Store
+ and their organization plugin, were using that as the store.
+ If you see organization is Store or business more on the admin side.
 */
 
 import express from "express";

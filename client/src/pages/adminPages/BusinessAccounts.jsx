@@ -1,14 +1,12 @@
-import BusinessManagementTable from "@/components/tables/admin-tables/business-management/business-management-table";
+import BusinessAccountV1 from "@/features/admin-features/business-account/BusinessAccountV1";
 
 function BusinessAccounts() {
   return (
-    <div className="page">
-      <h1>Business Accounts</h1>
-      <p>Manage your business here.</p>
+    <>
       <div>
-        <BusinessManagementTable />
+        <BusinessAccountV1 />
       </div>
-    </div>
+    </>
   );
 }
 export default BusinessAccounts;

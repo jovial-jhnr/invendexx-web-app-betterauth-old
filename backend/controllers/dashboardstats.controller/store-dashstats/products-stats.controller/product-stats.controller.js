@@ -1,6 +1,5 @@
 import prisma from "../../../../lib/db.js";
 
-import prisma from "../../../../lib/db.js";
 import { subDays } from "date-fns";
 
 const productStats = async (req, res) => {
@@ -19,19 +18,24 @@ const productStats = async (req, res) => {
       where: { storeId },
     });
 
+    const totalFeaturedBrands = await prisma.featuredBrands.count({
+      where: { storeId },
+    });
+
     return res.status(200).json({
       status: true,
-      message: "Users dash stats available",
+      message: "Store products dash stats available",
       result: {
         totalProducts,
         allProductAmount,
         totalCategory,
+        totalFeaturedBrands,
       },
     });
   } catch (error) {
     return res.status(500).json({
       status: false,
-      message: "Failed to fetch users stats",
+      message: "Failed to fetch store products stats",
       error: error.message,
     });
   }

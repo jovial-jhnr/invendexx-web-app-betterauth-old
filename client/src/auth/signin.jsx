@@ -36,8 +36,13 @@ export default function SignIn({ className, ...props }) {
   // Users active Store
   const { data: activeOrganization } = authClient.useActiveOrganization();
 
+  const storeId = activeOrganization?.id;
+
   // The user's session to get their role.
   const { data: session, isPending, error, refresh } = authClient.useSession();
+
+  // UserId from the session
+  const userId = session?.user?.id;
 
   // User's Role from the session.
   const userRole = session?.user?.role;

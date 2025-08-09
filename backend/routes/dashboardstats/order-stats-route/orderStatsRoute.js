@@ -1,5 +1,5 @@
 import express from "express";
-import { orderStats } from "../../../controllers/dashboardstats.controller.js/store-dashstats/order-stats.controller/order-stats.controller.js";
+import { orderStats } from "../../../controllers/dashboardstats.controller/store-dashstats/order-stats.controller/order-stats.controller.js";
 
 const router = express.Router();
 

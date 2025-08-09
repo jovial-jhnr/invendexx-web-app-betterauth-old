@@ -22,6 +22,7 @@ import bankDetailsRoute from "./routes/bankdetails/bankDetailsRoute.js";
 import subscriptionStatus from "./routes/subscriptions/subscriptionStatus.js";
 // Stats import for the app and store
 import mainDashstatsRoute from "./routes/dashboardstats/main-dashstats-route/mainDashstatsRoute.js";
+import businessStatsRoute from "./routes/dashboardstats/business-stats-route/businessStatsRoute.js";
 import orderStatsRoute from "./routes/dashboardstats/order-stats-route/orderStatsRoute.js";
 // .env file path to load stuff
 dotenv.config();
@@ -99,6 +100,9 @@ app.use("/api/webhook", payhook);
 
 app.use(mainDashstatsRoute);
 
+// Business Stats
+
+app.use(businessStatsRoute);
 // Orders store stats
 app.use(orderStatsRoute);
 

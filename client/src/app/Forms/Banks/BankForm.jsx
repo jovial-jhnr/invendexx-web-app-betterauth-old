@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Spinner from "@/components/ui/spinner";
 
 // Fetch list of banks
 const fetchBanks = async () => {
@@ -48,9 +49,10 @@ const fetchresolveAccount = async ({ queryKey }) => {
 // Main bank form function
 function BankForm({ className }) {
   // Getting the storeId from the useStore.
-  const { data: organizations } = authClient.useListOrganizations();
+  const { data: activOrganization } = authClient.useActiveOrganization();
 
-  const storeId = organizations?.[0]?.id;
+  const storeId = activOrganization?.id;
+  // const storeId = organizations?.[0]?.id;
 
   // console.log("All org", organizations?.[0]?.id);
 
@@ -88,10 +90,10 @@ function BankForm({ className }) {
   // This submit bank details of user to the backend to save
   const onSubmit = async (data) => {
     try {
+      // const [, storeId] = queryKey;
       await backendUrl.post(
-        "/api/stores/settings/add-bank-details",
+        `/api/stores/store/${storeId}/settings/add-bank-details`,
         {
-          storeId,
           bank_name: selectedBank.name,
           bank_code: data.bank_code,
           account_number: data.account_number,
@@ -109,6 +111,10 @@ function BankForm({ className }) {
       toast.error("Could not save bank details");
     }
   };
+
+  if (!storeId) {
+    return <Spinner />;
+  }
 
   return (
     <form

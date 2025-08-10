@@ -1,4 +1,4 @@
-import ApiKeysV1 from "@/features/store-features/api-keys/apiKeysV1";
+import ApiKeysV1 from "@/features/store-features/api-keys/ApiKeysV1";
 
 function ApiKeys() {
   return (

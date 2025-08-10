@@ -32,7 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import MetricCard from "../ui/metric-card";
+import MetricCard from "@/components/ui/metric-card";
 
 const data = [
   {

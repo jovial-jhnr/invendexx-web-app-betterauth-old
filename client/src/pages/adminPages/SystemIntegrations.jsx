@@ -1,11 +1,12 @@
-
+import SystemIntegrationV1 from "@/features/admin-features/system-integrations/SystemIntegrationV1";
 
 function SystemIntegrations() {
   return (
-    <div className="container">
-      <h1>System Integrations</h1>
-      <p>Manage your system integrations here.</p>
-    </div>
+    <>
+      <div>
+        <SystemIntegrationV1 />
+      </div>
+    </>
   );
 }
 

@@ -248,7 +248,7 @@ router.get("/bank/resolve", async (req, res) => {
   }
 });
 
-// Fetch all banks from paystack here.
+// Fetch all Banks from Paystack here.
 router.get("/banks", async (req, res) => {
   try {
     const bankResponse = await paystack.verification.fetchBanks({
@@ -274,6 +274,49 @@ router.get("/banks", async (req, res) => {
     });
   }
 });
+
+// Array banks for Paystack bank list
+// router.get("/banks", async (req, res) => {
+//   try {
+//     const currencies = ["GHS", "NGN"];
+//     const countries = ["ghana", "nigeria"];
+
+//     const requests = [];
+
+//     // Generate all possible currency-country combos
+//     for (const currency of currencies) {
+//       for (const country of countries) {
+//         requests.push(
+//           paystack.verification.fetchBanks({
+//             currency,
+//             country,
+//           })
+//         );
+//       }
+//     }
+
+//     const responses = await Promise.all(requests);
+//     const allBanks = responses.flatMap((r) => r.data);
+
+//     const banks = allBanks.filter(
+//       (bank) =>
+//         bank.currency === "GHS" ||
+//         (bank.currency === "NGN" && !bank.slug.endsWith("-usd")) ||
+//         bank.type === "mobile_money"
+//     );
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "All banks fetched successfully",
+//       result: { banks },
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: "Could not fetch banks available",
+//       error: error.message,
+//     });
+//   }
+// });
 
 // Enpoint to get Banks is custom code. DO NOT TOUCH!!!.
 // router.get("/banks", (req, res) => {

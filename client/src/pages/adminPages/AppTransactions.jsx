@@ -1,11 +1,12 @@
-
+import AppTransactionV1 from "@/features/admin-features/app-transactions/AppTransactionV1";
 
 function AppTransactions() {
   return (
-    <div className="transactions">
-      <h1>Transactions</h1>
-      <p>Here you can manage all transactions.</p>
-    </div>
+    <>
+      <div>
+        <AppTransactionV1 />
+      </div>
+    </>
   );
 }
 

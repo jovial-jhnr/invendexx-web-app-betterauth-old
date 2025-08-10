@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 // User (store_ owner ) add bank details for store here
-router.post("/stores/settings/add-bank-details", addBankDetails);
+router.post("/stores/store/:storeId/settings/add-bank-details", addBankDetails);
 
 // User get their bank details from here
 router.get("/stores/:storeId/settings/get-bank-details", fetchBankDetails);

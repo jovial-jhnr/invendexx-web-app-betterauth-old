@@ -1,11 +1,12 @@
-
+import IntegrationV1 from "@/features/store-features/integrations/IntegrationsV1";
 
 function StoreIntegration() {
   return (
-    <div className="store-integration">
-      <h1>Store Integration</h1>
-      <p>Manage your store integrations here.</p>
-    </div>
+    <>
+      <div>
+        <IntegrationV1 />
+      </div>
+    </>
   );
 }
 

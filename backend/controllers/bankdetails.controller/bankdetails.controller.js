@@ -1,19 +1,21 @@
 import prisma from "../../lib/db.js";
 
 const addBankDetails = async (req, res) => {
-  const { bank_name, bank_code, account_number, account_name, storeId } =
-    req.body;
+  const storeId = req.params.storeId;
+  const { bank_name, bank_code, account_number, account_name } = req.body;
   // console.log(req.body);
 
   try {
     const addBankDetails = await prisma.bankDetails.upsert({
       where: { storeId },
       create: {
-        storeId,
         bankName: bank_name,
         bankCode: bank_code,
         accountName: account_name,
         accountNumber: account_number,
+        store: {
+          connect: { id: storeId },
+        },
       },
       update: {
         bankName: bank_name,
@@ -24,14 +26,14 @@ const addBankDetails = async (req, res) => {
     });
 
     return res.status(200).json({
-      sucess: true,
+      status: true,
       message: "Bank Details saved successfully",
       result: addBankDetails,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
-      success: false,
+      status: false,
       message: "Bank details could not be saved!!",
       error: error.message,
     });
@@ -53,13 +55,13 @@ const fetchBankDetails = async (req, res) => {
     }
 
     return res.status(200).json({
-      success: "true",
+      status: "true",
       message: "Store bank details successfully fetched",
-      result: { fetchBankDetails },
+      result: fetchBankDetails,
     });
   } catch (error) {
     return res.status(500).json({
-      success: "false",
+      status: "false",
       message: "Store bank details not available to fetch",
       error: error.message,
     });
@@ -75,7 +77,7 @@ const allBankDetails = async (req, res) => {
     return res.status(200).json({
       status: "true",
       message: "All bank details fetched successfully",
-      result: { allBankDetails },
+      result: allBankDetails,
     });
   } catch (error) {
     return res.status(500).json({

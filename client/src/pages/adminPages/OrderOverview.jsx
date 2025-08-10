@@ -1,11 +1,12 @@
-
+import OrderOverviewV1 from "@/features/admin-features/order-overview/OrderOverviewV1";
 
 function OrderOverview() {
   return (
-    <div>
-      <h1>Order Overview</h1>
-      <p>This is the order overview page.</p>
-    </div>
+    <>
+      <div>
+        <OrderOverviewV1 />
+      </div>
+    </>
   );
 }
 

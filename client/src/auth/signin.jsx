@@ -88,20 +88,14 @@ export default function SignIn({ className, ...props }) {
       navigate("/syntaxdashboard");
 
       toast.success("🧨🧨Syntax Team Logged in Successfully!💰💰");
-    } else if (userRole === "owner" && storeId) {
+    } else if ((storeId && userRole === "owner") || userRole === "staff") {
       navigate("/storedashboard");
 
-      toast.success("✅✅Store Owner Logged in Successfully!✅✅");
-    } else if (userRole === "staff") {
-      navigate("/storedashboard");
-
-      toast.success("🎉🎉Staff Logged in Successfully!");
+      toast.success("✅✅Store Logged in Successfully!✅✅");
     } else {
       toast.error("You need a store. Go and create one.");
       // navigate("/error-404");
     }
-
-    // window.location.href = "/syntaxdashboard";
   };
 
   // Google SignIn

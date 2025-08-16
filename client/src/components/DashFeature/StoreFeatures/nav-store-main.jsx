@@ -9,7 +9,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({ items, ...props }) {
+export function NavStoreMain({ items, ...props }) {
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>

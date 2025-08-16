@@ -10,7 +10,7 @@ model Location {
     user              User[]
     order             Order[]
     product           Product[]
-    store             Organization @relation(fields: [storeId], references: [id])
+    store             Organization @relation(fields: [storeId], references: [id], onDelete: Cascade)
     createdAt         DateTime     @default(now())
     updatedAt         DateTime     @updatedAt
 

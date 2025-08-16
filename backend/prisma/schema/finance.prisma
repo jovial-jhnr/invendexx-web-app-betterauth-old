@@ -5,7 +5,7 @@ model BankDetails {
     accountName   String
     accountNumber String
     storeId       String       @unique
-    store         Organization @relation(fields: [storeId], references: [id])
+    store         Organization @relation(fields: [storeId], references: [id], onDelete: Cascade)
     createdAt     DateTime     @default(now())
     updatedAt     DateTime     @updatedAt
 
@@ -16,7 +16,7 @@ model Wallet {
     id        String       @id @default(uuid())
     balance   Decimal
     storeId   String       @unique
-    store     Organization @relation(fields: [storeId], references: [id])
+    store     Organization @relation(fields: [storeId], references: [id], onDelete: Cascade)
     createdAt DateTime     @default(now())
     updatedAt DateTime     @updatedAt
 

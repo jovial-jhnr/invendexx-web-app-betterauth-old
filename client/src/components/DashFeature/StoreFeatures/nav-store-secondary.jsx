@@ -21,7 +21,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavSecondary({ items }) {
+export function NavStoreSecondary({ items }) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Store Platform</SidebarGroupLabel>

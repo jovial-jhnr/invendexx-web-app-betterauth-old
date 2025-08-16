@@ -1,6 +1,6 @@
 import { useSession } from "@/hooks/useSession";
 // import { useSubscription } from "@/hooks/useSubscription";
-import { usePlans } from "@/hooks/usePlans";
+import usePlans from "@/hooks/usePlans";
 import backendUrl from "@/lib/backendUrl";
 import InfoCard from "@/components/ui/infocard";
 import { CardContent } from "@/components/ui/card";

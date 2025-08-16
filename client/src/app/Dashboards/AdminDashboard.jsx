@@ -1,4 +1,4 @@
-import { ModeToggle } from "@/components/GeneralFeatures/mode-toggle";
+import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
 import { Outlet, Link } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { HardDrive } from "lucide-react";
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { useSession } from "@/hooks/useSession.jsx";
 
-export default function SyntaxDashboard() {
+export default function AdminDashboard() {
   return (
     <SidebarProvider>
       <AppAdminSidebar />

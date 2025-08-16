@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 import { ScrollArea } from "../../ui/scroll-area";
-import { ModeToggle } from "@/components/GeneralFeatures/mode-toggle";
+import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
 import { NavAdminMain } from "@/components/DashFeature/SyntaxFeatures/nav-admin-main";
 // import { NavProjects } from "@/components/nav-projects"
 import { NavAdminSecondary } from "@/components/DashFeature/SyntaxFeatures/nav-admin-secondary";
@@ -48,78 +48,78 @@ const data = {
 
   navAdminMain: [
     {
-      title: "Admin Dashboard",
-      url: "/syntaxdashboard",
+      title: "Core Dashboard",
+      url: "/coredashboard",
       icon: LayoutDashboard,
       // permission: "manage_admin_dashboard"
     },
 
     {
       title: "Business Accounts",
-      url: "/syntaxdashboard/business-accounts",
+      url: "/coredashboard/business-accounts",
       icon: AppWindow,
       //permission: "manage_business_accounts"
     },
 
     {
       title: "User Managements",
-      url: "/syntaxdashboard/user-managements",
+      url: "/coredashboard/user-managements",
       icon: UserPen,
       // permission: "manage_user_managements"
     },
 
     {
       title: "Feature Flags",
-      url: "/syntaxdashboard/feature-flags",
+      url: "/coredashboard/feature-flags",
       icon: Flag,
       // permission: "manage_app_transactions"
     },
 
     {
       title: "Product Catalogs",
-      url: "/syntaxdashboard/product-catalogs",
+      url: "/coredashboard/product-catalogs",
       icon: PackageOpen,
       // permission: "manage_product_catalogs"
     },
 
     {
       title: "Order Overview",
-      url: "/syntaxdashboard/order-overview",
+      url: "/coredashboard/order-overview",
       icon: ShoppingBag,
       // permission: "manage_order_overview"
     },
 
     {
       title: "Location Overview",
-      url: "/syntaxdashboard/location-overview",
+      url: "/coredashboard/location-overview",
       icon: MapPinHouse,
       // permission: "manage_order_overview"
     },
 
     {
       title: "Reports and Analytics",
-      url: "/syntaxdashboard/reports-and-analytics",
+      url: "/coredashboard/reports-and-analytics",
       icon: ChartColumn,
       //permission: "manage_app_analytics"
     },
 
     {
       title: "Subscriptions",
-      url: "/syntaxdashboard/subscriptions",
+      url: "/coredashboard/subscriptions",
       icon: ScrollText,
       //permission: "manage_subscriptions"
     },
 
     {
       title: "App Transactions",
-      url: "/syntaxdashboard/app-transactions",
+      url: "/coredashboard/app-transactions",
       icon: WalletCards,
       // permission: "manage_app_transactions"
     },
 
     {
       title: "System Integrations",
-      url: "/syntaxdashboard/system-integrations",
+      url: "/coredashboard/system-integrations",
       icon: Microchip,
       // permission: "manage_systems_integrations"
     },
@@ -134,12 +134,12 @@ const data = {
       items: [
         {
           title: "App Details",
-          url: "/syntaxdashboard/app-details",
+          url: "/coredashboard/app-details",
           icon: BadgeInfo,
         },
         {
           title: "App Staff Account",
-          url: "/syntaxdashboard/app-staff-account",
+          url: "/coredashboard/app-staff-account",
           icon: CircleUserRound,
         },
       ],

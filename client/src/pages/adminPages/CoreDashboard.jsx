@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/useSession";
 import MainAdminDashStats from "@/dashboard-stats/admin-dashstats/main-admin-dashstats";
 
-function AdminDashboard() {
+export default function CoreDashboard() {
   // const {data: user } = useSession();
   const { data: session } = authClient.useSession();
 
@@ -71,5 +71,3 @@ function AdminDashboard() {
     </>
   );
 }
-
-export default AdminDashboard;

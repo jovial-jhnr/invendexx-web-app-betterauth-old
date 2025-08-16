@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import backendUrl from "@/lib/backendUrl.jsx";
 import toast from "react-hot-toast";
+import Spinner from "@/components/ui/spinner";
 import AuthPageLayout from "@/auth/auth-layout";
 import { authClient } from "@/lib/auth-client";
 
@@ -81,14 +82,18 @@ export default function SignIn({ className, ...props }) {
     // Redirection logic based on user role
 
     if (userRole === "admin") {
-      navigate("/syntaxdashboard");
-
+      navigate("/coredashboard");
       toast.success("💰💰Syntax Admin Logged in Successfully!💰💰");
+
+      // Admin staff
     } else if (userRole === "app_member") {
-      navigate("/syntaxdashboard");
+      navigate("/coredashboard");
 
       toast.success("🧨🧨Syntax Team Logged in Successfully!💰💰");
-    } else if ((storeId && userRole === "owner") || userRole === "staff") {
+    } else if (
+      (storeId && userRole === "owner") ||
+      (storeId && userRole === "staff")
+    ) {
       navigate("/storedashboard");
 
       toast.success("✅✅Store Logged in Successfully!✅✅");
@@ -154,7 +159,7 @@ export default function SignIn({ className, ...props }) {
                       id="email"
                       type="email"
                       {...register("email")}
-                      placeholder="m@example.com"
+                      placeholder=" Egs. m@example.com"
                       required
                     />
                     {errors.email && (
@@ -188,7 +193,7 @@ export default function SignIn({ className, ...props }) {
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </span>
                     {errors.password && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-red-700 text-sm">
                         {errors.password.message}
                       </p>
                     )}
@@ -198,14 +203,21 @@ export default function SignIn({ className, ...props }) {
                     className="w-full"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Logging In...." : "Log In"}
+                    {isSubmitting ? (
+                      <>
+                        <Spinner />
+                        <p>Logging In....</p>
+                      </>
+                    ) : (
+                      "Log In"
+                    )}
                   </Button>
                 </div>
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
                     to="/signup"
-                    className="underline text-blue-500 underline-offset-4"
+                    className="underline text-blue-600 underline-offset-4"
                   >
                     Sign up
                   </Link>

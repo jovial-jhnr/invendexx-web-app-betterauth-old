@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { X, Menu } from "lucide-react";
 import { Separator } from "../ui/separator";
+import ModeToggle from "../GeneralFeatures/mode-toggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -93,7 +94,6 @@ const Header = () => {
           >
             Pricing
           </Link>
-
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="rounded-md font-inter hover:text-blue-600 p-2"
@@ -101,7 +101,6 @@ const Header = () => {
           >
             Profile
           </Link>
-
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="rounded-md font-inter hover:text-blue-600 p-2"
@@ -109,7 +108,6 @@ const Header = () => {
           >
             Admin
           </Link>
-
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="rounded-md hover:text-blue-600 p-2"
@@ -117,7 +115,6 @@ const Header = () => {
           >
             About
           </Link>
-
           {/* Buttons */}
           <div className="flex flex-row gap-3 justify-end">
             <Link
@@ -136,7 +133,6 @@ const Header = () => {
               Get Started
             </Link>
           </div>
-          <Separator />
         </div>
       )}
     </div>

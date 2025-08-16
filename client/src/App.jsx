@@ -25,8 +25,8 @@ import ActiveOrganization from "./lib/setActiveOrg";
 import VerifyForgotPassword from "./auth/verify-forgot-password";
 
 // Admin Dashboard Imports
-import SyntaxDashboard from "@/app/Dashboards/SyntaxDashboard.jsx";
-import AdminDashboard from "./pages/adminPages/AdminDashboard";
+import AdminDashboard from "@/app/Dashboards/AdminDashboard.jsx";
+import CoreDashboard from "./pages/adminPages/CoreDashboard.jsx";
 import ReportsandAnalytics from "./pages/adminPages/ReportsandAnalytics.jsx";
 import AppTransactions from "./pages/adminPages/AppTransactions.jsx";
 import AppAccount from "./pages/adminPages/AppAccount";
@@ -103,8 +103,8 @@ function App() {
               />
 
               {/* Protected Routes Admin Route */}
-              <Route path="/syntaxdashboard" element={<SyntaxDashboard />}>
-                <Route index element={<AdminDashboard />} />
+              <Route path="/coredashboard" element={<AdminDashboard />}>
+                <Route index element={<CoreDashboard />} />
                 <Route
                   path="business-accounts"
                   element={<BusinessAccounts />}

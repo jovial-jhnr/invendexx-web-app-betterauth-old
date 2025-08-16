@@ -38,9 +38,9 @@ import {
 
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { NavMain } from "@/components/DashFeature/StoreFeatures/nav-main";
+import { NavStoreMain } from "@/components/DashFeature/StoreFeatures/nav-store-main";
 // import { NavProjects } from "@/components/nav-projects"
-import { NavSecondary } from "@/components/DashFeature/StoreFeatures/nav-secondary";
+import { NavStoreSecondary } from "@/components/DashFeature/StoreFeatures/nav-store-secondary";
 import { NavStoreUser } from "@/components/DashFeature/StoreFeatures/storeComponent/nav-store-user";
 import permAccess from "@/hooks/permAccess";
 import { authClient } from "@/lib/auth-client";
@@ -64,7 +64,7 @@ const data = {
   //   avatar: "/avatars/shadcn.jpg",
   // },
 
-  navMain: [
+  navStoreMain: [
     {
       title: "Overview Dashboard",
       url: "/storedashboard",
@@ -146,7 +146,7 @@ const data = {
     },
   ],
 
-  navSecondary: [
+  navStoreSecondary: [
     {
       title: "Store Settings",
       url: "#",
@@ -221,7 +221,7 @@ export function AppStoreSidebar(props) {
   // console.log("Store", activeOrganization);
 
   // Filter navMain based on permissions
-  const filteredNavMain = data.navMain.filter(
+  const filteredNavMain = data.navStoreMain.filter(
     (item) => !item.permission || permAccess(item.permission, session?.user)
   );
 
@@ -259,14 +259,14 @@ export function AppStoreSidebar(props) {
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
-        
+
         <SidebarContent>
-          <NavMain items={filteredNavMain} className="text-xl" />
+          <NavStoreMain items={filteredNavMain} className="text-xl" />
           {/* <NavProjects projects={data.projects} /> */}
           {(session?.user?.role === "owner" ||
             session?.user?.role === "admin") && (
-            <NavSecondary
-              items={data.navSecondary}
+            <NavStoreSecondary
+              items={data.navStoreSecondary}
               className="mt-auto text-md"
             />
           )}

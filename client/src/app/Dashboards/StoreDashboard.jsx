@@ -20,12 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ModeToggle } from "@/components/GeneralFeatures/mode-toggle";
+import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
 
 const getLocation = async ({ queryKey }) => {
-  const [, storeId] = queryKey;
+  const [_key, storeId] = queryKey;
   const res = await backendUrl.get(`locations/${storeId}/store-locations`);
-  return res.data.data.stores;
+  return res?.data?.data?.stores;
 };
 
 export default function StoreDashboard() {

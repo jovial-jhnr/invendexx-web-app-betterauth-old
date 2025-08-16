@@ -4,6 +4,7 @@ import {
   updateCategory,
   deleteCategory,
   allProductCategory,
+  useProductCategory,
 } from "../../../controllers/products.controller/products-category.controller/products-category.controller.js";
 
 const router = express.Router();
@@ -27,9 +28,15 @@ router.post(
 );
 
 // Store get all product category
-router.post(
+router.get(
   "/stores/store/:storeId/products/product-category/all-product-category",
   allProductCategory
+);
+
+// Use category
+router.get(
+  "/stores/store/:storeId/products/product-category/use-product-category",
+  useProductCategory
 );
 
 export default router;

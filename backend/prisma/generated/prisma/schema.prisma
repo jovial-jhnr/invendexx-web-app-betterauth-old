@@ -14,13 +14,13 @@ model Cart {
 }
 
 model CartItem {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   cartId    String
-  cart      Cart   @relation(fields: [cartId], references: [id])
+  cart      Cart     @relation(fields: [cartId], references: [id])
   productId String // assumes you have a Product model
   quantity  Int
   price     Float // price per unit at the time it was added to cart
-
+  product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -122,6 +122,19 @@ model ExpenseCategory {
   @@map("expensecategory")
 }
 
+model FeatureFlag {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String
+  isEnabled   Boolean
+  rollout     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("featureflag")
+}
+
 model BankDetails {
   id            String       @id @default(uuid())
   bankName      String
@@ -130,7 +143,7 @@ model BankDetails {
   accountNumber String
   storeId       String       @unique
   store         Organization @relation(fields: [storeId], references: [id])
-  createdAt     DateTime
+  createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
   @@map("bankdetails")
@@ -141,10 +154,32 @@ model Wallet {
   balance   Decimal
   storeId   String       @unique
   store     Organization @relation(fields: [storeId], references: [id])
-  createdAt DateTime
+  createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
 
   @@map("wallet")
+}
+
+model Invoice {
+  id            String       @id @default(uuid())
+  storeId       String
+  invoiceNumber String
+  title         String
+  customerEmail String
+  description   String?
+  status        String?
+  downloadUrl   String
+  paymentLink   String?
+  qrCode        String?
+  amount        String
+  total         Decimal      @default(0.00)
+  tax           Decimal      @default(0.00)
+  dueDate       DateTime
+  store         Organization @relation(fields: [storeId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@map("invoice")
 }
 
 model Location {
@@ -158,6 +193,7 @@ model Location {
   isdefaultLocation Boolean?
   user              User[]
   order             Order[]
+  product           Product[]
   store             Organization @relation(fields: [storeId], references: [id])
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
@@ -180,7 +216,7 @@ model Order {
   deliveryTrackingNumber Int
   totalAmount            Float
   subtotalAmount         Float
-  discountAmount         Float
+  discountAmount         Float?
   taxAmount              Float
   shippingFee            Float
   shippingZoneName       String?
@@ -194,6 +230,10 @@ model Order {
   customer               Customer      @relation(fields: [customerId], references: [id])
   location               Location?     @relation(fields: [locationId], references: [id])
   store                  Organization? @relation(fields: [storeId], references: [id])
+  // Fixed custormer details
+  customerName           String
+  customerEmail          String
+  customerPhoneNumber    String
   posConfirmedAt         DateTime?
   createdAt              DateTime      @default(now())
   updatedAt              DateTime      @updatedAt
@@ -261,50 +301,57 @@ model PointOfSale {
 }
 
 model Product {
-  id                String             @id @default(uuid())
-  name              String
-  description       String?
-  sku               String?            @unique
-  stock             Int?
-  price             Float
-  shippingWeight    String?
-  handleTime        String?
-  freeShipping      Boolean?
-  packaging         String?
-  discountedPrice   String?
-  unitSold          String?
-  length            String?
-  width             String?
-  height            String?
-  quantitySize      String?
-  productStatus     String?
-  imageUrl          String[] // Prisma supports arrays in PostgreSQL and MongoDB
-  storeId           String
-  productCategoryId Int
-  purchaseOrderId   String
-  locationId        String?
-  warehouseId       String?
-  collectionId      String?
-  ProductVariation  ProductVariation[]
-  collection        ProductCollection? @relation(fields: [collectionId], references: [id])
-  purchase          Purchase           @relation(fields: [purchaseOrderId], references: [id])
-  productCategory   ProductCategory?   @relation(fields: [productCategoryId], references: [id])
-  store             Organization       @relation(fields: [storeId], references: [id])
-  warehouse         Warehouse?         @relation(fields: [warehouseId], references: [id])
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  id               String             @id @default(uuid())
+  name             String
+  shortDescription String?
+  description      String?
+  sku              String?            @unique
+  stock            Int?
+  price            Decimal
+  shippingWeight   String?
+  handleTime       String?
+  freeShipping     Boolean?
+  packaging        String?
+  discountPrice    String?
+  unitSold         String?
+  length           Float?
+  width            Float?
+  height           Float?
+  productSize      String?
+  productStatus    ProductStatus?     @default(Unpublished)
+  imageUrl         String[] // Prisma supports arrays in PostgreSQL and MongoDB
+  storeId          String
+  locationId       String?
+  purchaseOrderId  String?
+  collectionId     String?
+  hasVariation     Boolean?
+  featuredBrands   FeaturedBrands[]
+  cartItems        CartItem[]
+  productVariation ProductVariation[]
+  productCategory  ProductCategory[]
+  inventoryItems   Inventory[] // Link to inventory records
+  collection       ProductCollection? @relation(fields: [collectionId], references: [id])
+  purchase         Purchase?          @relation(fields: [purchaseOrderId], references: [id])
+  store            Organization       @relation(fields: [storeId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  warehouse        Warehouse?         @relation(fields: [warehouseId], references: [id])
+  warehouseId      String?
+  location         Location?          @relation(fields: [locationId], references: [id])
 
   @@map("product")
 }
 
 model ProductCategory {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @default(uuid())
   name        String?
   description String
   productId   Int
+  storeId     String
   product     Product[]
+  store       Organization @relation(fields: [storeId], references: [id])
   createdAt   DateTime
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime     @updatedAt
 
   @@map("productcategory")
 }
@@ -321,17 +368,35 @@ model ProductCollection {
 }
 
 model ProductVariation {
-  id        String  @id @default(uuid())
+  id        String   @id @default(uuid())
   productId String
   color     String?
   size      String?
-  sku       String? @unique
+  sku       String?  @unique
   price     Float?
   stock     Int?
   imageUrl  String?
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
 
   @@map("productvariation")
+}
+
+model FeaturedBrands {
+  id        String   @id @default(uuid())
+  name      String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+
+  @@map("featuredbrands")
+}
+
+enum ProductStatus {
+  Unpublished
+  Published
 }
 
 model Supplier {
@@ -367,6 +432,8 @@ model Purchase {
   @@map("purchase")
 }
 
+// Datasource
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -381,29 +448,31 @@ generator client {
 
 model User {
   id            String       @id @default(uuid())
-  name          String
+  name          String?
   firstName     String
   middleName    String?
   lastName      String
   email         String
   phoneNumber   String?
-  emailVerified Boolean
+  emailVerified Boolean?
   image         String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  Location      Location?    @relation(fields: [locationId], references: [id])
-  locationId    String?
-  PointOfSale   PointOfSale?
-  Warehouse     Warehouse?
   role          String?
   banned        Boolean?
   banReason     String?
   banExpires    DateTime?
   members       Member[]
   invitations   Invitation[]
-  POS           POS[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  // Custom section
+  location      Location?    @relation(fields: [locationId], references: [id])
+  locationId    String?
+  PointOfSale   PointOfSale?
+  warehouse     Warehouse?
+
+  POS POS[]
 
   @@unique([email])
   @@map("user")
@@ -457,30 +526,61 @@ model Verification {
 }
 
 model Organization {
-  id             String           @id
-  name           String
-  slug           String?
-  logo           String?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  metadata       String?
-  members        Member[]
-  invitations    Invitation[]
-  bankDetails    BankDetails?
-  wallet         Wallet?
-  location       Location[]
-  order          Order[]
-  customer       Customer[]
-  customerGroups CustomerGroups[]
-  expense        Expense[]
-  pointOfSale    PointOfSale?
-  product        Product[]
-  supplier       Supplier[]
-  purchase       Purchase[]
-  settlement     Settlement[]
-  subscription   Subscription?
-  transaction    Transaction[]
-  warehouse      Warehouse[]
+  id                 String            @id
+  name               String
+  slug               String?
+  logo               String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  metadata           String?
+  members            Member[]
+  invitations        Invitation[]
+  // Custom section
+  businessName       String?
+  businessType       String?
+  storeBaseCurrency  String?           @default("GHS")
+  banner             String?
+  phoneNumber        String?
+  email              String?
+  website            String?
+  description        String?
+  country            String?
+  address            String?
+  state              String?
+  region             String?
+  zipCode            String?
+  city               String?
+  status             String?
+  storeTag           String?
+  whitelabel         String?
+  facebook           String?
+  instagram          String?
+  tiktok             String?
+  twitter            String?
+  linkedin           String?
+  currency           String?           @default("GHS")
+  storeUrl           String?
+  storeApproval      Boolean?
+  modifyProductState Boolean?
+  bankDetails        BankDetails?
+  wallet             Wallet?
+  location           Location[]
+  order              Order[]
+  customer           Customer[]
+  customerGroups     CustomerGroups[]
+  expense            Expense[]
+  invoice            Invoice[]
+  pointOfSale        PointOfSale?
+  product            Product[]
+  supplier           Supplier[]
+  purchase           Purchase[]
+  settlements        Settlement[]
+  subscription       Subscription?
+  transaction        Transaction[]
+  warehouse          Warehouse[]
+  ShippingMethod     ShippingMethod[]
+  ShippingZone       ShippingZone[]
+  productCategory    ProductCategory[]
 
   @@unique([slug])
   @@map("organization")
@@ -527,15 +627,85 @@ model Settlement {
 }
 
 model Shipping {
-  id Int @id
+  id                String          @id @default(uuid())
+  orderId           String // References your order system
+  shippingMethodId  String
+  shippingMethod    ShippingMethod  @relation(fields: [shippingMethodId], references: [id])
+  trackingNumber    String?
+  carrier           String? // e.g., "FedEx", "UPS"
+  status            ShippingStatus  @default(PENDING)
+  estimatedDelivery DateTime?
+  actualDelivery    DateTime?
+  shippingAddress   String
+  shippingZoneName  String?
+  shippingFee       Decimal         @default(0)
+  weight            Float?
+  dimensions        String? // "LxWxH" format
+  notes             String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  auditLogs         ShippingAudit[]
 
   @@map("shipping")
 }
 
 model ShippingMethod {
-  id Int @id
+  id              String         @id @default(uuid())
+  name            String // e.g., "Standard", "Express"
+  storeId         String
+  store           Organization   @relation(fields: [storeId], references: [id])
+  description     String?
+  carrier         String? // Specific carrier if fixed
+  deliveryTime    String // e.g., "3-5 business days"
+  baseCost        Float
+  costCalculation String? // JSON for complex calculations
+  isActive        Boolean        @default(true)
+  shippingZones   ShippingZone[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Shipping        Shipping[]
 
   @@map("shippingmethod")
+}
+
+model ShippingZone {
+  id              String           @id @default(uuid())
+  name            String
+  storeId         String
+  store           Organization     @relation(fields: [storeId], references: [id])
+  countries       String[] // Country codes
+  regions         String[] // State/region names
+  postalCodes     String[]
+  shippingMethods ShippingMethod[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("shippingzone")
+}
+
+model ShippingAudit {
+  id         String   @id @default(uuid())
+  shippingId String
+  shipping   Shipping @relation(fields: [shippingId], references: [id])
+  action     String // e.g., "Label Created", "In Transit"
+  details    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String?
+  metadata   Json?
+
+  @@map("shippingaudit")
+}
+
+enum ShippingStatus {
+  PENDING
+  PROCESSING
+  LABEL_CREATED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  RETURNED
+  FAILED
 }
 
 // model Store {
@@ -546,30 +716,30 @@ model ShippingMethod {
 //     ownerId            Int?             @unique
 //     owner              User?            @relation(fields: [ownerId], references: [id])
 //     logo               String?
-//     storeBaseCurrency  String           @default("GH")
-//     banner             String?
-//     phoneNumber        String?
-//     email              String?
-//     website            String?
-//     about              String?
-//     country            String?
-//     address            String?
-//     state              String?
-//     region             String?
-//     zipCode            String?
-//     city               String?
-//     status             String?
-//     storeTag           String?
-//     whitlabel          String?
-//     facebook           String?
-//     instagram          String?
-//     tiktok             String?
-//     twitter            String?
-//     linkedin           String?
-//     currency           String           @default("GH")
-//     storeUrl           String?
-//     storeApproval      Boolean?
-//     modifyProductState String?
+// storeBaseCurrency  String           @default("GH")
+// banner             String?
+// phoneNumber        String?
+// email              String?
+// website            String?
+// about              String?
+// country            String?
+// address            String?
+// state              String?
+// region             String?
+// zipCode            String?
+// city               String?
+// status             String?
+// storeTag           String?
+// whitlabel          String?
+// facebook           String?
+// instagram          String?
+// tiktok             String?
+// twitter            String?
+// linkedin           String?
+// currency           String           @default("GH")
+// storeUrl           String?
+// storeApproval      Boolean?
+// modifyProductState String?
 //     wallet             Wallet?
 //     locations          Location[]
 //     product            Product[]
@@ -636,6 +806,7 @@ model Plan {
 model Transaction {
   id        String        @id @default(uuid())
   storeId   String?
+  amount    Decimal
   store     Organization? @relation(fields: [storeId], references: [id])
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
@@ -650,6 +821,7 @@ model Warehouse {
   isDefaultLocation Boolean?
   staffId           String       @unique
   storeId           String
+  inventoryItems    Inventory[] // Link to inventory records
   staffAssigned     User         @relation(fields: [staffId], references: [id])
   store             Organization @relation(fields: [storeId], references: [id])
   createdAt         DateTime     @default(now())
@@ -659,9 +831,14 @@ model Warehouse {
 }
 
 model Inventory {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String    @id @default(uuid())
+  quantity    Int       @default(0)
+  productId   String
+  warehouseId String
+  product     Product   @relation(fields: [productId], references: [id])
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("inventory")
 }

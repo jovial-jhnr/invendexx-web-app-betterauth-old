@@ -13,13 +13,12 @@ import {
 } from "@/components/ui/dialog";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-  
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import {
   Drawer,
@@ -32,25 +31,23 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import FeatFlagForm from "@/app/Forms/FeatureFlag/FeatFlagForm";
+import FeatFlagForm from "@/app/Forms/FeatureFlag/feature-flag-form";
 
 export default function FeatFlagModal() {
+  const [open, setOpen] = React.useState(false);
 
-  const [open, setOpen] = React.useState(false)
-
-  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-
-          <Button variant="outline" 
-          className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
+          <Button
+            variant="outline"
+            className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
           >
             Create Feat. Flag
           </Button>
-
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -59,22 +56,21 @@ export default function FeatFlagModal() {
               Make changes to your profile here. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
-          <FeatFlagForm/>
+          <FeatFlagForm />
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        
-        <Button variant="outline"
-         className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
+        <Button
+          variant="outline"
+          className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
         >
           Create Feat.Flag
         </Button>
-
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
@@ -91,5 +87,5 @@ export default function FeatFlagModal() {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

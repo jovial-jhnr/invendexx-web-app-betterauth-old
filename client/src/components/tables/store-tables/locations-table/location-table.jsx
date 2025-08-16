@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
 
 import {
   ArrowUpDown,
@@ -175,9 +175,8 @@ const columns = [
       const updateStore = async () => {};
 
       // Remove (Delete) Store function.
-      const deleteLocation = async (storeId) => {
-        // const storeId =
-        const locationId = locations?.id;
+      const deleteLocation = async () => {
+        const { id: locationId, storeId } = locations;
 
         await backendUrl.post(
           `/stores/store/${storeId}/locations/${locationId}/delete-location`
@@ -197,6 +196,17 @@ const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
+
+            {/* Edit Location */}
+            {/* <DropdownMenuItem>
+              <Trash2 className="text-red-500" />
+              <button
+                className="text-red-500 font-medium"
+                onClick={() => EditLocationModal()}
+              >
+                Edit Location
+              </button>
+            </DropdownMenuItem> */}
 
             {/* Deleter user dropdown */}
             <DropdownMenuItem
@@ -225,7 +235,7 @@ export function LocationTable() {
   const [rowSelection, setRowSelection] = React.useState({});
   const [pagination, setPagination] = React.useState({
     pageIndex: 0 ?? 0,
-    pageSize: 10 ?? 10,
+    pageSize: 30 ?? 30,
   });
 
   const { data: activeOrganization } = authClient.useActiveOrganization();

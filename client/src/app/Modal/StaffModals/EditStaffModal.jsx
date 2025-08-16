@@ -23,12 +23,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import EditStaffForm from "../../Forms/Staff Setup/EditStaffForm";
+import EditStaffForm from "../../Forms/Staff Setup/edit-staff-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function EditStaffModal() {
-  const [open, setOpen] = React.useState(false)
-  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [open, setOpen] = React.useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
@@ -40,15 +40,16 @@ export default function EditStaffModal() {
           <DialogHeader>
             <DialogTitle>Edit Staff</DialogTitle>
             <DialogDescription>
-              Make changes to your staff profile here. Click save when you're done.
+              Make changes to your staff profile here. Click save when you're
+              done.
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[70vh] pr-4">
-           <EditStaffForm/>
+            <EditStaffForm />
           </ScrollArea>
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   return (
@@ -63,9 +64,9 @@ export default function EditStaffModal() {
             Staff is edited here for the first time.
           </DrawerDescription>
         </DrawerHeader>
-          <ScrollArea className="h-[70vh]">
-          <EditStaffForm/>
-          </ScrollArea>
+        <ScrollArea className="h-[70vh]">
+          <EditStaffForm />
+        </ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -73,5 +74,5 @@ export default function EditStaffModal() {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

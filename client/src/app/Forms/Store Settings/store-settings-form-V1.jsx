@@ -59,30 +59,30 @@ function StoreSettingsFormV2({ className }) {
   });
 
   const updateStoreSchema = z.object({
-    name: z.string().optional(),
-    slug: z.string().optional(),
+    name: z.string().min(0).optional().nullable(),
+    slug: z.string().min(0).optional().nullable(),
     logo: z.any().optional(),
-    banner: z.string().optional(),
-    phoneNumber: z.string().optional(),
-    email: z.email("Invalid email or wrong email").optional(),
-    website: z.string().optional(),
-    description: z.string().optional(),
-    country: z.string().optional(),
-    address: z.string().optional(),
-    state: z.string().optional(),
-    region: z.string().optional(),
-    zipCode: z.string().optional(),
-    city: z.string().optional(),
-    status: z.string().optional(),
-    storeTag: z.string().optional(),
-    whitelabel: z.string().optional(),
-    facebook: z.string().optional(),
-    instagram: z.string().optional(),
-    tiktok: z.string().optional(),
-    twitter: z.string().optional(),
-    linkedin: z.string().optional(),
-    currency: z.string().optional(),
-    storeUrl: z.string().optional(),
+    banner: z.string().min(0).optional().nullable(),
+    phoneNumber: z.string().min(0).optional().nullable(),
+    email: z.string().optional().nullable(),
+    website: z.string().min(0).optional().nullable(),
+    description: z.string().min(0).optional().nullable(),
+    country: z.string().min(0).optional().nullable(),
+    address: z.string().min(0).optional().nullable(),
+    state: z.string().min(0).optional().nullable(),
+    region: z.string().min(0).optional().nullable(),
+    zipCode: z.string().min(0).optional().nullable(),
+    city: z.string().min(0).optional().nullable(),
+    status: z.string().min(0).optional().nullable(),
+    storeTag: z.string().min(0).optional().nullable(),
+    whitelabel: z.string().min(0).optional().nullable(),
+    facebook: z.string().min(0).optional().nullable(),
+    instagram: z.string().min(0).optional().nullable(),
+    tiktok: z.string().min(0).optional().nullable(),
+    twitter: z.string().min(0).optional().nullable(),
+    linkedin: z.string().min(0).optional().nullable(),
+    currency: z.string().min(0).optional().nullable(),
+    storeUrl: z.string().min(0).optional().nullable(),
   });
 
   const {
@@ -355,14 +355,14 @@ function StoreSettingsFormV2({ className }) {
         )}
       </div>
       <div className="grid gap-2 my-2">
-        <Label htmlFor="location">Select Country</Label>
+        <Label htmlFor="country">Country</Label>
         <Controller
           control={control}
           name="country"
           // rules={{ required: "Country is required" }}
           render={({ field }) => (
             <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Country">
                   {field.value || "Select country"}
                 </SelectValue>
@@ -389,7 +389,7 @@ function StoreSettingsFormV2({ className }) {
           control={control}
           render={({ field }) => (
             <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Currency">
                   {field.value || "Select country"}
                 </SelectValue>

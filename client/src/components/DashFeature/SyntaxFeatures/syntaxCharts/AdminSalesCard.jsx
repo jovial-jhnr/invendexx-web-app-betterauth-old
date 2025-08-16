@@ -6,7 +6,7 @@ function AdminSalesCard() {
   return (
     <>
       <div>
-        <DashboardCard>
+        <MetricCard>
           <div className="w-full overflow-x-auto">
             <div className="min-w-[500px]">
               <div></div>
@@ -42,8 +42,10 @@ function AdminSalesCard() {
                   },
                 ]}
                 options={{
+                  // zoom: { enabled: false },
                   chart: {
                     type: "bar",
+                    zoom: { enabled: false }, // Disabled zoom
                   },
 
                   dataLabels: {
@@ -117,7 +119,7 @@ function AdminSalesCard() {
               />
             </div>
           </div>
-        </DashboardCard>
+        </MetricCard>
       </div>
     </>
   );

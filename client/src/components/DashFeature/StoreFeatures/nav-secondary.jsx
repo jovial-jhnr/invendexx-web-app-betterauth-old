@@ -50,7 +50,7 @@ export function NavSecondary({ items }) {
                           <SidebarMenuSubButton asChild size="md">
                             <Link to={subItem.url}>
                               {subItem.icon && (
-                                <subItem.icon className="text-blue-700" />
+                                <subItem.icon className="stroke-green-700" />
                               )}
                               <span>{subItem.title}</span>
                             </Link>

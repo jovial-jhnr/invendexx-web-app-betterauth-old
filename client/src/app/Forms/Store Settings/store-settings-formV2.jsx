@@ -52,30 +52,31 @@ function StoreSettingsForm({ className }) {
   });
 
   const updateStoreSchema = z.object({
-    name: z.string().optional(),
-    slug: z.string().optional(),
+    name: z.string().min(0).optional().nullable(),
+    slug: z.string().min(0).optional().nullable(),
     logo: z.any().optional(),
-    banner: z.string().optional(),
-    phoneNumber: z.string().optional(),
-    email: z.email("Invalid email").optional(),
-    website: z.string().optional(),
-    description: z.string().optional(),
-    country: z.string().optional(),
-    address: z.string().optional(),
-    state: z.string().optional(),
-    region: z.string().optional(),
-    zipCode: z.string().optional(),
-    city: z.string().optional(),
-    status: z.string().optional(),
-    storeTag: z.string().optional(),
-    whitelabel: z.string().optional(),
-    facebook: z.string().optional(),
-    instagram: z.string().optional(),
-    tiktok: z.string().optional(),
-    twitter: z.string().optional(),
-    linkedin: z.string().optional(),
-    currency: z.string().optional(),
-    storeUrl: z.string().optional(),
+    businessName: z.string().min(0).optional().nullable(),
+    banner: z.string().min(0).optional().nullable(),
+    phoneNumber: z.string().min(0).optional().nullable(),
+    email: z.string("Invalid email or wrong email").optional().nullable(),
+    website: z.string().min(0).optional().nullable(),
+    description: z.string().min(0).optional().nullable(),
+    country: z.string().min(0).optional().nullable(),
+    address: z.string().min(0).optional().nullable(),
+    state: z.string().min(0).optional().nullable(),
+    region: z.string().min(0).optional().nullable(),
+    zipCode: z.string().min(0).optional().nullable(),
+    city: z.string().min(0).optional().nullable(),
+    status: z.string().min(0).optional().nullable(),
+    storeTag: z.string().min(0).optional().nullable(),
+    whitelabel: z.string().min(0).optional().nullable(),
+    facebook: z.string().min(0).optional().nullable(),
+    instagram: z.string().min(0).optional().nullable(),
+    tiktok: z.string().min(0).optional().nullable(),
+    twitter: z.string().min(0).optional().nullable(),
+    linkedin: z.string().min(0).optional().nullable(),
+    currency: z.string().min(0).optional().nullable(),
+    storeUrl: z.string().min(0).optional().nullable(),
   });
 
   const {
@@ -84,13 +85,14 @@ function StoreSettingsForm({ className }) {
     control,
     formState: { errors, isSubmitting },
   } = useForm({
-    // resolver: zodResolver(updateStoreSchema),
+    resolver: zodResolver(updateStoreSchema),
     defaultValues: {
       name: activeOrganization?.name,
       slug: activeOrganization?.slug,
       logo: activeOrganization?.logo,
       banner: activeOrganization?.banner,
       phoneNumber: activeOrganization?.phoneNumber,
+      businessName: activeOrganization?.businessName,
       email: activeOrganization?.email,
       website: activeOrganization?.website,
       description: activeOrganization?.description,
@@ -114,16 +116,17 @@ function StoreSettingsForm({ className }) {
   });
 
   const onSubmit = async (data) => {
-    console.log("SUBMITTING DATA", data);
+    // console.log("SUBMITTING DATA", data);
     const {
       name,
       slug,
       logo,
       banner,
       phoneNumber,
-      // email,
+      businessName,
+      email,
       website,
-      // description,
+      description,
       country,
       address,
       state,
@@ -132,7 +135,7 @@ function StoreSettingsForm({ className }) {
       city,
       status,
       storeTag,
-      // whitelabel,
+      whitelabel,
       facebook,
       instagram,
       tiktok,
@@ -147,6 +150,7 @@ function StoreSettingsForm({ className }) {
           name,
           logo,
           slug,
+          businessName,
           banner,
           phoneNumber,
           email,
@@ -184,21 +188,12 @@ function StoreSettingsForm({ className }) {
     );
   };
 
-  if (!activeOrganization) {
-    return (
-      <>
-        <div>
-          <Spinner />
-        </div>
-      </>
-    );
-  }
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={cn("grid gap-1", className)}
     >
+      {/* File Uploads Here */}
       <div className=" gap-2">
         <Label htmlFor="logo">Store Logo</Label>
         <FileUploader
@@ -215,11 +210,21 @@ function StoreSettingsForm({ className }) {
         />
       </div>
 
+      {/* Store Settings Inputs */}
+
       <div className="grid my-2 gap-2">
         <Label htmlFor="name">Store Name</Label>
         <Input type="text" id="name" {...register("name")} />
         {errors.name && (
           <p className="text-red-500 text-sm">{errors.name.message}</p>
+        )}
+      </div>
+
+      <div className="grid my-2 gap-2">
+        <Label htmlFor="name">Business Name</Label>
+        <Input type="text" id="name" {...register("businessName")} />
+        {errors.businessName && (
+          <p className="text-red-500 text-sm">{errors.businessName.message}</p>
         )}
       </div>
 

@@ -201,4 +201,27 @@ const store = async (req, res) => {
   }
 };
 
-export { updateStore, fetchedStore, store };
+// Get sore details with userId
+const signInStore = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const signInStore = await prisma.member.findFirst({
+      where: {
+        userId,
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      message: "Store details fetched",
+      result: signInStore,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Failed to get store",
+    });
+  }
+};
+
+export { updateStore, fetchedStore, store, signInStore };

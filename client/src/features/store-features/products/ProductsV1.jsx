@@ -1,3 +1,5 @@
+import AddProductModal from "@/app/Modal/Product/ProductModal";
+import TestSite from "@/app/Modal/TestSite";
 import ProductCategoryTable from "@/components/tables/store-tables/products-table/product-category-table";
 import ProductTable from "@/components/tables/store-tables/products-table/products-table";
 import { Button } from "@/components/ui/button";
@@ -30,8 +32,8 @@ function ProductsV1() {
               </TabsList>
               <TabsContent value="products">
                 <div>
-                  <div>
-                    <Button>Product</Button>
+                  <div className="m-2 flex flex-row gap-2 justify-end">
+                    <AddProductModal />
                   </div>
                   <div>
                     <ProductTable />

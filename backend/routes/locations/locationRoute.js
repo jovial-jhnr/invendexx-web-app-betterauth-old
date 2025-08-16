@@ -6,6 +6,7 @@ import {
   deleteLocation,
   listLocations,
   deletedLocation,
+  useStoreLocations,
 } from "../../controllers/locations.controller/locations.controller.js";
 
 const router = express.Router();
@@ -31,6 +32,11 @@ router.post(
 router.get(
   "/stores/store/:storeId/locations/location/all-store-locations",
   storeLocations
+);
+
+router.get(
+  "/stores/store/:storeId/locations/location/use-store-locations",
+  useStoreLocations
 );
 
 //          ====ADMIN SECTION===

@@ -10,8 +10,8 @@ export default function AuthPageLayout({ children }) {
         <div className="bg-muted relative hidden lg:block">
           <img
             src={authpage_image}
-            alt="Image"
-            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            alt="Image for auth page"
+            className="absolute inset-0 h-full w-full  dark:brightness-[0.2] dark:grayscale"
           />
         </div>
 

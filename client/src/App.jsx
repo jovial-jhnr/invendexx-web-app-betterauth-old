@@ -20,7 +20,7 @@ import SignUp from "./auth/signup.jsx";
 import VerifyEmail from "./auth/verify-email";
 import ForgotPassword from "./auth/forgot-password.jsx";
 import ResetPassword from "./auth/reset-password";
-import CreateOrganization from "./auth/create-organization";
+import CreateStore from "./auth/create-store";
 import ActiveOrganization from "./lib/setActiveOrg";
 import VerifyForgotPassword from "./auth/verify-forgot-password";
 
@@ -96,7 +96,7 @@ function App() {
                 path="/verify-forgot-password"
                 element={<VerifyForgotPassword />}
               />
-              <Route path="/create-store" element={<CreateOrganization />} />
+              <Route path="/create-store" element={<CreateStore />} />
               <Route
                 path="/set-active-store"
                 element={<ActiveOrganization />}

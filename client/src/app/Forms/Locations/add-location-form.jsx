@@ -10,6 +10,7 @@ import { z } from "zod";
 import backendUrl from "@/lib/backendUrl";
 import { useForm, Controller } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
+import useCountry from "@/hooks/storeHooks/use-country";
 
 import {
   Select,
@@ -21,15 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-/* Function to fetch all countries from the API and 
- return an array of country names sorted alphabetically */
-const allCountries = async () => {
-  const res = await axios.get("https://restcountries.com/v3.1/all?fields=name");
-  return res.data
-    .map((country) => country.name.common)
-    .sort((a, b) => a.localeCompare(b));
-};
-
 // MAIN FUNCTION
 export default function AddLocationForm({ className }) {
   const { data: activeOrganization } = authClient.useActiveOrganization();
@@ -39,7 +31,7 @@ export default function AddLocationForm({ className }) {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     // defaultValues: {
     //   name,
@@ -69,14 +61,7 @@ export default function AddLocationForm({ className }) {
   };
 
   // Query to get all countries
-  const {
-    data: countries,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["countries"],
-    queryFn: allCountries,
-  });
+  const { data: countries } = useCountry();
 
   return (
     <form
@@ -114,7 +99,7 @@ export default function AddLocationForm({ className }) {
             // rules={{ required: "Country is required" }}
             render={({ field }) => (
               <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Country">
                     {field.value || "Select country"}
                   </SelectValue>
@@ -142,7 +127,9 @@ export default function AddLocationForm({ className }) {
 
         {/* Submit */}
         <div className="pt-3 w-full my-2">
-          <Button>Save Changes</Button>
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Saving Changes.... 😁😁" : "Save Changes 😁😁"}
+          </Button>
         </div>
       </div>
     </form>

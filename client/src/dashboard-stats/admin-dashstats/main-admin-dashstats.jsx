@@ -3,6 +3,8 @@ import DashboardCard from "@/components/ui/dashboard-card";
 import Spinner from "@/components/ui/spinner";
 import backendUrl from "@/lib/backendUrl";
 import { useQuery } from "@tanstack/react-query";
+import { authClient } from "@/lib/auth-client";
+import { Convert } from "easy-currencies";
 
 import {
   DollarSign,
@@ -19,31 +21,32 @@ const fetchAdminStats = async () => {
   //   console.log("Main Sats", res.data);
 
   return {
-    totalRevenue: res?.data?.result?.totalRevenue?._sum?.amount || 0.0,
+    totalRevenue: res?.data?.result?.totalRevenue?._sum?.amount || 100000.0,
     totalStores: res?.data?.result?.totalStores || 0,
     totalUsers: res?.data?.result?.totalUsers || 0,
     totalActiveUsers: res?.data?.result?.totalActiveUsers || 0,
-    orderRevenue: res?.data?.result?.orderRevenue?._sum?.grandTotal || 0.0,
+    orderRevenue: res?.data?.result?.orderRevenue?._sum?.grandTotal || 1000.0,
   };
 };
 
+//  ======MAIN FUNCTION=====
 export function MainAdminDashStats() {
+  // Store data from authClient
+  const { data: activeOrganization } = authClient.useActiveOrganization();
+
+  const currency = activeOrganization?.currency;
+  const baseCurrency = activeOrganization?.storeBaseCurrency;
+
   const { data: dashstat, isLoading } = useQuery({
     queryKey: ["dash"],
     queryFn: fetchAdminStats,
   });
 
-  if (isLoading) {
-    <div>
-      <Spinner />
-    </div>;
-  }
-
   const stats = [
     {
       title: "Total Revenue",
       description: "Total app revenue",
-      content: `₵ ${dashstat?.totalRevenue}`,
+      content: `${currency} ${dashstat?.totalRevenue} `,
       icon: DollarSign,
     },
     {
@@ -68,7 +71,7 @@ export function MainAdminDashStats() {
     {
       title: "Order Revenue",
       description: "Total orders revenue",
-      content: `₵ ${dashstat?.orderRevenue}`,
+      content: `${currency} ${dashstat?.orderRevenue}`,
       icon: Package,
     },
     // {
@@ -80,7 +83,7 @@ export function MainAdminDashStats() {
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1">
       {stats.map((stat, index) => (
         <DashboardCard
           key={index}

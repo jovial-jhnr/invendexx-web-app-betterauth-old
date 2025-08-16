@@ -69,10 +69,14 @@ const updateLocation = async (req, res) => {
 // Delete location
 const deleteLocation = async (req, res) => {
   const storeId = req.params.storeId;
+  const locationId = req.params.locationId;
 
   try {
     const deleteLocation = await prisma.location.delete({
-      where: { storeId },
+      where: {
+        id: locationId,
+        storeId,
+      },
     });
     return res.status(200).json({
       status: true,
@@ -116,6 +120,31 @@ const storeLocations = async (req, res) => {
         totalCount,
         limit,
       },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Could not fetch Store locations (branches)",
+      error: error.message,
+    });
+  }
+};
+
+// Use Store location hook
+const useStoreLocations = async (req, res) => {
+  const storeId = req.params.storeId;
+
+  try {
+    const useStoreLocations = await prisma.location.findMany({
+      where: {
+        storeId,
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      message: "All Store locations (branches) fetched successfully",
+      result: useStoreLocations,
     });
   } catch (error) {
     return res.status(500).json({
@@ -230,6 +259,7 @@ export {
   updateLocation,
   deleteLocation,
   storeLocations,
+  useStoreLocations,
   // App side
   listLocations,
   deletedLocation,

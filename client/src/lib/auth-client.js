@@ -17,73 +17,103 @@ export const authClient = createAuthClient({
       schema: inferOrgAdditionalFields({
         organization: {
           additionalFields: {
+            businessName: {
+              type: "string",
+              input: true,
+            },
+            businessType: {
+              type: "string",
+              input: true,
+            },
             storeUrl: {
               type: "string",
+              input: true,
             },
             storeTag: {
               type: "string",
+              input: true,
             },
             banner: {
               type: "string",
+              input: true,
             },
             status: {
               type: "string",
+              input: true,
             },
             description: {
               type: "string",
+              input: true,
             },
 
             whitelabel: {
               type: "string",
+              input: true,
             },
             phoneNumber: {
               type: "string",
+              input: true,
             },
             website: {
               type: "string",
+              input: true,
             },
             city: {
               type: "string",
+              input: true,
             },
             region: {
               type: "string",
+              input: true,
             },
             address: {
               type: "string",
+              input: true,
             },
             country: {
               type: "string",
+              input: true,
             },
             zipCode: {
               type: "string",
+              input: true,
             },
             currency: {
               type: "string",
+              input: true,
             },
             facebook: {
               type: "string",
+              input: true,
             },
             instagram: {
               type: "string",
+              input: true,
             },
             twitter: {
               type: "string",
+              input: true,
             },
             tiktok: {
               type: "string",
+              input: true,
             },
             linkedin: {
               type: "string",
+              input: true,
             },
             storeBaseCurrency: {
               type: "string",
+              input: true,
             },
 
             modifyProductState: {
               type: "boolean",
+              input: true,
             },
             storeApproval: {
               type: "boolean",
+              input: true,
             },
           },
         },

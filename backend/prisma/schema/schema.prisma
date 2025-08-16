@@ -92,17 +92,19 @@ model Verification {
 }
 
 model Organization {
-  id                 String           @id
+  id                 String            @id
   name               String
   slug               String?
   logo               String?
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
   metadata           String?
   members            Member[]
   invitations        Invitation[]
   // Custom section
-  storeBaseCurrency  String?          @default("GH")
+  businessName       String?
+  businessType       String?
+  storeBaseCurrency  String?           @default("GHS")
   banner             String?
   phoneNumber        String?
   email              String?
@@ -122,7 +124,7 @@ model Organization {
   tiktok             String?
   twitter            String?
   linkedin           String?
-  currency           String?          @default("GH")
+  currency           String?           @default("GHS")
   storeUrl           String?
   storeApproval      Boolean?
   modifyProductState Boolean?
@@ -144,6 +146,7 @@ model Organization {
   warehouse          Warehouse[]
   ShippingMethod     ShippingMethod[]
   ShippingZone       ShippingZone[]
+  productCategory    ProductCategory[]
 
   @@unique([slug])
   @@map("organization")

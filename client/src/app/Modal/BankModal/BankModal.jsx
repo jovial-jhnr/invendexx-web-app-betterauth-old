@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import BankForm from "@/app/Forms/Banks/BankForm";
+import BankForm from "@/app/Forms/Banks/bank-form";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 

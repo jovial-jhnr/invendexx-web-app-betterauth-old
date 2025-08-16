@@ -120,8 +120,39 @@ const allProductCategory = async () => {
   }
 };
 
+// Get produt category for the useCategory hook
+const useProductCategory = async (req, res) => {
+  const storeId = req.params.storeId;
+
+  try {
+    const useProductCategory = await prisma.productCategory.findMany({
+      where: {
+        storeId,
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      message: "All store product category fetched successfully",
+      result: useProductCategory,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Failed to fetch store product category",
+      error: error.message,
+    });
+  }
+};
+
 // ====ADMIN SECTION====
 
 // Admin
 
-export { newCategory, updateCategory, deleteCategory, allProductCategory };
+export {
+  newCategory,
+  updateCategory,
+  deleteCategory,
+  allProductCategory,
+  useProductCategory,
+};

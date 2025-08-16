@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/drawer";
 
 import { ScrollArea } from "@/components/ui/scroll-area"; // make sure this import is here
-import StaffForm from "../../Forms/Staff Setup/StaffForm";
+import StaffForm from "../../Forms/Staff Setup/staff-form";
 
 export default function StaffModal() {
   const [open, setOpen] = React.useState(false);

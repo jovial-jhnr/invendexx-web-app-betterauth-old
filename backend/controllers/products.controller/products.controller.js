@@ -4,22 +4,49 @@ import prisma from "../../lib/db.js";
 
 // Store add products
 const addProduct = async (req, res) => {
-  const storeId = parseInt(req.params.storeId);
+  const storeId = req.params.storeId;
 
-  const { name, price, description, quantity, categoryId } = req.body;
+  const {
+    name,
+    price,
+    description,
+    shortDescription,
+    discountPrice,
+    stock,
+    sku,
+    productCategory,
+    length,
+    width,
+    height,
+    sizeUnit,
+    productSize,
+    productStatus,
+    packaging,
+    locationId,
+  } = req.body;
 
   try {
     const addProduct = await prisma.product.create({
       data: {
         name,
+        price,
         description,
-        price: price,
-        quantity: quantity,
-        category: {
-          connect: { categoryId },
+        shortDescription,
+        discountPrice,
+        stock: parseInt(stock),
+        sku,
+        productCategory,
+        length: parseFloat(length),
+        width: parseFloat(width),
+        height: parseFloat(height),
+        productSize: `${productSize} ${sizeUnit}`,
+        productStatus,
+        packaging,
+        location: {
+          connect: { id: locationId },
         },
         store: {
-          connect: { storeId: storeId },
+          connect: { id: storeId },
         },
       },
     });
@@ -27,7 +54,7 @@ const addProduct = async (req, res) => {
     return res.status(201).json({
       status: true,
       message: "Product added successfully",
-      result: { addProduct },
+      result: addProduct,
     });
   } catch (error) {
     return res.status(500).json({
@@ -80,8 +107,8 @@ const updateProduct = async (req, res) => {
 const fetchProducts = async (req, res) => {
   const storeId = req.params.storeId;
 
-  const limit = parseInt(req.params.limit);
-  const offset = parseInt(req.params.offset);
+  const limit = parseInt(req.query.limit);
+  const offset = parseInt(req.query.offset);
 
   try {
     const fetchProducts = await prisma.product.findMany({
@@ -105,6 +132,7 @@ const fetchProducts = async (req, res) => {
       meta: {
         totalCount,
         limit,
+        offset,
       },
     });
   } catch (error) {

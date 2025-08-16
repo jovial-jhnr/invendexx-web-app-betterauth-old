@@ -18,6 +18,7 @@ import locationRoute from "./routes/locations/locationRoute.js";
 import orderRoutes from "./routes/orders/orderRoutes.js";
 import storeRoutes from "./routes/stores/storeRoutes.js";
 import businessRoute from "./routes/business/businessRoute.js";
+import productCategoryRoute from "./routes/products/product-category/productCategoryRoute.js";
 import bankDetailsRoute from "./routes/bankdetails/bankDetailsRoute.js";
 import subscriptionStatus from "./routes/subscriptions/subscriptionStatus.js";
 // Stats import for the app and store
@@ -75,7 +76,10 @@ app.use(businessRoute);
 app.use(storeRoutes);
 
 // Product service Endpoint
-app.use("/api", productRoutes);
+app.use(productRoutes);
+
+// Product category route
+app.use(productCategoryRoute);
 
 // Orders service Endpoint
 app.use("/api", orderRoutes);

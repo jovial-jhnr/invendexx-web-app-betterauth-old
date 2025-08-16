@@ -23,12 +23,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import ExpensesForm from "../../Forms/Expense/ExpensesForm";
+import ExpensesForm from "../../Forms/Expense/expense-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function ExpensesModal() {
-  const [open, setOpen] = React.useState(false)
-  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [open, setOpen] = React.useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
@@ -44,11 +44,11 @@ export default function ExpensesModal() {
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[70vh] pr-4">
-           <ExpensesForm/>
+            <ExpensesForm />
           </ScrollArea>
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   return (
@@ -63,9 +63,9 @@ export default function ExpensesModal() {
             Expenses is edited here for the first time.
           </DrawerDescription>
         </DrawerHeader>
-          <ScrollArea className="h-[70vh]">
-          <ExpensesForm/>
-          </ScrollArea>
+        <ScrollArea className="h-[70vh]">
+          <ExpensesForm />
+        </ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -73,5 +73,5 @@ export default function ExpensesModal() {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

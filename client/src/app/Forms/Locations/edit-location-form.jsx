@@ -18,23 +18,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useCountry from "@/hooks/storeHooks/use-country";
 
 const editLocationSchema = z.object({
   name: z.string(),
   city: z.string(),
   region: z.string(),
+  address: z.string(),
   country: z.string(),
   description: z.string(),
 });
-
-/* Function to fetch all countries from the API and 
- return an array of country names sorted alphabetically */
-const allCountries = async () => {
-  const res = await axios.get("https://restcountries.com/v3.1/all?fields=name");
-  return res.data
-    .map((country) => country.name.common)
-    .sort((a, b) => a.localeCompare(b));
-};
 
 // Use form
 
@@ -44,25 +37,17 @@ export default function EditLocationForm({ className }) {
   const storeId = activeOrganization?.id;
 
   // Get all users here
-  const {
-    data: countries,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["countries"],
-    queryFn: allCountries,
-  });
+  // const { data: countries, isLoading } = useCountry();
+
+  if (isLoading) return <p>Loading countries...</p>;
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(editLocationSchema),
-    defaultValues: {
-      name,
-      address,
-    },
   });
 
   const onSubmit = async (data) => {
@@ -139,7 +124,7 @@ export default function EditLocationForm({ className }) {
 
         {/* Submit */}
         <div className="pt-3">
-          <Button disabled={isSubmitting}>
+          <Button disabled={isSubmitting} className="w-full ">
             {isSubmitting ? "Saving Changes........." : "Save Changes"}
           </Button>
         </div>

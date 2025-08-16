@@ -8,6 +8,7 @@ import {
   fetchedStore,
   updateStore,
   store,
+  signInStore,
 } from "../../controllers/stores.controller/stores.controller.js";
 
 const router = express.Router();
@@ -24,6 +25,9 @@ router.post(
 );
 
 router.post("/stores/store/:storeId/settings/add-store-details", store);
+
+// get store with userId
+router.get("/stores/store/:userId/store-details", signInStore);
 
 // Stock code for future use
 router.get("", async (req, res) => {

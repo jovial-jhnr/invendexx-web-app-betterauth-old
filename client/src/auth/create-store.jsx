@@ -19,13 +19,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import useCountry from "@/hooks/storeHooks/use-country";
 import {
   Select,
+  SelectLabel,
   SelectContent,
   SelectItem,
+  SelectGroup,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import Spinner from "@/components/ui/spinner";
 import AuthPageLayout from "@/auth/auth-layout";
 import { authClient } from "@/lib/auth-client";
@@ -33,11 +37,19 @@ import { authClient } from "@/lib/auth-client";
 const organizationSchema = z.object({
   name: z.string().min(3, "Store name must be at least 3 characters"),
   slug: z.string().min(3, "Store slug required. Egs. connet-store"),
-  logo: z.string().optional(),
+  logo: z.string().optional().nullable(),
+  country: z.string().optional().nullable(),
+  storeUrl: z
+    .string()
+    .min(5, "Store Url is requried and must be atleast 5 small characters")
+    .nullable(),
 });
 
-export function CreateOrganization({ className, ...props }) {
+export default function CreateStore({ className, ...props }) {
   const { data: session, error, refresh } = authClient.useSession();
+
+  // Countries from the useCountry hook
+  const { data: countries } = useCountry();
 
   const navigate = useNavigate();
 
@@ -51,7 +63,7 @@ export function CreateOrganization({ className, ...props }) {
   });
 
   const onSubmit = async (data) => {
-    const { name, slug, logo } = data;
+    const { name, slug, logo, storeUrl, country } = data;
 
     const slugCheck = await authClient.organization.checkSlug({
       slug: slug,
@@ -69,11 +81,13 @@ export function CreateOrganization({ className, ...props }) {
         name: name,
         slug: slug,
         logo: logo,
+        storeUrl: storeUrl,
+        country,
       },
       {
         onSuccess(ctx) {
-          toast.success("Organization created successfully!"),
-            navigate("/storedashboard");
+          toast.success("Organization created successfully!");
+          navigate("/signin");
         },
         onError(ctx) {
           toast.error("Failed to create organization");
@@ -94,6 +108,20 @@ export function CreateOrganization({ className, ...props }) {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              {/* <div>
+                <Label htmlFor="logo">Store Logo</Label>
+                <Input
+                  id="logo"
+                  type="file"
+                  {...register("logo")}
+                  placeholder=""
+                />
+                {errors.logo && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.logo.message}
+                  </p>
+                )}
+              </div> */}
               {/* Organization Name */}
               <div>
                 <Label htmlFor="name">Store Name</Label>
@@ -109,7 +137,6 @@ export function CreateOrganization({ className, ...props }) {
                   </p>
                 )}
               </div>
-
               <div>
                 <Label htmlFor="slug">Store Slug</Label>
                 <Input
@@ -123,22 +150,85 @@ export function CreateOrganization({ className, ...props }) {
                   </p>
                 )}
               </div>
-
-              {/* <div>
-                <Label htmlFor="logo">Store Logo</Label>
+              <div>
+                <Label htmlFor="storeUrl">Store Url</Label>
                 <Input
-                  id="logo"
-                  type="file"
-                  {...register("logo")}
-                  placeholder=""
+                  id="storeUrl"
+                  type="text"
+                  {...register("storeUrl")}
+                  placeholder="Egs. conner-store"
                 />
-                {errors.logo && (
+                {errors.storeUrl && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.logo.message}
+                    {errors.storeUrl.message}
                   </p>
                 )}
-              </div> */}
+              </div>
 
+              {/* Business Type */}
+              <div>
+                <Label htmlFor="location">Business Type</Label>
+                <Controller
+                  control={control}
+                  name="businessType"
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Business Type">
+                          {field.value || "Select Business Type"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Select Business Type</SelectLabel>
+                          <SelectItem value="Electronics & Gadgets">
+                            Electronics & Gadgets
+                          </SelectItem>
+                          <SelectItem value="Fashion & Apparel">
+                            Fashion & Apparel
+                          </SelectItem>
+                          <SelectItem value="Food & Groceries">
+                            Food & Groceries
+                          </SelectItem>
+                          <SelectItem value="Jewelries & Accessories">
+                            Jewelries & Accessories
+                          </SelectItem>
+                          <SelectItem value="Others">Others</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+
+              <div className="grid gap-2 my-2">
+                <Label htmlFor="country"> Country</Label>
+                <Controller
+                  control={control}
+                  name="country"
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Country">
+                          {field.value || "Select country"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Select Country</SelectLabel>
+                          {countries?.map((country) => (
+                            <SelectItem key={country} value={country}>
+                              {country}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
               {/* Submit Button */}
               <Button
                 type="submit"
@@ -153,75 +243,4 @@ export function CreateOrganization({ className, ...props }) {
       </div>
     </AuthPageLayout>
   );
-}
-
-export default CreateOrganization;
-
-{
-  /* Organization Type
-              <div>
-                <Label htmlFor="type">Organization Type</Label>
-                <Controller
-                  name="type"
-                  control={control}
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="individual">Individual</SelectItem>
-                        <SelectItem value="small_business">
-                          Small Business
-                        </SelectItem>
-                        <SelectItem value="enterprise">Enterprise</SelectItem>
-                        <SelectItem value="non_profit">Non-Profit</SelectItem>
-                        <SelectItem value="government">Government</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-                {errors.type && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.type.message}
-                  </p>
-                )}
-              </div> */
-}
-
-{
-  /* Industry (Optional)
-              <div>
-                <Label htmlFor="industry">Industry (Optional)</Label>
-                <Input
-                  id="industry"
-                  {...register("industry")}
-                  placeholder="e.g. Technology, Healthcare"
-                />
-              </div>
-
-              {/* Organization Size (Optional) 
-              <div>
-                <Label htmlFor="size">Organization Size (Optional)</Label>
-                <Controller
-                  name="size"
-                  control={control}
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-10">1-10 employees</SelectItem>
-                        <SelectItem value="11-50">11-50 employees</SelectItem>
-                        <SelectItem value="51-200">51-200 employees</SelectItem>
-                        <SelectItem value="201-500">
-                          201-500 employees
-                        </SelectItem>
-                        <SelectItem value="501+">501+ employees</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-              </div> */
 }

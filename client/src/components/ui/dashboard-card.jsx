@@ -15,7 +15,7 @@ export default function DashboardCard({
   footer,
 }) {
   return (
-    <Card className="rounded-lg p-2">
+    <Card className="rounded-lg p-1">
       <CardHeader className="p-0 mb-2 font-sans">
         <div className="flex items-center justify-between">
           {title && <CardTitle className="text-sm">{title}</CardTitle>}
@@ -23,7 +23,7 @@ export default function DashboardCard({
         </div>
       </CardHeader>
 
-      <CardContent className="text-md font-bold font-inter items-center text-center p-2">
+      <CardContent className="text-md sm:text-sm font-bold font-inter items-center text-center p-2">
         {children}
 
         {description && (

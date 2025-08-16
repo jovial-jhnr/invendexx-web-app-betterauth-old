@@ -89,7 +89,7 @@ export default function UserProfileForm({ className }) {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="form-section">
-          <h1 className="m-3 text-xl">Profile Picture</h1>
+          <h1 className="m-3 text-xl text-center font-bold">Profile Picture</h1>
 
           {/* Profile Picture */}
           <div className="field items-center">
@@ -165,35 +165,9 @@ export default function UserProfileForm({ className }) {
             )}
           </div>
 
-          {/* Social Links
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="field">
-            <Label htmlFor="whatsapp">WhatsApp</Label>
-            <Input type="text" id="whatsapp" />
-          </div>
-          <div className="field">
-            <Label htmlFor="instagram">Instagram</Label>
-            <Input type="text" id="instagram" />
-          </div>
-          <div className="field">
-            <Label htmlFor="twitter">Twitter (X)</Label>
-            <Input type="text" id="twitter" />
-          </div>
-          <div className="field">
-            <Label htmlFor="facebook">Facebook</Label>
-            <Input type="text" id="facebook" />
-          </div>
-        </div>
-
-        {/* Optional Description *
-        <div className="field">
-          <Label htmlFor="description">Description</Label>
-          <Textarea id="description" {...register("description") />
-        </div> */}
-
           {/* Submit */}
           <div className="pt-3">
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" className=" mx-3" disabled={isSubmitting}>
               {isSubmitting ? "Saving Changes........." : "Save Changes"}
             </Button>
           </div>

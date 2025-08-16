@@ -1,4 +1,5 @@
 import DashboardCard from "@/components/ui/dashboard-card";
+import MetricCard from "@/components/ui/metric-card";
 import {
   Server,
   Database,
@@ -41,7 +42,7 @@ const services = [
 
 export function SystemHealthCard() {
   return (
-    <DashboardCard
+    <MetricCard
       title="System Health Overview"
       description="Live status of key infrastructure services"
       icon={Server}
@@ -81,15 +82,9 @@ export function SystemHealthCard() {
           );
         })}
       </div>
-    </DashboardCard>
+    </MetricCard>
   );
 }
-
-
-
-
-
-
 
 // import DashboardCard from "@/components/ui/dashboard-card";
 // import {
@@ -192,11 +187,8 @@ export function SystemHealthCard() {
 //   );
 // }
 
-
-
 // import React from 'react';
 // import DashboardCard from '@/components/ui/dashboard-card';
-
 
 // function SystemHealthCard(){
 
@@ -213,7 +205,7 @@ export function SystemHealthCard() {
 //                     <div className="text-xl">
 //                       {stat.content}
 //                     </div>
-          
+
 //                   </DashboardCard>
 //                 ))}
 //             </div>

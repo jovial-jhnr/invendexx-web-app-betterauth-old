@@ -63,35 +63,43 @@ export default function SignIn({ className, ...props }) {
     const { email, password } = data;
 
     // Send the signin credentials to the backend with the CSRF Token
-    const response = await authClient.signIn.email(
-      {
-        email: email,
-        password: password,
-      },
-      {
-        onSuccess(ctx, userRole) {
-          if (userRole === "admin") {
-            navigate("/syntaxdashboard");
-            toast.success("💰💰 Admin Logged in Successfully!💰💰");
-          } else if (userRole === "owner" || userRole === "user") {
-            navigate("/storedashboard");
-            toast.success("User Logged in Successfully!💰💰");
-          }
-        },
-      },
-      {
-        onError(ctx) {
-          console.log(ctx.error);
-          const errorCode = ctx?.data?.code;
+    const response = await authClient.signIn.email({
+      email: email,
+      password: password,
+    });
 
-          if (errorCode === "BANNED_USER") {
-            toast.error("🚫 Your account has been banned. Contact support.");
-          } else {
-            toast.error("❌ Login failed. Please try again.");
-          }
-        },
-      }
+    const userResponse = await backendUrl.get(
+      "/api/auth/get-session",
+
+      { withCredentials: true }
     );
+
+    /* This fetches the user session data after login
+      specifically, the user role */
+    const userRole = userResponse.data?.user?.role;
+    const storeId = userResponse?.data?.session?.activeOrganizationId;
+    // Redirection logic based on user role
+
+    if (userRole === "admin") {
+      navigate("/syntaxdashboard");
+
+      toast.success("💰💰Syntax Admin Logged in Successfully!💰💰");
+    } else if (userRole === "app_member") {
+      navigate("/syntaxdashboard");
+
+      toast.success("🧨🧨Syntax Team Logged in Successfully!💰💰");
+    } else if (userRole === "owner" && storeId) {
+      navigate("/storedashboard");
+
+      toast.success("✅✅Store Owner Logged in Successfully!✅✅");
+    } else if (userRole === "staff") {
+      navigate("/storedashboard");
+
+      toast.success("🎉🎉Staff Logged in Successfully!");
+    } else {
+      toast.error("You need a store. Go and create one.");
+      // navigate("/error-404");
+    }
 
     // window.location.href = "/syntaxdashboard";
   };

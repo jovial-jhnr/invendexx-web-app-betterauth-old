@@ -31,7 +31,7 @@ export function NavAdminSecondary({ items }) {
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title}>
                 <Link to={item.url}>
-                  <item.icon />
+                  <item.icon className="text-blue-800" />
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
@@ -49,7 +49,9 @@ export function NavAdminSecondary({ items }) {
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild size="md">
                             <Link className="text-blue-700" to={subItem.url}>
-                              {subItem.icon && <subItem.icon />}
+                              {subItem.icon && (
+                                <subItem.icon className="stroke-blue-600" />
+                              )}
                               <span>{subItem.title}</span>
                             </Link>
                           </SidebarMenuSubButton>

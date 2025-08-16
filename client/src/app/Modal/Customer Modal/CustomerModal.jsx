@@ -23,7 +23,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import CustomerForm from "../../Forms/Customer/CustomerForm";
+import CustomerForm from "../../Forms/Customer/customer-form";
 
 export default function CustomerModal() {
   const [open, setOpen] = React.useState(false);

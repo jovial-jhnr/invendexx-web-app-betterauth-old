@@ -1,8 +1,7 @@
 import * as React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -23,9 +22,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import AddLocationForm from "@/app/Forms/Locations/AddLocationForm";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function AddLocationModal() {
+export default function NormalModalLayout({
+  title,
+  description,
+  action_button,
+  children,
+}) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -33,16 +37,16 @@ export default function AddLocationModal() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Location</Button>
+          {action_button && <Button variant="outline">{action_button}</Button>}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[400px] max-h-[100vh]">
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add Location</DialogTitle>
-            <DialogDescription>Add details of location here</DialogDescription>
+            {title && <DialogTitle>{title}</DialogTitle>}
+            {description && (
+              <DialogDescription>{description}</DialogDescription>
+            )}
           </DialogHeader>
-          <ScrollArea className="h-[70vh] pr-4">
-            <AddLocationForm />
-          </ScrollArea>
+          <ScrollArea className="h-[70vh] pr-4">{children}</ScrollArea>
         </DialogContent>
       </Dialog>
     );
@@ -51,19 +55,21 @@ export default function AddLocationModal() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Add Location</Button>
+        {action_button && <Button variant="outline">{action_button}</Button>}
       </DrawerTrigger>
-      <DrawerContent className="max-h-[1000vh]">
-        <DrawerHeader className="text-left">
-          <DrawerTitle>Add Location</DrawerTitle>
-          <DrawerDescription>Add location details here</DrawerDescription>
+      <DrawerContent>
+        <DrawerHeader className="mx-3 text-left">
+          {title && <DrawerTitle>{title}</DrawerTitle>}
+          {description && (
+            <DrawerDescription className="text-md">
+              {description}
+            </DrawerDescription>
+          )}
         </DrawerHeader>
-        <ScrollArea className="h-[70vh] px-4">
-          <AddLocationForm />
-        </ScrollArea>
+        <ScrollArea className="h-[70vh]">{children}</ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline" className="bg-red-500">
+            <Button variant="outline" className="text-inherit bg-red-500">
               Cancel
             </Button>
           </DrawerClose>

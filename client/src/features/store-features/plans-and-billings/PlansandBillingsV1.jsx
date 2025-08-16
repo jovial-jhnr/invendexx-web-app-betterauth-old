@@ -80,21 +80,21 @@ export default function PlansandBillingsV1() {
             <TabsContent value="plans">
               <div>
                 <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-                  {plans?.map((plan) => (
+                  {plans?.map((plan, idx) => (
                     <div
-                      key={plan.plan_code}
+                      key={idx}
                       className="border  border-green-500 rounded-xl text-center shadow p-4"
                     >
-                      <h3 className="text-lg font-semibold">{plan.name}</h3>
-                      <p className="text-gray-700">
-                        {plan.currency} {plan.amount / 100}/month
+                      <h3 className="text-lg font-semibold">{plan?.name}</h3>
+                      <p className="text-gray-400 font-bold">
+                        {plan?.currency} {plan?.amount / 100}/month
                       </p>
-                      <p className="text-sm mb-3">{plan.description}</p>
+                      <p className="text-sm mb-3">{plan?.description}</p>
                       <button
-                        onClick={() => signUpForPlan(plan.plan_code)}
+                        onClick={() => signUpForPlan(plan?.plan_code)}
                         className="bg-blue-600 text-white px-4 py-2 rounded"
                       >
-                        Subscribe to GHS {plan.amount / 100}
+                        Subscribe to GHS {plan?.amount / 100}
                       </button>
                     </div>
                   ))}

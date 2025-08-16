@@ -127,73 +127,127 @@ export const auth = betterAuth({
       schema: {
         organization: {
           additionalFields: {
+            businessName: {
+              type: "string",
+              input: true,
+              required: false,
+            },
+            businessType: {
+              type: "string",
+              input: true,
+              required: false,
+            },
             storeUrl: {
               type: "string",
+              input: true,
+              required: false,
             },
             storeTag: {
               type: "string",
+              input: true,
+              required: false,
             },
             banner: {
               type: "string",
+              input: true,
+              required: false,
             },
             status: {
               type: "string",
+              input: true,
+              required: false,
             },
             description: {
               type: "string",
+              input: true,
+              required: false,
             },
 
             whitelabel: {
               type: "string",
+              input: true,
+              required: false,
             },
             phoneNumber: {
               type: "string",
+              input: true,
+              required: false,
             },
             website: {
               type: "string",
+              input: true,
+              required: false,
             },
             city: {
               type: "string",
+              input: true,
+              required: false,
             },
             region: {
               type: "string",
+              input: true,
+              required: false,
             },
             address: {
               type: "string",
+              input: true,
+              required: false,
             },
             country: {
               type: "string",
+              input: true,
+              required: false,
             },
             zipCode: {
               type: "string",
+              input: true,
+              required: false,
             },
             currency: {
               type: "string",
+              input: true,
+              required: false,
             },
             facebook: {
               type: "string",
+              input: true,
+              required: false,
             },
             instagram: {
               type: "string",
+              input: true,
+              required: false,
             },
             twitter: {
               type: "string",
+              input: true,
+              required: false,
             },
             tiktok: {
               type: "string",
+              input: true,
+              required: false,
             },
             linkedin: {
               type: "string",
+              input: true,
+              required: false,
             },
             storeBaseCurrency: {
               type: "string",
+              input: true,
+              required: false,
             },
 
             modifyProductState: {
               type: "boolean",
+              input: true,
+              required: false,
             },
             storeApproval: {
               type: "boolean",
+              input: true,
+              required: false,
             },
           },
         },

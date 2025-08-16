@@ -13,6 +13,7 @@ import {
   PackageCheck,
   MapPinCheckInside,
   MapPinCheckInsideIcon,
+  MapPinPlus,
 } from "lucide-react";
 
 const fetchLocationStats = async ({ queryKey }) => {
@@ -60,7 +61,7 @@ export function LocationStoreStats() {
       title: " Total Recent Locations",
       description: "Total recent locations",
       content: dashstat?.totalRecentLocation || 0,
-      icon: MapPinCheckInsideIcon,
+      icon: MapPinPlus,
     },
     // {
     //   title: "Total Products",

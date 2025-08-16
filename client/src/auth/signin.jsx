@@ -94,7 +94,7 @@ export default function SignIn({ className, ...props }) {
       toast.success("✅✅Store Logged in Successfully!✅✅");
     } else {
       toast.error("You need a store. Go and create one.");
-      // navigate("/error-404");
+      navigate("/create-store");
     }
   };
 

@@ -3,6 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import branch_icon from "@/assets/table-ui-icons/branch_icon.png";
 import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
 
 import {
@@ -11,6 +12,7 @@ import {
   MoreHorizontal,
   UserRoundCog,
   Store,
+  Pencil,
 } from "lucide-react";
 import {
   flexRender,
@@ -46,7 +48,7 @@ import { authClient } from "@/lib/auth-client";
 import Spinner from "@/components/ui/spinner";
 
 // Users are fetches here from the backend
-const fetchBusinesses = async ({ queryKey }) => {
+const fetchLocations = async ({ queryKey }) => {
   const [_key, storeId, pageIndex, pageSize] = queryKey;
   const res = await backendUrl.get(
     `/stores/store/${storeId}/locations/location/all-store-locations`,
@@ -64,169 +66,6 @@ const fetchBusinesses = async ({ queryKey }) => {
   };
 };
 
-const columns = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "name",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Location Name
-        <ArrowUpDown />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
-  },
-
-  {
-    accessorKey: "city",
-    header: "City",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("city")}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "region",
-    header: "Region",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("region")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "country",
-    header: "Country",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("country")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "address",
-    header: "Address",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("address")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  // {
-  //   accessorKey: "email",
-  //   header: ({ column }) => (
-  //     <Button
-  //       variant="ghost"
-  //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //     >
-  //       Email
-  //       <ArrowUpDown />
-  //     </Button>
-  //   ),
-  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  // },
-
-  // {
-  //   accessorKey: "phoneNumber",
-  //   header: "Phone Number",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: true,
-  // },
-
-  //  Actions for the table
-  {
-    id: "actions",
-    header: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const locations = row.original;
-
-      const updateStore = async () => {};
-
-      // Remove (Delete) Store function.
-      const deleteLocation = async () => {
-        const { id: locationId, storeId } = locations;
-
-        await backendUrl.post(
-          `/stores/store/${storeId}/locations/${locationId}/delete-location`
-        );
-      };
-
-      // Change user role here
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            {/* Edit Location */}
-            {/* <DropdownMenuItem>
-              <Trash2 className="text-red-500" />
-              <button
-                className="text-red-500 font-medium"
-                onClick={() => EditLocationModal()}
-              >
-                Edit Location
-              </button>
-            </DropdownMenuItem> */}
-
-            {/* Deleter user dropdown */}
-            <DropdownMenuItem
-              className="text-red-500 font-medium"
-              onClick={deleteLocation}
-            >
-              <Trash2 className="text-red-500" />
-              Delete Location
-            </DropdownMenuItem>
-
-            {/* <DropdownMenuItem onClick={deleteUser}>
-              Delete User
-            </DropdownMenuItem> */}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
 //  ==== MAIN TABLE FUNCTION ===
 export function LocationTable() {
   const [sorting, setSorting] = React.useState([]);
@@ -238,25 +77,212 @@ export function LocationTable() {
     pageSize: 30 ?? 30,
   });
 
+  // Modal state
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const [selectedLocation, setSelectedLocation] = React.useState(null);
+
   const { data: activeOrganization } = authClient.useActiveOrganization();
   const storeId = activeOrganization?.id;
-
-  // if (!storeId) {
-  //   return <Spinner />;
-  //   <p className="text-2xl font-inter">Fetching the information</p>;
-  // }
 
   // Users from the json
   const {
     data: location,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["locations", storeId, pagination.pageIndex, pagination.pageSize],
-    queryFn: fetchBusinesses,
+    queryFn: fetchLocations,
     enabled: !!storeId,
     keepPreviousData: true,
   });
+
+  // Handle edit location
+  const handleEditLocation = (locationData) => {
+    setSelectedLocation(locationData);
+    setIsEditModalOpen(true);
+  };
+
+  // Handle modal close and refetch data
+  const handleModalClose = (open) => {
+    if (!open) {
+      setIsEditModalOpen(false);
+      setSelectedLocation(null);
+    }
+    // refetch(); // Refetch data when modal closes
+  };
+
+  // Success handler (called after update)
+  const handleSuccess = () => {
+    refetch(); // refresh table
+    handleModalClose(); // then close
+  };
+
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "name",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Location Name
+            <ArrowUpDown />
+          </Button>
+        ),
+        cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
+      },
+
+      {
+        accessorKey: "city",
+        header: "City",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("city")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "region",
+        header: "Region",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("region")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "country",
+        header: "Country",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("country")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "address",
+        header: "Address",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("address")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      // {
+      //   accessorKey: "email",
+      //   header: ({ column }) => (
+      //     <Button
+      //       variant="ghost"
+      //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      //     >
+      //       Email
+      //       <ArrowUpDown />
+      //     </Button>
+      //   ),
+      //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+      // },
+
+      // {
+      //   accessorKey: "phoneNumber",
+      //   header: "Phone Number",
+      //   cell: ({ row }) => (
+      //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
+      //   ),
+      //   enableSorting: false,
+      //   enableHiding: true,
+      // },
+
+      //  Actions for the table
+      {
+        id: "actions",
+        header: "Actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          const locations = row.original;
+
+          const updateStore = async () => {};
+
+          // Remove (Delete) Store function.
+          const deleteLocation = async () => {
+            const { id: locationId, storeId } = locations;
+
+            await backendUrl.post(
+              `/stores/store/${storeId}/locations/${locationId}/delete-location`
+            );
+            toast.success("Location deleted successfully");
+          };
+
+          // Change user role here
+
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
+                {/* Edit Location */}
+                <DropdownMenuItem onClick={() => handleEditLocation(locations)}>
+                  <Pencil />
+                  Edit Location
+                </DropdownMenuItem>
+
+                {/* Deleter user dropdown */}
+                <DropdownMenuItem
+                  className="text-red-500 font-medium"
+                  onClick={deleteLocation}
+                >
+                  <Trash2 className="text-red-500" />
+                  Delete Location
+                </DropdownMenuItem>
+
+                {/* <DropdownMenuItem onClick={deleteUser}>
+              Delete User
+            </DropdownMenuItem> */}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    []
+  );
 
   const table = useReactTable({
     data: location?.location ?? [],
@@ -361,7 +387,16 @@ export function LocationTable() {
                     colSpan={columns.length}
                     className="h-28 text-center"
                   >
-                    No results.
+                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                      <img
+                        src={branch_icon}
+                        alt="No Stores Location Available"
+                        className="w-20 h-20 mb-4"
+                      />
+                      <p className="font-semibold text-md">
+                        No Stores Location Available
+                      </p>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
@@ -442,6 +477,14 @@ export function LocationTable() {
           </div>
         </div>
       </MetricCard>
+
+      {/* Edit Location Modal */}
+      <EditLocationModal
+        open={isEditModalOpen}
+        onOpenChange={handleModalClose}
+        location={selectedLocation}
+        onSuccess={handleSuccess} // <-- call this inside your form after successful update
+      />
     </div>
   );
 }

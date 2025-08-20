@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
           <Link
             className=" font-inter rounded-md hover:text-blue-600 p-2"
-            to="/syntaxdashboard"
+            to="/coredashboard"
           >
             Admin
           </Link>
@@ -104,7 +104,7 @@ const Header = () => {
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="rounded-md font-inter hover:text-blue-600 p-2"
-            to="/syntaxdashboard"
+            to="/coredashboard"
           >
             Admin
           </Link>

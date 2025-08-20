@@ -15,7 +15,7 @@ function PurchaseV1() {
         {/* Body content */}
         <div>
           <div>
-            <Tabs defaultValue="ratings">
+            <Tabs defaultValue="purchase">
               <TabsList className="text-lg">
                 <TabsTrigger className="text-sm" value="purchase">
                   Purchase

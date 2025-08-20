@@ -354,7 +354,6 @@ exports.Prisma.ProductCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  productId: 'productId',
   storeId: 'storeId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -371,12 +370,35 @@ exports.Prisma.ProductCollectionScalarFieldEnum = {
 exports.Prisma.ProductVariationScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
-  color: 'color',
-  size: 'size',
   sku: 'sku',
   price: 'price',
+  cost: 'cost',
+  discountPrice: 'discountPrice',
   stock: 'stock',
   imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductVariantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductVariantValueScalarFieldEnum = {
+  id: 'id',
+  variantId: 'variantId',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductVariationOptionScalarFieldEnum = {
+  id: 'id',
+  variationId: 'variationId',
+  valueId: 'valueId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -744,6 +766,9 @@ exports.Prisma.ModelName = {
   ProductCategory: 'ProductCategory',
   ProductCollection: 'ProductCollection',
   ProductVariation: 'ProductVariation',
+  ProductVariant: 'ProductVariant',
+  ProductVariantValue: 'ProductVariantValue',
+  ProductVariationOption: 'ProductVariationOption',
   FeaturedBrands: 'FeaturedBrands',
   Supplier: 'Supplier',
   Purchase: 'Purchase',

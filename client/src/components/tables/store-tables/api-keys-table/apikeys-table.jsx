@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
+import apikey_icon from "@/assets/table-ui-icons/apikey_icon.png";
 import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -334,7 +335,16 @@ export function ApiKeysTable() {
                     colSpan={columns.length}
                     className="h-28 text-center"
                   >
-                    No results.
+                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                      <img
+                        src={apikey_icon}
+                        alt="No Stores Available"
+                        className="w-20 h-20 mb-4"
+                      />
+                      <p className="font-semibold text-md">
+                        No Stores Api Keys Available
+                      </p>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}

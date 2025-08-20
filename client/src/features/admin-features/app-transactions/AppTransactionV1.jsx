@@ -1,3 +1,5 @@
+import AppTransactionTable from "@/components/tables/admin-tables/app-transactions-tables/app-transaction-table";
+
 export default function AppTransactionV1() {
   return (
     <>
@@ -9,7 +11,9 @@ export default function AppTransactionV1() {
         {/* Stats */}
         <div></div>
 
-        <div></div>
+        <div>
+          <AppTransactionTable />
+        </div>
       </div>
     </>
   );

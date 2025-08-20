@@ -1,4 +1,5 @@
 import NormalModalLayout from "../NormalModalLayout";
+import EditModalLayout from "../EditModalLayout";
 import EditLocationForm from "@/app/Forms/Locations/edit-location-form";
 import AddLocationForm from "@/app/Forms/Locations/add-location-form";
 
@@ -29,7 +30,7 @@ function AddLocationModal() {
   );
 }
 
-function EditLocationModal() {
+function EditLocationModal({ open, onOpenChange, location, onSuccess }) {
   const stats = [
     {
       title: "Edit Location Form",
@@ -41,16 +42,18 @@ function EditLocationModal() {
   return (
     <div className="">
       {stats.map((stat, index) => (
-        <NormalModalLayout
+        <EditModalLayout
           key={index}
           title={stat.title}
           description={stat.description}
-          action_button={stat.action_button}
+          // action_button={stat.action_button}
+          open={open}
+          onOpenChange={onOpenChange}
         >
           <div className="text-xl mx-2">
-            <EditLocationForm />
+            <EditLocationForm location={location} onSuccess={onSuccess} />
           </div>
-        </NormalModalLayout>
+        </EditModalLayout>
       ))}
     </div>
   );

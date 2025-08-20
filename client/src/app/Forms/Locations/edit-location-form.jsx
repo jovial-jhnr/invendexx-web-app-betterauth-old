@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -5,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { z } from "zod";
+import backendUrl from "@/lib/backendUrl";
+import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useCountry from "@/hooks/storeHooks/use-country";
+import { useQueryClient } from "@tanstack/react-query";
 
 const editLocationSchema = z.object({
   name: z.string(),
@@ -31,31 +35,65 @@ const editLocationSchema = z.object({
 
 // Use form
 
-export default function EditLocationForm({ className }) {
-  // Get stor details from authClient
+export default function EditLocationForm({ className, location, onSuccess }) {
+  const queryClient = useQueryClient();
+
+  // Get store details from authClient
   const { data: activeOrganization } = authClient.useActiveOrganization();
   const storeId = activeOrganization?.id;
 
-  // Get all users here
-  // const { data: countries, isLoading } = useCountry();
-
-  if (isLoading) return <p>Loading countries...</p>;
+  // Get all countries here
+  const { data: countries } = useCountry();
 
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(editLocationSchema),
   });
 
+  // Populate form with existing location data
+  React.useEffect(() => {
+    if (location) {
+      // console.log("Location", location);
+      reset({
+        name: location?.name || "",
+        city: location?.city || "",
+        region: location?.region || "",
+        address: location?.address || "",
+        country: location?.country,
+        description: location?.description || "",
+      });
+    }
+  }, [location?.id, reset]);
+
   const onSubmit = async (data) => {
-    const { name, address, city, region, country } = data;
-    const res = await backendUrl.post(
-      `/stores/store/${storeId}/locations/${locationId}/update-location`,
-      { name, address, city, region, country }
-    );
+    // Location
+    const { id: id } = location;
+    const locationId = id;
+
+    try {
+      // Data for updateing the location
+      const { name, address, city, region, country } = data;
+
+      const res = await backendUrl.post(
+        `/stores/store/${storeId}/locations/${locationId}/update-location`,
+        { name, address, city, region, country }
+      );
+
+      // Invalidate queries to refresh the table data
+      queryClient.invalidateQueries({ queryKey: ["locations"] });
+
+      // Success Toast
+      toast.success("Location updated successfully!");
+      onSuccess?.();
+    } catch (error) {
+      toast.error("Failed to update location");
+      // console.error("Error updating location:", error);
+    }
   };
 
   return (
@@ -66,10 +104,10 @@ export default function EditLocationForm({ className }) {
       <div className="form-section">
         {/* Name Fields */}
 
-        <div className="field">
+        <div className="field my-2">
           <Label htmlFor="location-name">Location Name</Label>
           <Input type="text" id="location-name" {...register("name")} />
-          {errors.lastName && (
+          {errors.name && (
             <p className="text-red-500 text-sm">{errors.name.message}</p>
           )}
         </div>
@@ -93,12 +131,12 @@ export default function EditLocationForm({ className }) {
           <Controller
             control={control}
             name="country"
-            // rules={{ required: "Country is required" }}
+            rules={{ required: "Country is required" }}
             render={({ field }) => (
               <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Country">
-                    {field.value || "Select country"}
+                    {field?.value || "Select country"}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>

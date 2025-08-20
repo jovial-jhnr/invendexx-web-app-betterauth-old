@@ -50,9 +50,9 @@ function SectionPrice() {
   const { data: session, isPending } = authClient.useSession();
   const email = session?.user?.email;
 
-  if (isPending) {
-    <Spinner />;
-  }
+  // if (isPending) {
+  //   <Spinner />;
+  // }
 
   return (
     <section className="py-16 bg-gray-100">

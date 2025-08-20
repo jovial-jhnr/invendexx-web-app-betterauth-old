@@ -40,38 +40,39 @@ export function MainAdminDashStats() {
   const { data: dashstat, isLoading } = useQuery({
     queryKey: ["dash"],
     queryFn: fetchAdminStats,
+    staleTime: 5 * 60 * 1000,
   });
 
   const stats = [
     {
       title: "Total Revenue",
       description: "Total app revenue",
-      content: `${currency} ${dashstat?.totalRevenue} `,
+      content: `${currency} ${dashstat?.totalRevenue} ` || 0,
       icon: DollarSign,
     },
     {
       title: "Total Stores",
       description: "Available stores",
-      content: dashstat?.totalStores,
+      content: dashstat?.totalStores || 0,
       icon: Store,
     },
 
     {
       title: " Total Users",
       description: "Total users",
-      content: dashstat?.totalUsers,
+      content: dashstat?.totalUsers || 0,
       icon: Users,
     },
     {
       title: "Active Users",
       description: "Total active now",
-      content: dashstat?.totalActiveUsers,
+      content: dashstat?.totalActiveUsers || 0,
       icon: UserCheck,
     },
     {
       title: "Order Revenue",
       description: "Total orders revenue",
-      content: `${currency} ${dashstat?.orderRevenue}`,
+      content: `${currency} ${dashstat?.orderRevenue}` || 0,
       icon: Package,
     },
     // {

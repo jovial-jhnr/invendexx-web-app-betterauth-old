@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
 import { AddLocationModal } from "@/app/Modal/LocationModal/LocationModal";
 import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
 import LocationStoreStats from "@/dashboard-stats/store-dashstats/location-store-stats";
@@ -23,7 +22,6 @@ function LocationV1() {
         {/* Location modal */}
         <div className="m-2 gap-1 flex flex-row justify-end">
           <AddLocationModal />
-          <EditLocationModal />
         </div>
 
         {/* Body content */}

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
+import store_icon from "@/assets/table-ui-icons/store_icon.png";
 import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -441,9 +442,18 @@ export function BusinessManagementTable() {
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-28 text-center"
+                    className="h-38 text-center"
                   >
-                    No results.
+                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                      <img
+                        src={store_icon}
+                        alt="No Stores Available"
+                        className="w-20 h-20 mb-4"
+                      />
+                      <p className="font-semibold text-md">
+                        No Stores Available
+                      </p>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
@@ -529,38 +539,3 @@ export function BusinessManagementTable() {
 }
 
 export default BusinessManagementTable;
-
-//
-
-//   <div className="text-sm font-semibold">
-//   <select
-//     value={table.getState().pagination.pageSize}
-//     onChange={(e) => {
-//       table.setPageSize(Number(e.target.value));
-//     }}
-//   >
-//     {[10, 20, 30, 40, 50].map((pageSize) => (
-//       <option key={pageSize} value={pageSize}>
-//         Show {pageSize}
-//       </option>
-//     ))}
-//   </select>
-// </div>;
-
-{
-  /* <div className="text-sm font-semibold">
-  <input
-    type="number"
-    min={1}
-    value={table.getState().pagination.pageSize}
-    onChange={(e) => {
-      const newSize = Number(e.target.value);
-      if (!isNaN(newSize) && newSize > 0) {
-        table.setPageSize(newSize);
-      }
-    }}
-    className="text-inherit w-20 px-2 py-1 border rounded"
-    placeholder="Page size"
-  />
-</div>; */
-}

@@ -1,4 +1,4 @@
-import OrderTable from "@/components/tables/store-tables/orders-table/order-table";
+import OrderOverviewTable from "@/components/tables/admin-tables/order-overview-tables/order-overview-table";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import OrderStoreStats from "@/dashboard-stats/store-dashstats/order-store-stats";
@@ -19,7 +19,7 @@ function OrderOverviewV1() {
         {/* Body */}
         <div>
           <div>
-            <OrderTable />
+            <OrderOverviewTable />
           </div>
         </div>
       </div>

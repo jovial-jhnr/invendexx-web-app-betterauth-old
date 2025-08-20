@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
+import product_icon from "@/assets/table-ui-icons/product_icon.png";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -354,7 +354,16 @@ export function ProductTable() {
                     colSpan={columns.length}
                     className="h-28 text-center"
                   >
-                    No results.
+                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                      <img
+                        src={product_icon}
+                        alt="No Stores Available"
+                        className="w-20 h-20 mb-4"
+                      />
+                      <p className="font-semibold text-md">
+                        No Stores Products Available
+                      </p>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}

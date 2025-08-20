@@ -50,7 +50,6 @@ const fetchresolveAccount = async ({ queryKey }) => {
 function BankForm({ className }) {
   // Getting the storeId from the useStore.
   const { data: activOrganization } = authClient.useActiveOrganization();
-
   const storeId = activOrganization?.id;
   // const storeId = organizations?.[0]?.id;
 
@@ -61,7 +60,7 @@ function BankForm({ className }) {
     control,
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   // Fetch all banks
@@ -186,8 +185,14 @@ function BankForm({ className }) {
 
         {/* Submit */}
         <div className="pt-3 w-full">
-          <Button type="submit" className="w-full">
-            Save Changes
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <Spinner /> "Saving Changes......"{" "}
+              </>
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         </div>
       </div>

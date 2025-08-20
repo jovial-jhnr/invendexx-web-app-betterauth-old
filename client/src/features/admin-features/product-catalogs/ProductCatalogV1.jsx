@@ -1,5 +1,5 @@
 import BusinessManagementTable from "@/components/tables/admin-tables/business-management/business-management-table";
-import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
+import ProductCatalogTable from "@/components/tables/admin-tables/product-catalog-tables/product-catalog-table";
 import ProductTable from "@/components/tables/store-tables/products-table/products-table";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 
@@ -33,7 +33,7 @@ export default function ProductCatalogV1() {
               {/* Tab Contents */}
               <TabsContent value="product-catalog">
                 <div>
-                  <LocationTable />
+                  <ProductCatalogTable />
                 </div>
               </TabsContent>
               <TabsContent value="product-category">

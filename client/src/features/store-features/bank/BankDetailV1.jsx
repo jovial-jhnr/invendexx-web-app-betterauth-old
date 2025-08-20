@@ -14,7 +14,7 @@ const getBankDetail = async ({ queryKey }) => {
   );
 
   // console.log("Bank Det", res.data.result?.bank);
-  return res.data?.result?.fetchBankDetails;
+  return res.data?.result;
 };
 
 function BankDetailV1() {

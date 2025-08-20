@@ -1,3 +1,4 @@
+import OrderTable from "@/components/tables/store-tables/orders-table/order-table";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import OrderStoreStats from "@/dashboard-stats/store-dashstats/order-store-stats";
@@ -27,7 +28,9 @@ function OrdersV1() {
                   <div>
                     <Button></Button>
                   </div>
-                  <div></div>
+                  <div>
+                    <OrderTable />
+                  </div>
                 </div>
               </TabsContent>
 

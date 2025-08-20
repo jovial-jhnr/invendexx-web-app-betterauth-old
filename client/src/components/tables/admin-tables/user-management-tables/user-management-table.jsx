@@ -3,6 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import users_icon from "@/assets/table-ui-icons/users_icon.png";
 
 import {
   ArrowUpDown,
@@ -441,7 +442,16 @@ export function UserManagementTable() {
                     colSpan={columns.length}
                     className="h-28 text-center"
                   >
-                    No results.
+                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                      <img
+                        src={users_icon}
+                        alt="No Users Available"
+                        className="w-20 h-20 mb-4"
+                      />
+                      <p className="font-semibold text-md">
+                        No Users Available
+                      </p>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}

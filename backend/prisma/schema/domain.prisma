@@ -1,0 +1,20 @@
+model Domain {
+    id                 String       @id @default(uuid())
+    storeId            String       @unique
+    domainNames        String[]
+    paymentStatus      String?
+    paymentRef         String?
+    lockStatus         String
+    domainPrice        Decimal?
+    pricePaid          Decimal?
+    isdomainRegistered Boolean
+    domainProvider     String?
+    expiryDate         String
+    failedReason       String?
+    isActive           Boolean
+    store              Organization @relation(fields: [storeId], references: [id])
+    createdAt          DateTime     @default(now())
+    updatedAt          DateTime     @updatedAt
+
+    @@map("domain")
+}

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 import backendUrl from "@/lib/backendUrl";
 
-const fetchLocation = async ({ queryKey }) => {
+const fetchStoreLocation = async ({ queryKey }) => {
   const [, storeId] = queryKey;
   const res = await backendUrl.get(
     `/stores/store/${storeId}/locations/location/use-store-locations`
@@ -17,7 +17,7 @@ const useStoreLocation = () => {
 
   return useQuery({
     queryKey: ["location", storeId],
-    queryFn: fetchLocation,
+    queryFn: fetchStoreLocation,
     enabled: !!storeId,
   });
 };

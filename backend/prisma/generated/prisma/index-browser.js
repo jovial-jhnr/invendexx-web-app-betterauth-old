@@ -258,6 +258,7 @@ exports.Prisma.LocationScalarFieldEnum = {
   country: 'country',
   region: 'region',
   city: 'city',
+  description: 'description',
   storeId: 'storeId',
   isdefaultLocation: 'isdefaultLocation',
   createdAt: 'createdAt',

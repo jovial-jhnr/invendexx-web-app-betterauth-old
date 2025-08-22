@@ -19423,6 +19423,7 @@ export namespace Prisma {
     country: string | null
     region: string | null
     city: string | null
+    description: string | null
     storeId: string | null
     isdefaultLocation: boolean | null
     createdAt: Date | null
@@ -19436,6 +19437,7 @@ export namespace Prisma {
     country: string | null
     region: string | null
     city: string | null
+    description: string | null
     storeId: string | null
     isdefaultLocation: boolean | null
     createdAt: Date | null
@@ -19449,6 +19451,7 @@ export namespace Prisma {
     country: number
     region: number
     city: number
+    description: number
     storeId: number
     isdefaultLocation: number
     createdAt: number
@@ -19464,6 +19467,7 @@ export namespace Prisma {
     country?: true
     region?: true
     city?: true
+    description?: true
     storeId?: true
     isdefaultLocation?: true
     createdAt?: true
@@ -19477,6 +19481,7 @@ export namespace Prisma {
     country?: true
     region?: true
     city?: true
+    description?: true
     storeId?: true
     isdefaultLocation?: true
     createdAt?: true
@@ -19490,6 +19495,7 @@ export namespace Prisma {
     country?: true
     region?: true
     city?: true
+    description?: true
     storeId?: true
     isdefaultLocation?: true
     createdAt?: true
@@ -19576,6 +19582,7 @@ export namespace Prisma {
     country: string | null
     region: string | null
     city: string | null
+    description: string | null
     storeId: string
     isdefaultLocation: boolean | null
     createdAt: Date
@@ -19606,6 +19613,7 @@ export namespace Prisma {
     country?: boolean
     region?: boolean
     city?: boolean
+    description?: boolean
     storeId?: boolean
     isdefaultLocation?: boolean
     createdAt?: boolean
@@ -19624,6 +19632,7 @@ export namespace Prisma {
     country?: boolean
     region?: boolean
     city?: boolean
+    description?: boolean
     storeId?: boolean
     isdefaultLocation?: boolean
     createdAt?: boolean
@@ -19638,6 +19647,7 @@ export namespace Prisma {
     country?: boolean
     region?: boolean
     city?: boolean
+    description?: boolean
     storeId?: boolean
     isdefaultLocation?: boolean
     createdAt?: boolean
@@ -19652,13 +19662,14 @@ export namespace Prisma {
     country?: boolean
     region?: boolean
     city?: boolean
+    description?: boolean
     storeId?: boolean
     isdefaultLocation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "country" | "region" | "city" | "storeId" | "isdefaultLocation" | "createdAt" | "updatedAt", ExtArgs["result"]["location"]>
+  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "country" | "region" | "city" | "description" | "storeId" | "isdefaultLocation" | "createdAt" | "updatedAt", ExtArgs["result"]["location"]>
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Location$userArgs<ExtArgs>
     order?: boolean | Location$orderArgs<ExtArgs>
@@ -19688,6 +19699,7 @@ export namespace Prisma {
       country: string | null
       region: string | null
       city: string | null
+      description: string | null
       storeId: string
       isdefaultLocation: boolean | null
       createdAt: Date
@@ -20125,6 +20137,7 @@ export namespace Prisma {
     readonly country: FieldRef<"Location", 'String'>
     readonly region: FieldRef<"Location", 'String'>
     readonly city: FieldRef<"Location", 'String'>
+    readonly description: FieldRef<"Location", 'String'>
     readonly storeId: FieldRef<"Location", 'String'>
     readonly isdefaultLocation: FieldRef<"Location", 'Boolean'>
     readonly createdAt: FieldRef<"Location", 'DateTime'>
@@ -57669,6 +57682,7 @@ export namespace Prisma {
     country: 'country',
     region: 'region',
     city: 'city',
+    description: 'description',
     storeId: 'storeId',
     isdefaultLocation: 'isdefaultLocation',
     createdAt: 'createdAt',
@@ -59296,6 +59310,7 @@ export namespace Prisma {
     country?: StringNullableFilter<"Location"> | string | null
     region?: StringNullableFilter<"Location"> | string | null
     city?: StringNullableFilter<"Location"> | string | null
+    description?: StringNullableFilter<"Location"> | string | null
     storeId?: StringFilter<"Location"> | string
     isdefaultLocation?: BoolNullableFilter<"Location"> | boolean | null
     createdAt?: DateTimeFilter<"Location"> | Date | string
@@ -59313,6 +59328,7 @@ export namespace Prisma {
     country?: SortOrderInput | SortOrder
     region?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     storeId?: SortOrder
     isdefaultLocation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -59333,6 +59349,7 @@ export namespace Prisma {
     country?: StringNullableFilter<"Location"> | string | null
     region?: StringNullableFilter<"Location"> | string | null
     city?: StringNullableFilter<"Location"> | string | null
+    description?: StringNullableFilter<"Location"> | string | null
     storeId?: StringFilter<"Location"> | string
     isdefaultLocation?: BoolNullableFilter<"Location"> | boolean | null
     createdAt?: DateTimeFilter<"Location"> | Date | string
@@ -59350,6 +59367,7 @@ export namespace Prisma {
     country?: SortOrderInput | SortOrder
     region?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     storeId?: SortOrder
     isdefaultLocation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -59369,6 +59387,7 @@ export namespace Prisma {
     country?: StringNullableWithAggregatesFilter<"Location"> | string | null
     region?: StringNullableWithAggregatesFilter<"Location"> | string | null
     city?: StringNullableWithAggregatesFilter<"Location"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Location"> | string | null
     storeId?: StringWithAggregatesFilter<"Location"> | string
     isdefaultLocation?: BoolNullableWithAggregatesFilter<"Location"> | boolean | null
     createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
@@ -63039,6 +63058,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -63055,6 +63075,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     storeId: string
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
@@ -63071,6 +63092,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63087,6 +63109,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     storeId?: StringFieldUpdateOperationsInput | string
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63103,6 +63126,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     storeId: string
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
@@ -63116,6 +63140,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63128,6 +63153,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     storeId?: StringFieldUpdateOperationsInput | string
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -67019,6 +67045,7 @@ export namespace Prisma {
     country?: SortOrder
     region?: SortOrder
     city?: SortOrder
+    description?: SortOrder
     storeId?: SortOrder
     isdefaultLocation?: SortOrder
     createdAt?: SortOrder
@@ -67032,6 +67059,7 @@ export namespace Prisma {
     country?: SortOrder
     region?: SortOrder
     city?: SortOrder
+    description?: SortOrder
     storeId?: SortOrder
     isdefaultLocation?: SortOrder
     createdAt?: SortOrder
@@ -67045,6 +67073,7 @@ export namespace Prisma {
     country?: SortOrder
     region?: SortOrder
     city?: SortOrder
+    description?: SortOrder
     storeId?: SortOrder
     isdefaultLocation?: SortOrder
     createdAt?: SortOrder
@@ -76088,6 +76117,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -76103,6 +76133,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     storeId: string
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
@@ -76382,6 +76413,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -76397,6 +76429,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     storeId?: StringFieldUpdateOperationsInput | string
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77718,6 +77751,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -77733,6 +77767,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     storeId: string
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
@@ -78113,6 +78148,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -78128,6 +78164,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     storeId?: StringFieldUpdateOperationsInput | string
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80009,6 +80046,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -80024,6 +80062,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     storeId: string
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
@@ -80255,6 +80294,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80270,6 +80310,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     storeId?: StringFieldUpdateOperationsInput | string
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80693,6 +80734,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -80708,6 +80750,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -81471,6 +81514,7 @@ export namespace Prisma {
     country?: StringNullableFilter<"Location"> | string | null
     region?: StringNullableFilter<"Location"> | string | null
     city?: StringNullableFilter<"Location"> | string | null
+    description?: StringNullableFilter<"Location"> | string | null
     storeId?: StringFilter<"Location"> | string
     isdefaultLocation?: BoolNullableFilter<"Location"> | boolean | null
     createdAt?: DateTimeFilter<"Location"> | Date | string
@@ -86578,6 +86622,7 @@ export namespace Prisma {
     country?: string | null
     region?: string | null
     city?: string | null
+    description?: string | null
     isdefaultLocation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -86832,6 +86877,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86847,6 +86893,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86862,6 +86909,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     region?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     isdefaultLocation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -4,7 +4,10 @@ import { Separator } from "@/components/ui/separator";
 import backendUrl from "@/lib/backendUrl";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
+import { Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { AppStoreSidebar } from "@/components/DashFeature/StoreFeatures/app-store-sidebar";
+import useStoreLocation from "@/hooks/storeHooks/use-store-location";
 
 import {
   SidebarInset,
@@ -19,19 +22,23 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
 } from "@/components/ui/select";
 import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
 
-const getLocation = async ({ queryKey }) => {
-  const [_key, storeId] = queryKey;
-  const res = await backendUrl.get(`locations/${storeId}/store-locations`);
-  return res?.data?.data?.stores;
-};
+// const getLocation = async ({ queryKey }) => {
+//   const [_key, storeId] = queryKey;
+//   const res = await backendUrl.get(`locations/${storeId}/store-locations`);
+//   return res?.data?.data?.stores;
+// };
 
 export default function StoreDashboard() {
   const { data: activeOrganization } = authClient.useActiveOrganization();
-
   const storeId = activeOrganization?.id;
+
+  const { data: locations } = useStoreLocation();
+
+  const navigate = useNavigate();
 
   return (
     <SidebarProvider>
@@ -57,17 +64,26 @@ export default function StoreDashboard() {
               <Label htmlFor="location-select" className="font-notoserif">
                 Location:
               </Label>
-              <Select className="border border-none">
-                <SelectTrigger>
-                  <SelectValue
-                    placeholder="Headquaters"
-                    className="text-blue-500"
-                  />
+
+              <Select
+                onValueChange={(value) => {
+                  navigate(`/storedashboard/branch/${value}`);
+                }}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Headquaters">
+                    {/* {field.value || "location"} */}
+                  </SelectValue>
                 </SelectTrigger>
-                <SelectContent className="text-blue-500 font-notoserif">
-                  <SelectItem value="headquaters">Headquaters</SelectItem>
-                  <SelectItem value="cleancity">CleanCity Store</SelectItem>
-                  <SelectItem value="hollowcity">HollowCity Store</SelectItem>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select Location</SelectLabel>
+                    {locations?.map((location, idx) => (
+                      <SelectItem key={idx} value={location?.id}>
+                        {location?.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>

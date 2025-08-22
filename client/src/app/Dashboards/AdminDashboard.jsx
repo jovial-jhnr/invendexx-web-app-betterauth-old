@@ -28,13 +28,18 @@ export default function AdminDashboard() {
       <AppAdminSidebar />
 
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center bg-inherit sticky top-0 z-10 gap-2">
+        <header
+          className="flex h-16 shrink-0 items-center 
+         bg-inherit sticky top-0 z-10 gap-2"
+        >
           <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
+            <SidebarTrigger className="ml-1" />
+
             <Separator orientation="vertical" className="mr-2 h-4" />
           </div>
 
-          <div>
+          {/* Location Selector for store owner */}
+          <div className="">
             <div className="hidden sm:flex flex-row items-center gap-2">
               <Label htmlFor="location-select">Location:</Label>
               <Select>
@@ -50,20 +55,22 @@ export default function AdminDashboard() {
             </div>
           </div>
 
+          {/* Point of Sale here */}
           <div className="text-end justify-between items-end flex ml-auto gap-2">
             <div className="sm:flex hidden mr-3">
               <Link
                 to="/storedashboard/point-of-sale"
-                className="flex flex-row gap-2 p-2 rounded-lg bg-inherit border border-blue-500"
+                className="flex flex-row border border-inherit font-roboto hover: text-green-300 bg:bg-inherit gap-2 p-2 rounded-lg "
               >
-                <HardDrive className="text-blue-600" />
+                <HardDrive className="text-inherit hover:text-green-500 " />
                 Point of Sale
               </Link>
             </div>
           </div>
 
-          <div className="text-end justify-between flex flex-grow gap-2" a>
-            {/* <NavAdminUser user={data.user}/> */}
+          {/* Toggle to awitch between light and dark mode */}
+          <div className="mx-2 shadow-lg">
+            <ModeToggle />
           </div>
         </header>
 

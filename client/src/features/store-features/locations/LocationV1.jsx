@@ -1,10 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { AddLocationModal } from "@/app/Modal/LocationModal/LocationModal";
+import {
+  AddLocationModal,
+  EditLocationModal,
+} from "@/app/Modal/LocationModal/LocationModal";
 import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
 import LocationStoreStats from "@/dashboard-stats/store-dashstats/location-store-stats";
+import EditLocationForm from "@/app/Forms/Locations/edit-location-form";
 
 function LocationV1() {
+  console.log(1);
   return (
     <>
       <div>

@@ -27,19 +27,20 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export default function EditModalLayout({
   title,
   description,
-  action_button,
+  //   action_button,
   children,
   open,
   onOpenChange,
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  console.log(3);
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogTrigger asChild>
+        {/* <DialogTrigger asChild>
           {action_button && <Button variant="outline">{action_button}</Button>}
-        </DialogTrigger>
+        </DialogTrigger> */}
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             {title && <DialogTitle>{title}</DialogTitle>}
@@ -55,9 +56,9 @@ export default function EditModalLayout({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerTrigger asChild>
+      {/* <DrawerTrigger asChild>
         {action_button && <Button variant="outline">{action_button}</Button>}
-      </DrawerTrigger>
+      </DrawerTrigger> */}
       <DrawerContent>
         <DrawerHeader className="mx-3 text-left">
           {title && <DrawerTitle>{title}</DrawerTitle>}

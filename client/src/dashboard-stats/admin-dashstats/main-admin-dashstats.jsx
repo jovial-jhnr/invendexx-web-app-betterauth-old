@@ -40,7 +40,7 @@ export function MainAdminDashStats() {
   const { data: dashstat, isLoading } = useQuery({
     queryKey: ["dash"],
     queryFn: fetchAdminStats,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 1 * 60 * 1000,
   });
 
   const stats = [
@@ -75,12 +75,12 @@ export function MainAdminDashStats() {
       content: `${currency} ${dashstat?.orderRevenue}` || 0,
       icon: Package,
     },
-    // {
-    //   title: "Profits",
-    //   description: "+10% this month",
-    //   content: "₵2,000,000",
-    //   icon: TrendingUp,
-    // },
+    {
+      title: "Profits",
+      description: "+10% this month",
+      content: "₵2,000,000",
+      icon: TrendingUp,
+    },
   ];
 
   return (

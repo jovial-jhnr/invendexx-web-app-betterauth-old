@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +14,8 @@ import {
   UserRoundCog,
   Store,
   Pencil,
+  Eye,
+  NotebookPen,
 } from "lucide-react";
 import {
   flexRender,
@@ -79,7 +82,10 @@ export function LocationTable() {
 
   // Modal state
   const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
-  const [selectedLocation, setSelectedLocation] = React.useState(null);
+  const [selectedLocation, setSelectedLocation] = React.useState();
+
+  // Navigation
+  const navigate = useNavigate();
 
   const { data: activeOrganization } = authClient.useActiveOrganization();
   const storeId = activeOrganization?.id;
@@ -98,24 +104,26 @@ export function LocationTable() {
   });
 
   // Handle edit location
-  const handleEditLocation = (locationData) => {
-    setSelectedLocation(locationData);
+  const handleEditLocation = (location) => {
+    setSelectedLocation(location);
     setIsEditModalOpen(true);
   };
 
-  // Handle modal close and refetch data
+  // Handle modal close (only when closing, not opening)
   const handleModalClose = (open) => {
     if (!open) {
+      // only run logic when closing
       setIsEditModalOpen(false);
       setSelectedLocation(null);
+      refetch(); // refresh only on close
     }
-    // refetch(); // Refetch data when modal closes
   };
 
-  // Success handler (called after update)
+  // Success handler (just close modal, refetch will happen there)
   const handleSuccess = () => {
-    refetch(); // refresh table
-    handleModalClose(); // then close
+    setIsEditModalOpen(false);
+    setSelectedLocation(null);
+    // refetch();
   };
 
   const columns = React.useMemo(
@@ -200,6 +208,22 @@ export function LocationTable() {
       },
 
       // {
+      //   accessorKey: "description",
+      //   header: ({ column }) => (
+      //     <Button
+      //       variant="ghost"
+      //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      //     >
+      //       Location Description
+      //       {/* <ArrowUpDown /> */}
+      //     </Button>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="lowercase">{row.getValue("description")}</div>
+      //   ),
+      // },
+
+      // {
       //   accessorKey: "email",
       //   header: ({ column }) => (
       //     <Button
@@ -231,12 +255,12 @@ export function LocationTable() {
         cell: ({ row }) => {
           const locations = row.original;
 
+          const { id: locationId, storeId } = locations;
+
           const updateStore = async () => {};
 
           // Remove (Delete) Store function.
           const deleteLocation = async () => {
-            const { id: locationId, storeId } = locations;
-
             await backendUrl.post(
               `/stores/store/${storeId}/locations/${locationId}/delete-location`
             );
@@ -257,9 +281,18 @@ export function LocationTable() {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 
+                <DropdownMenuItem
+                  onClick={() =>
+                    navigate(`/storedashboard/branch/${locationId}`)
+                  }
+                >
+                  <Eye className="text-green-500" />
+                  View Location
+                </DropdownMenuItem>
+
                 {/* Edit Location */}
                 <DropdownMenuItem onClick={() => handleEditLocation(locations)}>
-                  <Pencil />
+                  <NotebookPen className="text-green-500" />
                   Edit Location
                 </DropdownMenuItem>
 
@@ -281,7 +314,7 @@ export function LocationTable() {
         },
       },
     ],
-    []
+    [handleModalClose, handleEditLocation]
   );
 
   const table = useReactTable({

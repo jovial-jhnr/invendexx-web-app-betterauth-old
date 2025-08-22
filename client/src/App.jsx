@@ -152,7 +152,7 @@ function App() {
                 <Route path="account" element={<Account />} />
                 <Route path="shipping" element={<Shipping />} />
                 <Route path="locations" element={<Location />} />
-                <Route path="branch/:branchId" element={<LocationBranch />} />
+                <Route path="branch/:locationId" element={<LocationBranch />} />
                 <Route path="staff-accounts" element={<StaffAccounts />} />
                 <Route
                   path="plans-and-billings"

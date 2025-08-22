@@ -117,7 +117,7 @@ export function NavAdminUser({}) {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                <Link to="/syntaxdashboard/app-account">Account</Link>
+                <Link to="/coredashboard/app-account">Account</Link>
               </DropdownMenuItem>
 
               {/* <DropdownMenuItem>

@@ -27,7 +27,7 @@ import { authClient } from "@/lib/auth-client";
 import AuthPageLayout from "./auth-layout";
 
 const verifyEmailSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   otp: z.string().length(6, "OTP must be 6 digits"),
 });
 

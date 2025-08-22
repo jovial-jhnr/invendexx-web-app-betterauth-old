@@ -5,6 +5,7 @@ model Location {
     country           String?
     region            String?
     city              String?
+    description       String?
     storeId           String
     isdefaultLocation Boolean?
     user              User[]

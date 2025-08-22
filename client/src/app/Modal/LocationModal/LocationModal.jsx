@@ -39,6 +39,7 @@ function EditLocationModal({ open, onOpenChange, location, onSuccess }) {
     },
   ];
 
+  // console.log({ open, location });
   return (
     <div className="">
       {stats.map((stat, index) => (
@@ -46,12 +47,16 @@ function EditLocationModal({ open, onOpenChange, location, onSuccess }) {
           key={index}
           title={stat.title}
           description={stat.description}
-          // action_button={stat.action_button}
+          action_button={stat.action_button} // This is not needed.
           open={open}
           onOpenChange={onOpenChange}
         >
           <div className="text-xl mx-2">
-            <EditLocationForm location={location} onSuccess={onSuccess} />
+            <EditLocationForm
+              location={location}
+              onSuccess={onSuccess}
+              open={open}
+            />
           </div>
         </EditModalLayout>
       ))}

@@ -48,8 +48,6 @@ export default function SignIn({ className, ...props }) {
   // User's Role from the session.
   const userRole = session?.user?.role;
 
-  const Error = error;
-
   // Setting up the form with react-hook-form and zod for validation
   const {
     register,

@@ -28,7 +28,7 @@ import { authClient } from "@/lib/auth-client";
 const signUpSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
-  email: z.email("Invalid email"),
+  email: z.email("Invalid email or wrong email typed"),
   phoneNumber: z
     .string()
     .min(9, "Phone number must be exactly 9 digits and start with +233"),
@@ -62,9 +62,6 @@ export function SignUp({ className, ...props }) {
           phoneNumber,
         },
         {
-          onRequest: (ctx) => {
-            <Spinner />;
-          },
           onSuccess: (ctx) => {
             toast.success("User signed up successfully!");
             navigate(`/verify-email?email=${email}`);
@@ -77,10 +74,6 @@ export function SignUp({ className, ...props }) {
           },
         }
       );
-
-      // console.log("Response:", response.data);
-
-      // window.location.href = "/create-store"; // Redirect to signin page
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     }
@@ -212,7 +205,7 @@ export function SignUp({ className, ...props }) {
                       className="pr-10"
                     />
                     <span
-                      className="absolute right-3 top-1/3 cursor-pointer text-blue-500"
+                      className="absolute right-3 top-1/2 cursor-pointer text-blue-500"
                       onClick={() => setShowPassword((prev) => !prev)}
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

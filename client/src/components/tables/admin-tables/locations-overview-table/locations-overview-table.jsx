@@ -2,16 +2,19 @@
 import React from "react";
 import toast from "react-hot-toast";
 import location_icon from "@/assets/table-ui-icons/location_icon.png";
+import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
+import { useNavigate } from "react-router-dom";
 import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import {
+  Eye,
   ArrowUpDown,
   ChevronDown,
   MoreHorizontal,
-  UserRoundCog,
-  Store,
+  Trash,
+  NotebookPen,
 } from "lucide-react";
 import {
   flexRender,
@@ -65,154 +68,6 @@ const fetchBusinesses = async ({ queryKey }) => {
   };
 };
 
-const columns = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "name",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Location Name
-        <ArrowUpDown />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
-  },
-
-  {
-    accessorKey: "city",
-    header: "City",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("city")}</div>,
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "region",
-    header: "Region",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("region")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "country",
-    header: "Country",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("country")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "address",
-    header: "Address",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("address")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  // {
-  //   accessorKey: "email",
-  //   header: ({ column }) => (
-  //     <Button
-  //       variant="ghost"
-  //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //     >
-  //       Email
-  //       <ArrowUpDown />
-  //     </Button>
-  //   ),
-  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  // },
-
-  // {
-  //   accessorKey: "phoneNumber",
-  //   header: "Phone Number",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: true,
-  // },
-
-  //  Actions for the table
-  {
-    id: "actions",
-    header: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const locations = row.original;
-
-      const updateStore = async () => {};
-
-      // Remove (Delete) Store function.
-      const deleteLocation = async () => {
-        const locationId = locations?.id;
-
-        await backendUrl.post(
-          `/admin/locations/location/${locationId}/delete-location`
-        );
-      };
-
-      // Change user role here
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            {/* Deleter user dropdown */}
-            <DropdownMenuItem
-              className="text-red-500 font-medium"
-              onClick={deleteLocation}
-            >
-              <Trash2 className="text-red-500" />
-              Delete Location
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
 //  ==== MAIN TABLE FUNCTION ===
 export function LocationOverviewTable() {
   const [sorting, setSorting] = React.useState([]);
@@ -224,8 +79,228 @@ export function LocationOverviewTable() {
     pageSize: 10 ?? 10,
   });
 
+  // Modal state
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const [selectedLocation, setSelectedLocation] = React.useState();
+
+  const navigate = useNavigate();
+
   //   const { data: activeOrganization } = authClient.useActiveOrganization();
   //   const storeId = activeOrganization?.id;
+
+  // Handle edit location
+  const handleEditLocation = (location) => {
+    setSelectedLocation(location);
+    setIsEditModalOpen(true);
+  };
+
+  // Handle modal close (only when closing, not opening)
+  const handleModalClose = (open) => {
+    if (!open) {
+      // only run logic when closing
+      setIsEditModalOpen(false);
+      setSelectedLocation(null);
+      refetch(); // refresh only on close
+    }
+  };
+
+  // Success handler (just close modal, refetch will happen there)
+  const handleSuccess = () => {
+    setIsEditModalOpen(false);
+    setSelectedLocation(null);
+    // refetch();
+  };
+
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "name",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Location Name
+            <ArrowUpDown />
+          </Button>
+        ),
+        cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
+      },
+
+      {
+        accessorKey: "city",
+        header: "City",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("city")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "region",
+        header: "Region",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("region")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "country",
+        header: "Country",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("country")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "address",
+        header: "Address",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("address")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      // {
+      //   accessorKey: "description",
+      //   header: ({ column }) => (
+      //     <Button
+      //       variant="ghost"
+      //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      //     >
+      //       Location Description
+      //       {/* <ArrowUpDown /> */}
+      //     </Button>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="lowercase">{row.getValue("description")}</div>
+      //   ),
+      // },
+
+      // {
+      //   accessorKey: "email",
+      //   header: ({ column }) => (
+      //     <Button
+      //       variant="ghost"
+      //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      //     >
+      //       Email
+      //       <ArrowUpDown />
+      //     </Button>
+      //   ),
+      //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+      // },
+
+      // {
+      //   accessorKey: "phoneNumber",
+      //   header: "Phone Number",
+      //   cell: ({ row }) => (
+      //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
+      //   ),
+      //   enableSorting: false,
+      //   enableHiding: true,
+      // },
+
+      //  Actions for the table
+      {
+        id: "actions",
+        header: "Actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          const locations = row.original;
+
+          const { id: locationId, storeId } = locations;
+
+          const updateStore = async () => {};
+
+          // Remove (Delete) Store function.
+          const deleteLocation = async () => {
+            await backendUrl.post(
+              `/stores/store/${storeId}/locations/${locationId}/delete-location`
+            );
+            toast.success("Location deleted successfully");
+          };
+
+          // Change user role here
+
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                  onClick={() =>
+                    navigate(`/storedashboard/branch/${locationId}`)
+                  }
+                >
+                  <Eye className="text-green-500" />
+                  View Location
+                </DropdownMenuItem>
+
+                {/* Edit Location */}
+                <DropdownMenuItem onClick={() => handleEditLocation(locations)}>
+                  <NotebookPen className="text-green-500" />
+                  Edit Location
+                </DropdownMenuItem>
+
+                {/* Deleter user dropdown */}
+                <DropdownMenuItem
+                  className="text-red-500 font-medium"
+                  onClick={deleteLocation}
+                >
+                  <Trash2 className="text-red-500" />
+                  Delete Location
+                </DropdownMenuItem>
+
+                {/* <DropdownMenuItem onClick={deleteUser}>
+              Delete User
+            </DropdownMenuItem> */}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    [handleModalClose, handleEditLocation]
+  );
 
   // Users from the json
   const {
@@ -431,6 +506,14 @@ export function LocationOverviewTable() {
           </div>
         </div>
       </MetricCard>
+
+      {/* Edit Location Modal */}
+      <EditLocationModal
+        open={isEditModalOpen}
+        onOpenChange={handleModalClose}
+        location={selectedLocation}
+        onSuccess={handleSuccess} // <-- call this inside your form after successful update
+      />
     </div>
   );
 }

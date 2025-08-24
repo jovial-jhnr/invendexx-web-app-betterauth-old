@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import branch_icon from "@/assets/table-ui-icons/branch_icon.png";
-import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
+import { EditLocationModal } from "@/Modal/LocationModal/LocationModal";
 
 import {
   ArrowUpDown,

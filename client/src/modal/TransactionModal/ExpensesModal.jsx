@@ -1,6 +1,5 @@
 import * as React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import BankForm from "@/app/Forms/Banks/bank-form";
+
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +23,10 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-export default function BankModal() {
+import ExpensesForm from "@/Forms/Expense/expense-form";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+export default function ExpensesModal() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -32,17 +34,17 @@ export default function BankModal() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="text-green-500">
-            Bank Details
-          </Button>
+          <Button variant="outline">Add Expenses</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px] max-h-[100vh]">
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Bank Details Settings</DialogTitle>
-            <DialogDescription>Bank Details Information</DialogDescription>
+            <DialogTitle>Edit Expenses</DialogTitle>
+            <DialogDescription>
+              Make changes to your expenses here. Click save when you're done.
+            </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[70vh] pr-4">
-            <BankForm />
+            <ExpensesForm />
           </ScrollArea>
         </DialogContent>
       </Dialog>
@@ -52,15 +54,17 @@ export default function BankModal() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Bank Details</Button>
+        <Button variant="outline">Add Expenses</Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[1000vh]">
+      <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle> Bank Details Settings</DrawerTitle>
-          <DrawerDescription>Bank Details Information</DrawerDescription>
+          <DrawerTitle>Edit Expenses</DrawerTitle>
+          <DrawerDescription>
+            Expenses is edited here for the first time.
+          </DrawerDescription>
         </DrawerHeader>
-        <ScrollArea className="h-[70vh] px-4">
-          <BankForm />
+        <ScrollArea className="h-[70vh]">
+          <ExpensesForm />
         </ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>

@@ -178,6 +178,24 @@ exports.Prisma.CustomerGroupMemberScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DomainScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  domainNames: 'domainNames',
+  paymentStatus: 'paymentStatus',
+  paymentRef: 'paymentRef',
+  lockStatus: 'lockStatus',
+  domainPrice: 'domainPrice',
+  pricePaid: 'pricePaid',
+  isdomainRegistered: 'isdomainRegistered',
+  domainProvider: 'domainProvider',
+  expiryDate: 'expiryDate',
+  failedReason: 'failedReason',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ExpenseScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -329,11 +347,11 @@ exports.Prisma.ProductScalarFieldEnum = {
   sku: 'sku',
   stock: 'stock',
   price: 'price',
+  discountPrice: 'discountPrice',
   shippingWeight: 'shippingWeight',
   handleTime: 'handleTime',
-  freeShipping: 'freeShipping',
+  isfreeShipping: 'isfreeShipping',
   packaging: 'packaging',
-  discountPrice: 'discountPrice',
   unitSold: 'unitSold',
   length: 'length',
   width: 'width',
@@ -345,10 +363,10 @@ exports.Prisma.ProductScalarFieldEnum = {
   locationId: 'locationId',
   purchaseOrderId: 'purchaseOrderId',
   collectionId: 'collectionId',
+  warehouseId: 'warehouseId',
   hasVariation: 'hasVariation',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  warehouseId: 'warehouseId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProductCategoryScalarFieldEnum = {
@@ -752,6 +770,7 @@ exports.Prisma.ModelName = {
   PurchaseHistory: 'PurchaseHistory',
   CustomerGroups: 'CustomerGroups',
   CustomerGroupMember: 'CustomerGroupMember',
+  Domain: 'Domain',
   Expense: 'Expense',
   ExpenseCategory: 'ExpenseCategory',
   FeatureFlag: 'FeatureFlag',

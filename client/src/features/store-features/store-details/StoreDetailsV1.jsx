@@ -1,5 +1,5 @@
 import React from "react";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
+import StoreSettingsModal from "@/Modal/StoreSettingsModals/StoreSettingsModal";
 import DashboardCard from "@/components/ui/dashboard-card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import StaffModal from "@/app/Modal/StaffModals/StaffModal";
+import StaffModal from "@/Modal/StaffModals/StaffModal";
 import ReportsDashCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ReportsDashCard";
 import StaffAccountTable from "@/components/tables/store-tables/staff-accounts-table/staff-account-table";
 

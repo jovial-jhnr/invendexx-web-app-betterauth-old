@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import toast from "react-hot-toast";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 

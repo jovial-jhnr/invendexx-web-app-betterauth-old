@@ -5,12 +5,12 @@ model Product {
     description      String?
     sku              String?            @unique
     stock            Int?
-    price            Decimal
+    price            Float
+    discountPrice    Float?
     shippingWeight   String?
     handleTime       String?
-    freeShipping     Boolean?
+    isfreeShipping   Boolean?
     packaging        String?
-    discountPrice    String?
     unitSold         String?
     length           Float?
     width            Float?
@@ -22,6 +22,7 @@ model Product {
     locationId       String?
     purchaseOrderId  String?
     collectionId     String?
+    warehouseId      String?
     hasVariation     Boolean?
     featuredBrands   FeaturedBrands[]
     cartItems        CartItem[]
@@ -34,7 +35,6 @@ model Product {
     createdAt        DateTime           @default(now())
     updatedAt        DateTime           @updatedAt
     warehouse        Warehouse?         @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
-    warehouseId      String?
     location         Location?          @relation(fields: [locationId], references: [id], onDelete: Cascade)
 
     @@map("product")

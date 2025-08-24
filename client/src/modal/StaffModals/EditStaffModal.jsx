@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -23,10 +23,10 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { ScrollArea } from "@/components/ui/scroll-area"; // make sure this import is here
-import StaffForm from "../../Forms/Staff Setup/staff-form";
+import EditStaffForm from "@/Forms/Staff Setup/edit-staff-form";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function StaffModal() {
+export default function EditStaffModal() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -34,17 +34,18 @@ export default function StaffModal() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">New Staff</Button>
+          <Button variant="outline">Edit Staff</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[400px] max-h-[100vh]">
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create Staff</DialogTitle>
+            <DialogTitle>Edit Staff</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your staff profile here. Click save when you're
+              done.
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[70vh] pr-4">
-            <StaffForm />
+            <EditStaffForm />
           </ScrollArea>
         </DialogContent>
       </Dialog>
@@ -54,17 +55,17 @@ export default function StaffModal() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">New Staff</Button>
+        <Button variant="outline">Edit Staff</Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[1000vh]">
+      <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Create Staff</DrawerTitle>
+          <DrawerTitle>Edit Staff</DrawerTitle>
           <DrawerDescription>
-            Staff is created here for the first time.
+            Staff is edited here for the first time.
           </DrawerDescription>
         </DrawerHeader>
-        <ScrollArea className="h-[70vh] px-4">
-          <StaffForm />
+        <ScrollArea className="h-[70vh]">
+          <EditStaffForm />
         </ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>

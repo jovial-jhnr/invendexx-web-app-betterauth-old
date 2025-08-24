@@ -33,12 +33,12 @@ const addProduct = async (req, res) => {
         description,
         shortDescription,
         discountPrice,
-        stock: parseInt(stock),
+        stock,
         sku,
         productCategory,
-        length: parseFloat(length),
-        width: parseFloat(width),
-        height: parseFloat(height),
+        length,
+        width,
+        height,
         productSize: `${productSize} ${sizeUnit}`,
         productStatus,
         packaging,
@@ -66,10 +66,26 @@ const addProduct = async (req, res) => {
 
 // Store update products
 const updateProduct = async (req, res) => {
-  const productId = parseInt(req.params.id);
-  const storeId = parseInt(req.params.storeId);
+  const productId = req.params.id;
+  // const storeId = parseInt(req.params.storeId);
 
-  const { name, description, price, quantity, categoryId } = req.body;
+  const {
+    name,
+    price,
+    description,
+    shortDescription,
+    discountPrice,
+    stock,
+    sku,
+    productCategory,
+    length,
+    width,
+    height,
+    sizeUnit,
+    productSize,
+    productStatus,
+    packaging,
+  } = req.body;
 
   try {
     const updateProduct = await prisma.product.update({
@@ -77,22 +93,27 @@ const updateProduct = async (req, res) => {
         id: productId,
       },
       data: {
-        storeId,
         name,
+        price,
         description,
-        price: price,
-        quantity: quantity,
-
-        category: {
-          connect: { id: parseInt(categoryId) },
-        },
+        shortDescription,
+        discountPrice,
+        stock: stock,
+        sku,
+        productCategory,
+        length: length,
+        width: width,
+        height: height,
+        productSize: `${productSize} ${sizeUnit}`,
+        productStatus,
+        packaging,
       },
     });
 
     return res.status(200).json({
       status: "true",
       message: "Product updated successfully",
-      result: { updateProduct },
+      result: updateProduct,
     });
   } catch (error) {
     return res.status(500).json({

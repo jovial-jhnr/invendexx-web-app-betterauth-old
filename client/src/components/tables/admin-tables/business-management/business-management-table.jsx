@@ -2,7 +2,7 @@
 import React from "react";
 import toast from "react-hot-toast";
 import store_icon from "@/assets/table-ui-icons/store_icon.png";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
+import StoreSettingsModal from "@/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 

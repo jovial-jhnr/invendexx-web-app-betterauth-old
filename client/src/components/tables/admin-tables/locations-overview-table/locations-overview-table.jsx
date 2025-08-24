@@ -2,9 +2,8 @@
 import React from "react";
 import toast from "react-hot-toast";
 import location_icon from "@/assets/table-ui-icons/location_icon.png";
-import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
+import { EditLocationModal } from "@/Modal/LocationModal/LocationModal";
 import { useNavigate } from "react-router-dom";
-import StoreSettingsModal from "@/app/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 

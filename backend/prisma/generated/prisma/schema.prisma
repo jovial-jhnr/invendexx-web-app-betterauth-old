@@ -91,6 +91,27 @@ model CustomerGroupMember {
   @@map("customergroupmember")
 }
 
+model Domain {
+  id                 String       @id @default(uuid())
+  storeId            String       @unique
+  domainNames        String[]
+  paymentStatus      String?
+  paymentRef         String?
+  lockStatus         String
+  domainPrice        Decimal?
+  pricePaid          Decimal?
+  isdomainRegistered Boolean
+  domainProvider     String?
+  expiryDate         String
+  failedReason       String?
+  isActive           Boolean
+  store              Organization @relation(fields: [storeId], references: [id])
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  @@map("domain")
+}
+
 model Expense {
   id              String            @id @default(uuid())
   name            String?
@@ -308,12 +329,12 @@ model Product {
   description      String?
   sku              String?            @unique
   stock            Int?
-  price            Decimal
+  price            Float
+  discountPrice    Float?
   shippingWeight   String?
   handleTime       String?
-  freeShipping     Boolean?
+  isfreeShipping   Boolean?
   packaging        String?
-  discountPrice    String?
   unitSold         String?
   length           Float?
   width            Float?
@@ -325,6 +346,7 @@ model Product {
   locationId       String?
   purchaseOrderId  String?
   collectionId     String?
+  warehouseId      String?
   hasVariation     Boolean?
   featuredBrands   FeaturedBrands[]
   cartItems        CartItem[]
@@ -337,7 +359,6 @@ model Product {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   warehouse        Warehouse?         @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
-  warehouseId      String?
   location         Location?          @relation(fields: [locationId], references: [id], onDelete: Cascade)
 
   @@map("product")
@@ -598,6 +619,7 @@ model Organization {
   storeUrl           String?
   storeApproval      Boolean?
   modifyProductState Boolean?
+  domain             Domain?
   bankDetails        BankDetails?
   wallet             Wallet?
   location           Location[]

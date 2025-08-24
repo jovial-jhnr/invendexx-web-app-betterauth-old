@@ -47,7 +47,6 @@ export default function EditLocationForm({
   // Get all countries here
   const { data: countries } = useCountry();
 
-  console.log(4);
   const {
     register,
     control,
@@ -56,14 +55,6 @@ export default function EditLocationForm({
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(editLocationSchema),
-    // defaultValues: {
-    //   name: location?.name || "",
-    //   city: location?.city || "",
-    //   region: location?.region || "",
-    //   address: location?.address || "",
-    //   country: location?.country || "",
-    //   description: location?.description || "",
-    // },
   });
 
   // Populate form with existing location data

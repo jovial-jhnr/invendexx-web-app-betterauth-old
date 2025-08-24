@@ -1,5 +1,5 @@
 import React from "react";
-import ExpensesModal from "@/app/Modal/TransactionModal/ExpensesModal";
+import ExpensesModal from "@/Modal/TransactionModal/ExpensesModal";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 
 function ExpensesV1() {

@@ -1,4 +1,4 @@
-import AddProductModal from "@/app/Modal/Product/ProductModal";
+import AddProductModal from "@/Modal/Product/ProductModal";
 import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard.jsx";
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";

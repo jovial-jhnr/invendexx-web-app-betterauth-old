@@ -1,12 +1,13 @@
-import AddProductForm from "@/app/Forms/Product/add-product-form";
-import NormalModalLayout from "../NormalModalLayout";
+import NormalModalLayout from "../modal-layouts/NormalModalLayout";
+import UserProfileForm from "../../Forms/UserProfile/user-profile-form";
 
-export default function AddProductModal() {
+export default function UserProfileModal() {
   const stats = [
     {
-      title: "Add Product Form",
-      action_button: "Add Product",
-      description: "Add new products here",
+      title: "User Profile Form",
+      action_button: "User Profile Form",
+      description:
+        " Make changes to your profile here. Click save when you're done.",
     },
   ];
 
@@ -18,10 +19,9 @@ export default function AddProductModal() {
           title={stat.title}
           description={stat.description}
           action_button={stat.action_button}
-          className="text-green-500 bg-blue-600"
         >
           <div className="text-xl mx-1">
-            <AddProductForm />
+            <UserProfileForm />
           </div>
         </NormalModalLayout>
       ))}

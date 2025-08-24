@@ -1,6 +1,5 @@
-import StoreSettingsFormV2 from "@/app/Forms/Store Settings/store-settings-form-V1";
-import NormalModalLayout from "../NormalModalLayout";
-import AddLocationForm from "@/app/Forms/Locations/add-location-form";
+import StoreSettingsFormV2 from "@/Forms/Store Settings/store-settings-form-V1";
+import NormalModalLayout from "../modal-layouts/NormalModalLayout";
 
 export default function AddLocationModal() {
   const stats = [

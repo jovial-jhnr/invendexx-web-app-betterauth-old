@@ -1,10 +1,9 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
@@ -24,17 +23,17 @@ import {
 } from "@/components/ui/select";
 import backendUrl from "@/lib/backendUrl";
 
-const addProductSchema = z.object({
+const editProductSchema = z.object({
   name: z.string(),
-  price: z.string(),
-  stock: z.string(),
-  discountPrice: z.string().min(0).optional().nullable(),
+  price: z.number(),
+  stock: z.number(),
+  discountPrice: z.number().min(0).optional().nullable(),
   shortDescription: z.string().optional().nullable(),
   description: z.string(),
-  sku: z.string(),
-  length: z.string().nullable(),
-  width: z.string().nullable(),
-  height: z.string().nullable(),
+  sku: z.string().optional().nullable(),
+  length: z.number().nullable(),
+  width: z.number().nullable(),
+  height: z.number().nullable(),
   productCategory: z.string().optional().nullable(),
   productStatus: z.string().optional().nullable(),
   productSize: z.string().min(1, "Product size is requires"),
@@ -43,7 +42,12 @@ const addProductSchema = z.object({
   locationId: z.string().optional().nullable(),
 });
 
-export default function AddProductForm({ className }) {
+export default function EditProductForm({
+  className,
+  product,
+  open,
+  onSuccess,
+}) {
   // User data from authClient
   const { data: session } = authClient.useSession();
   const { data: categories } = useStoreCategory();
@@ -58,11 +62,38 @@ export default function AddProductForm({ className }) {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(addProductSchema),
-    // defaultValues: {},
+    resolver: zodResolver(editProductSchema),
+    defaultValues: {
+      discountPrice: product?.discountPrice,
+    },
   });
+
+  React.useEffect(() => {
+    if (open && product) {
+      reset({
+        name: product?.name,
+        stock: product?.stock,
+        price: product?.price,
+        sku: product?.sku,
+        discountPrice: product?.discountPrice,
+        description: product?.description,
+        shortDescription: product?.shortDescription,
+        productCategory: product?.productCategory,
+        productSize: product?.productSize,
+        productStatus: product?.productStatus,
+        length: product?.length,
+        width: product?.width,
+        height: product?.height,
+        packaging: product?.packaging,
+        sizeUnit: product?.sizeUnit,
+        locationId: product?.locationId,
+      });
+    }
+  }, [open, product, reset]);
+
   // const files = fil;
 
   // Example: Create FormData to send to server
@@ -74,6 +105,8 @@ export default function AddProductForm({ className }) {
   // fetch("/api/upload", { method: "POST", body: formData });
 
   const onSubmit = async (data) => {
+    const { id: productId } = product;
+
     const {
       name,
       price,
@@ -94,7 +127,7 @@ export default function AddProductForm({ className }) {
     } = data;
     try {
       const response = await backendUrl.post(
-        `/stores/store/${storeId}/products/add-product`,
+        `/stores/store/${storeId}/products/product/${productId}/update-product`,
         {
           name,
           price,
@@ -114,6 +147,7 @@ export default function AddProductForm({ className }) {
           locationId,
         }
       );
+      onSuccess?.();
       toast.success("Product added successfully");
     } catch (error) {
       toast.error("Failed to add product");
@@ -128,7 +162,7 @@ export default function AddProductForm({ className }) {
       >
         <div className="form-section">
           {/* Product Images*/}
-          <div className="field items-center">
+          {/* <div className="field items-center">
             <Label htmlFor="profile" className="text-xl mx-2">
               Profile Picture
             </Label>
@@ -144,7 +178,7 @@ export default function AddProductForm({ className }) {
               cropMinWidth={100}
               cropMinHeight={56}
             />
-          </div>
+          </div> */}
 
           <h1 className="m-3 text-lg font-bold text-center">
             Product Information
@@ -164,7 +198,10 @@ export default function AddProductForm({ className }) {
               <Label htmlFor="shortDescription">
                 Short Description (Optional){" "}
               </Label>
-              <Textarea id="description" {...register("shortDescription")} />
+              <Textarea
+                id="shortDescription"
+                {...register("shortDescription")}
+              />
             </div>
 
             <div className="field my-2">
@@ -189,7 +226,7 @@ export default function AddProductForm({ className }) {
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Select Category</SelectLabel>
-                      {categories?.map((category) => (
+                      {categories?.map((category, idx) => (
                         <SelectItem key={idx} value={category?.id}>
                           {category?.name}
                         </SelectItem>
@@ -214,23 +251,31 @@ export default function AddProductForm({ className }) {
           <div className="">
             <div className="field my-2">
               <Label htmlFor="price"> Product Price</Label>
-              <Input type="string" id="price" {...register("price")} />
+              <Input
+                type="number"
+                id="price"
+                {...register("price", { valueAsNumber: true })}
+              />
             </div>
             <div className="field">
               <Label htmlFor="discountPrice">Discount Price</Label>
               <Input
-                type="string"
+                type="number"
                 id="discountPrice"
-                {...register("discountPrice")}
+                {...register("discountPrice", { valueAsNumber: true })}
               />
             </div>
 
             <div className="field my-2">
               <Label htmlFor="stock">Product Stock</Label>
-              <Input type="string" id="stock" {...register("stock")} />
-              {errors.stock && (
+              <Input
+                type="number"
+                id="stock"
+                {...register("stock", { valueAsNumber: true })}
+              />
+              {/* {errors.stock && (
                 <p className="text-red-500 text-sm">{errors.stock.message}</p>
-              )}
+              )} */}
             </div>
 
             <div className="field my-2">
@@ -264,9 +309,9 @@ export default function AddProductForm({ className }) {
                   </Select>
                 )}
               />
-              {errors.productCategory && (
+              {errors.productStatus && (
                 <p className="text-red-500 text-sm">
-                  {errors.productCategory.message}
+                  {errors.productStatus.message}
                 </p>
               )}
             </div>
@@ -291,6 +336,7 @@ export default function AddProductForm({ className }) {
               <Controller
                 control={control}
                 name="sizeUnit"
+                // defaultValue={product?.sizeUnit || ""}
                 // rules={{ required: "Country is required" }}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
@@ -321,17 +367,29 @@ export default function AddProductForm({ className }) {
           <div className="grid grid-cols-3 gap-3 my-3">
             <div className="field my-2">
               <Label htmlFor="length">Length</Label>
-              <Input type="string" id="length" {...register("length")} />
+              <Input
+                type="number"
+                id="length"
+                {...register("length", { valueAsNumber: true })}
+              />
             </div>
 
             <div className="field my-2">
               <Label htmlFor="width">Width</Label>
-              <Input type="string" id="width" {...register("width")} />
+              <Input
+                type="number"
+                id="width"
+                {...register("width", { valueAsNumber: true })}
+              />
             </div>
 
             <div className="field my-2">
               <Label htmlFor="height">Height</Label>
-              <Input type="string" id="height" {...register("height")} />
+              <Input
+                type="number"
+                id="height"
+                {...register("height", { valueAsNumber: true })}
+              />
             </div>
           </div>
 
@@ -395,11 +453,11 @@ export default function AddProductForm({ className }) {
                   </Select>
                 )}
               />
-              {/* {errors.location && (
+              {errors.location && (
                 <p className="text-red-500 text-sm">
                   {errors.location.message}
                 </p>
-              )} */}
+              )}
             </div>
           </div>
 

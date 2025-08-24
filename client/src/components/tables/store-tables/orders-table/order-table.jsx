@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import order_icon from "@/assets/table-ui-icons/order_icon.png";
-import { EditLocationModal } from "@/app/Modal/LocationModal/LocationModal";
 
 import {
   ArrowUpDown,

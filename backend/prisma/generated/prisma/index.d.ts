@@ -44,6 +44,11 @@ export type CustomerGroups = $Result.DefaultSelection<Prisma.$CustomerGroupsPayl
  */
 export type CustomerGroupMember = $Result.DefaultSelection<Prisma.$CustomerGroupMemberPayload>
 /**
+ * Model Domain
+ * 
+ */
+export type Domain = $Result.DefaultSelection<Prisma.$DomainPayload>
+/**
  * Model Expense
  * 
  */
@@ -509,6 +514,16 @@ export class PrismaClient<
     * ```
     */
   get customerGroupMember(): Prisma.CustomerGroupMemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.domain`: Exposes CRUD operations for the **Domain** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Domains
+    * const domains = await prisma.domain.findMany()
+    * ```
+    */
+  get domain(): Prisma.DomainDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.expense`: Exposes CRUD operations for the **Expense** model.
@@ -1335,6 +1350,7 @@ export namespace Prisma {
     PurchaseHistory: 'PurchaseHistory',
     CustomerGroups: 'CustomerGroups',
     CustomerGroupMember: 'CustomerGroupMember',
+    Domain: 'Domain',
     Expense: 'Expense',
     ExpenseCategory: 'ExpenseCategory',
     FeatureFlag: 'FeatureFlag',
@@ -1391,7 +1407,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "cart" | "cartItem" | "customer" | "purchaseHistory" | "customerGroups" | "customerGroupMember" | "expense" | "expenseCategory" | "featureFlag" | "bankDetails" | "wallet" | "invoice" | "location" | "order" | "orderItem" | "pOS" | "pointOfSale" | "product" | "productCategory" | "productCollection" | "productVariation" | "productVariant" | "productVariantValue" | "productVariationOption" | "featuredBrands" | "supplier" | "purchase" | "user" | "session" | "account" | "verification" | "organization" | "member" | "invitation" | "settlement" | "shipping" | "shippingMethod" | "shippingZone" | "shippingAudit" | "subscription" | "plan" | "transaction" | "warehouse" | "inventory"
+      modelProps: "cart" | "cartItem" | "customer" | "purchaseHistory" | "customerGroups" | "customerGroupMember" | "domain" | "expense" | "expenseCategory" | "featureFlag" | "bankDetails" | "wallet" | "invoice" | "location" | "order" | "orderItem" | "pOS" | "pointOfSale" | "product" | "productCategory" | "productCollection" | "productVariation" | "productVariant" | "productVariantValue" | "productVariationOption" | "featuredBrands" | "supplier" | "purchase" | "user" | "session" | "account" | "verification" | "organization" | "member" | "invitation" | "settlement" | "shipping" | "shippingMethod" | "shippingZone" | "shippingAudit" | "subscription" | "plan" | "transaction" | "warehouse" | "inventory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1836,6 +1852,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CustomerGroupMemberCountArgs<ExtArgs>
             result: $Utils.Optional<CustomerGroupMemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      Domain: {
+        payload: Prisma.$DomainPayload<ExtArgs>
+        fields: Prisma.DomainFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DomainFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DomainFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          findFirst: {
+            args: Prisma.DomainFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DomainFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          findMany: {
+            args: Prisma.DomainFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>[]
+          }
+          create: {
+            args: Prisma.DomainCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          createMany: {
+            args: Prisma.DomainCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DomainCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>[]
+          }
+          delete: {
+            args: Prisma.DomainDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          update: {
+            args: Prisma.DomainUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          deleteMany: {
+            args: Prisma.DomainDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DomainUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DomainUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>[]
+          }
+          upsert: {
+            args: Prisma.DomainUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainPayload>
+          }
+          aggregate: {
+            args: Prisma.DomainAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDomain>
+          }
+          groupBy: {
+            args: Prisma.DomainGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DomainGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DomainCountArgs<ExtArgs>
+            result: $Utils.Optional<DomainCountAggregateOutputType> | number
           }
         }
       }
@@ -4753,6 +4843,7 @@ export namespace Prisma {
     purchaseHistory?: PurchaseHistoryOmit
     customerGroups?: CustomerGroupsOmit
     customerGroupMember?: CustomerGroupMemberOmit
+    domain?: DomainOmit
     expense?: ExpenseOmit
     expenseCategory?: ExpenseCategoryOmit
     featureFlag?: FeatureFlagOmit
@@ -12623,6 +12714,1228 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CustomerGroupMemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Domain
+   */
+
+  export type AggregateDomain = {
+    _count: DomainCountAggregateOutputType | null
+    _avg: DomainAvgAggregateOutputType | null
+    _sum: DomainSumAggregateOutputType | null
+    _min: DomainMinAggregateOutputType | null
+    _max: DomainMaxAggregateOutputType | null
+  }
+
+  export type DomainAvgAggregateOutputType = {
+    domainPrice: Decimal | null
+    pricePaid: Decimal | null
+  }
+
+  export type DomainSumAggregateOutputType = {
+    domainPrice: Decimal | null
+    pricePaid: Decimal | null
+  }
+
+  export type DomainMinAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    paymentStatus: string | null
+    paymentRef: string | null
+    lockStatus: string | null
+    domainPrice: Decimal | null
+    pricePaid: Decimal | null
+    isdomainRegistered: boolean | null
+    domainProvider: string | null
+    expiryDate: string | null
+    failedReason: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DomainMaxAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    paymentStatus: string | null
+    paymentRef: string | null
+    lockStatus: string | null
+    domainPrice: Decimal | null
+    pricePaid: Decimal | null
+    isdomainRegistered: boolean | null
+    domainProvider: string | null
+    expiryDate: string | null
+    failedReason: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DomainCountAggregateOutputType = {
+    id: number
+    storeId: number
+    domainNames: number
+    paymentStatus: number
+    paymentRef: number
+    lockStatus: number
+    domainPrice: number
+    pricePaid: number
+    isdomainRegistered: number
+    domainProvider: number
+    expiryDate: number
+    failedReason: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DomainAvgAggregateInputType = {
+    domainPrice?: true
+    pricePaid?: true
+  }
+
+  export type DomainSumAggregateInputType = {
+    domainPrice?: true
+    pricePaid?: true
+  }
+
+  export type DomainMinAggregateInputType = {
+    id?: true
+    storeId?: true
+    paymentStatus?: true
+    paymentRef?: true
+    lockStatus?: true
+    domainPrice?: true
+    pricePaid?: true
+    isdomainRegistered?: true
+    domainProvider?: true
+    expiryDate?: true
+    failedReason?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DomainMaxAggregateInputType = {
+    id?: true
+    storeId?: true
+    paymentStatus?: true
+    paymentRef?: true
+    lockStatus?: true
+    domainPrice?: true
+    pricePaid?: true
+    isdomainRegistered?: true
+    domainProvider?: true
+    expiryDate?: true
+    failedReason?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DomainCountAggregateInputType = {
+    id?: true
+    storeId?: true
+    domainNames?: true
+    paymentStatus?: true
+    paymentRef?: true
+    lockStatus?: true
+    domainPrice?: true
+    pricePaid?: true
+    isdomainRegistered?: true
+    domainProvider?: true
+    expiryDate?: true
+    failedReason?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DomainAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Domain to aggregate.
+     */
+    where?: DomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Domains to fetch.
+     */
+    orderBy?: DomainOrderByWithRelationInput | DomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Domains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Domains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Domains
+    **/
+    _count?: true | DomainCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DomainAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DomainSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DomainMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DomainMaxAggregateInputType
+  }
+
+  export type GetDomainAggregateType<T extends DomainAggregateArgs> = {
+        [P in keyof T & keyof AggregateDomain]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDomain[P]>
+      : GetScalarType<T[P], AggregateDomain[P]>
+  }
+
+
+
+
+  export type DomainGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DomainWhereInput
+    orderBy?: DomainOrderByWithAggregationInput | DomainOrderByWithAggregationInput[]
+    by: DomainScalarFieldEnum[] | DomainScalarFieldEnum
+    having?: DomainScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DomainCountAggregateInputType | true
+    _avg?: DomainAvgAggregateInputType
+    _sum?: DomainSumAggregateInputType
+    _min?: DomainMinAggregateInputType
+    _max?: DomainMaxAggregateInputType
+  }
+
+  export type DomainGroupByOutputType = {
+    id: string
+    storeId: string
+    domainNames: string[]
+    paymentStatus: string | null
+    paymentRef: string | null
+    lockStatus: string
+    domainPrice: Decimal | null
+    pricePaid: Decimal | null
+    isdomainRegistered: boolean
+    domainProvider: string | null
+    expiryDate: string
+    failedReason: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DomainCountAggregateOutputType | null
+    _avg: DomainAvgAggregateOutputType | null
+    _sum: DomainSumAggregateOutputType | null
+    _min: DomainMinAggregateOutputType | null
+    _max: DomainMaxAggregateOutputType | null
+  }
+
+  type GetDomainGroupByPayload<T extends DomainGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DomainGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DomainGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DomainGroupByOutputType[P]>
+            : GetScalarType<T[P], DomainGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DomainSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    domainNames?: boolean
+    paymentStatus?: boolean
+    paymentRef?: boolean
+    lockStatus?: boolean
+    domainPrice?: boolean
+    pricePaid?: boolean
+    isdomainRegistered?: boolean
+    domainProvider?: boolean
+    expiryDate?: boolean
+    failedReason?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["domain"]>
+
+  export type DomainSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    domainNames?: boolean
+    paymentStatus?: boolean
+    paymentRef?: boolean
+    lockStatus?: boolean
+    domainPrice?: boolean
+    pricePaid?: boolean
+    isdomainRegistered?: boolean
+    domainProvider?: boolean
+    expiryDate?: boolean
+    failedReason?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["domain"]>
+
+  export type DomainSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    domainNames?: boolean
+    paymentStatus?: boolean
+    paymentRef?: boolean
+    lockStatus?: boolean
+    domainPrice?: boolean
+    pricePaid?: boolean
+    isdomainRegistered?: boolean
+    domainProvider?: boolean
+    expiryDate?: boolean
+    failedReason?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["domain"]>
+
+  export type DomainSelectScalar = {
+    id?: boolean
+    storeId?: boolean
+    domainNames?: boolean
+    paymentStatus?: boolean
+    paymentRef?: boolean
+    lockStatus?: boolean
+    domainPrice?: boolean
+    pricePaid?: boolean
+    isdomainRegistered?: boolean
+    domainProvider?: boolean
+    expiryDate?: boolean
+    failedReason?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DomainOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "domainNames" | "paymentStatus" | "paymentRef" | "lockStatus" | "domainPrice" | "pricePaid" | "isdomainRegistered" | "domainProvider" | "expiryDate" | "failedReason" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["domain"]>
+  export type DomainInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type DomainIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type DomainIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $DomainPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Domain"
+    objects: {
+      store: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storeId: string
+      domainNames: string[]
+      paymentStatus: string | null
+      paymentRef: string | null
+      lockStatus: string
+      domainPrice: Prisma.Decimal | null
+      pricePaid: Prisma.Decimal | null
+      isdomainRegistered: boolean
+      domainProvider: string | null
+      expiryDate: string
+      failedReason: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["domain"]>
+    composites: {}
+  }
+
+  type DomainGetPayload<S extends boolean | null | undefined | DomainDefaultArgs> = $Result.GetResult<Prisma.$DomainPayload, S>
+
+  type DomainCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DomainFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DomainCountAggregateInputType | true
+    }
+
+  export interface DomainDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Domain'], meta: { name: 'Domain' } }
+    /**
+     * Find zero or one Domain that matches the filter.
+     * @param {DomainFindUniqueArgs} args - Arguments to find a Domain
+     * @example
+     * // Get one Domain
+     * const domain = await prisma.domain.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DomainFindUniqueArgs>(args: SelectSubset<T, DomainFindUniqueArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Domain that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DomainFindUniqueOrThrowArgs} args - Arguments to find a Domain
+     * @example
+     * // Get one Domain
+     * const domain = await prisma.domain.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DomainFindUniqueOrThrowArgs>(args: SelectSubset<T, DomainFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Domain that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainFindFirstArgs} args - Arguments to find a Domain
+     * @example
+     * // Get one Domain
+     * const domain = await prisma.domain.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DomainFindFirstArgs>(args?: SelectSubset<T, DomainFindFirstArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Domain that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainFindFirstOrThrowArgs} args - Arguments to find a Domain
+     * @example
+     * // Get one Domain
+     * const domain = await prisma.domain.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DomainFindFirstOrThrowArgs>(args?: SelectSubset<T, DomainFindFirstOrThrowArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Domains that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Domains
+     * const domains = await prisma.domain.findMany()
+     * 
+     * // Get first 10 Domains
+     * const domains = await prisma.domain.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const domainWithIdOnly = await prisma.domain.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DomainFindManyArgs>(args?: SelectSubset<T, DomainFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Domain.
+     * @param {DomainCreateArgs} args - Arguments to create a Domain.
+     * @example
+     * // Create one Domain
+     * const Domain = await prisma.domain.create({
+     *   data: {
+     *     // ... data to create a Domain
+     *   }
+     * })
+     * 
+     */
+    create<T extends DomainCreateArgs>(args: SelectSubset<T, DomainCreateArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Domains.
+     * @param {DomainCreateManyArgs} args - Arguments to create many Domains.
+     * @example
+     * // Create many Domains
+     * const domain = await prisma.domain.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DomainCreateManyArgs>(args?: SelectSubset<T, DomainCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Domains and returns the data saved in the database.
+     * @param {DomainCreateManyAndReturnArgs} args - Arguments to create many Domains.
+     * @example
+     * // Create many Domains
+     * const domain = await prisma.domain.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Domains and only return the `id`
+     * const domainWithIdOnly = await prisma.domain.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DomainCreateManyAndReturnArgs>(args?: SelectSubset<T, DomainCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Domain.
+     * @param {DomainDeleteArgs} args - Arguments to delete one Domain.
+     * @example
+     * // Delete one Domain
+     * const Domain = await prisma.domain.delete({
+     *   where: {
+     *     // ... filter to delete one Domain
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DomainDeleteArgs>(args: SelectSubset<T, DomainDeleteArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Domain.
+     * @param {DomainUpdateArgs} args - Arguments to update one Domain.
+     * @example
+     * // Update one Domain
+     * const domain = await prisma.domain.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DomainUpdateArgs>(args: SelectSubset<T, DomainUpdateArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Domains.
+     * @param {DomainDeleteManyArgs} args - Arguments to filter Domains to delete.
+     * @example
+     * // Delete a few Domains
+     * const { count } = await prisma.domain.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DomainDeleteManyArgs>(args?: SelectSubset<T, DomainDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Domains.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Domains
+     * const domain = await prisma.domain.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DomainUpdateManyArgs>(args: SelectSubset<T, DomainUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Domains and returns the data updated in the database.
+     * @param {DomainUpdateManyAndReturnArgs} args - Arguments to update many Domains.
+     * @example
+     * // Update many Domains
+     * const domain = await prisma.domain.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Domains and only return the `id`
+     * const domainWithIdOnly = await prisma.domain.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DomainUpdateManyAndReturnArgs>(args: SelectSubset<T, DomainUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Domain.
+     * @param {DomainUpsertArgs} args - Arguments to update or create a Domain.
+     * @example
+     * // Update or create a Domain
+     * const domain = await prisma.domain.upsert({
+     *   create: {
+     *     // ... data to create a Domain
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Domain we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DomainUpsertArgs>(args: SelectSubset<T, DomainUpsertArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Domains.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainCountArgs} args - Arguments to filter Domains to count.
+     * @example
+     * // Count the number of Domains
+     * const count = await prisma.domain.count({
+     *   where: {
+     *     // ... the filter for the Domains we want to count
+     *   }
+     * })
+    **/
+    count<T extends DomainCountArgs>(
+      args?: Subset<T, DomainCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DomainCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Domain.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DomainAggregateArgs>(args: Subset<T, DomainAggregateArgs>): Prisma.PrismaPromise<GetDomainAggregateType<T>>
+
+    /**
+     * Group by Domain.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DomainGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DomainGroupByArgs['orderBy'] }
+        : { orderBy?: DomainGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DomainGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDomainGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Domain model
+   */
+  readonly fields: DomainFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Domain.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DomainClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    store<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Domain model
+   */
+  interface DomainFieldRefs {
+    readonly id: FieldRef<"Domain", 'String'>
+    readonly storeId: FieldRef<"Domain", 'String'>
+    readonly domainNames: FieldRef<"Domain", 'String[]'>
+    readonly paymentStatus: FieldRef<"Domain", 'String'>
+    readonly paymentRef: FieldRef<"Domain", 'String'>
+    readonly lockStatus: FieldRef<"Domain", 'String'>
+    readonly domainPrice: FieldRef<"Domain", 'Decimal'>
+    readonly pricePaid: FieldRef<"Domain", 'Decimal'>
+    readonly isdomainRegistered: FieldRef<"Domain", 'Boolean'>
+    readonly domainProvider: FieldRef<"Domain", 'String'>
+    readonly expiryDate: FieldRef<"Domain", 'String'>
+    readonly failedReason: FieldRef<"Domain", 'String'>
+    readonly isActive: FieldRef<"Domain", 'Boolean'>
+    readonly createdAt: FieldRef<"Domain", 'DateTime'>
+    readonly updatedAt: FieldRef<"Domain", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Domain findUnique
+   */
+  export type DomainFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter, which Domain to fetch.
+     */
+    where: DomainWhereUniqueInput
+  }
+
+  /**
+   * Domain findUniqueOrThrow
+   */
+  export type DomainFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter, which Domain to fetch.
+     */
+    where: DomainWhereUniqueInput
+  }
+
+  /**
+   * Domain findFirst
+   */
+  export type DomainFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter, which Domain to fetch.
+     */
+    where?: DomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Domains to fetch.
+     */
+    orderBy?: DomainOrderByWithRelationInput | DomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Domains.
+     */
+    cursor?: DomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Domains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Domains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Domains.
+     */
+    distinct?: DomainScalarFieldEnum | DomainScalarFieldEnum[]
+  }
+
+  /**
+   * Domain findFirstOrThrow
+   */
+  export type DomainFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter, which Domain to fetch.
+     */
+    where?: DomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Domains to fetch.
+     */
+    orderBy?: DomainOrderByWithRelationInput | DomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Domains.
+     */
+    cursor?: DomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Domains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Domains.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Domains.
+     */
+    distinct?: DomainScalarFieldEnum | DomainScalarFieldEnum[]
+  }
+
+  /**
+   * Domain findMany
+   */
+  export type DomainFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter, which Domains to fetch.
+     */
+    where?: DomainWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Domains to fetch.
+     */
+    orderBy?: DomainOrderByWithRelationInput | DomainOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Domains.
+     */
+    cursor?: DomainWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Domains from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Domains.
+     */
+    skip?: number
+    distinct?: DomainScalarFieldEnum | DomainScalarFieldEnum[]
+  }
+
+  /**
+   * Domain create
+   */
+  export type DomainCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Domain.
+     */
+    data: XOR<DomainCreateInput, DomainUncheckedCreateInput>
+  }
+
+  /**
+   * Domain createMany
+   */
+  export type DomainCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Domains.
+     */
+    data: DomainCreateManyInput | DomainCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Domain createManyAndReturn
+   */
+  export type DomainCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * The data used to create many Domains.
+     */
+    data: DomainCreateManyInput | DomainCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Domain update
+   */
+  export type DomainUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Domain.
+     */
+    data: XOR<DomainUpdateInput, DomainUncheckedUpdateInput>
+    /**
+     * Choose, which Domain to update.
+     */
+    where: DomainWhereUniqueInput
+  }
+
+  /**
+   * Domain updateMany
+   */
+  export type DomainUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Domains.
+     */
+    data: XOR<DomainUpdateManyMutationInput, DomainUncheckedUpdateManyInput>
+    /**
+     * Filter which Domains to update
+     */
+    where?: DomainWhereInput
+    /**
+     * Limit how many Domains to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Domain updateManyAndReturn
+   */
+  export type DomainUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * The data used to update Domains.
+     */
+    data: XOR<DomainUpdateManyMutationInput, DomainUncheckedUpdateManyInput>
+    /**
+     * Filter which Domains to update
+     */
+    where?: DomainWhereInput
+    /**
+     * Limit how many Domains to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Domain upsert
+   */
+  export type DomainUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Domain to update in case it exists.
+     */
+    where: DomainWhereUniqueInput
+    /**
+     * In case the Domain found by the `where` argument doesn't exist, create a new Domain with this data.
+     */
+    create: XOR<DomainCreateInput, DomainUncheckedCreateInput>
+    /**
+     * In case the Domain was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DomainUpdateInput, DomainUncheckedUpdateInput>
+  }
+
+  /**
+   * Domain delete
+   */
+  export type DomainDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    /**
+     * Filter which Domain to delete.
+     */
+    where: DomainWhereUniqueInput
+  }
+
+  /**
+   * Domain deleteMany
+   */
+  export type DomainDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Domains to delete
+     */
+    where?: DomainWhereInput
+    /**
+     * Limit how many Domains to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Domain without action
+   */
+  export type DomainDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
   }
 
 
@@ -25436,7 +26749,8 @@ export namespace Prisma {
 
   export type ProductAvgAggregateOutputType = {
     stock: number | null
-    price: Decimal | null
+    price: number | null
+    discountPrice: number | null
     length: number | null
     width: number | null
     height: number | null
@@ -25444,7 +26758,8 @@ export namespace Prisma {
 
   export type ProductSumAggregateOutputType = {
     stock: number | null
-    price: Decimal | null
+    price: number | null
+    discountPrice: number | null
     length: number | null
     width: number | null
     height: number | null
@@ -25457,12 +26772,12 @@ export namespace Prisma {
     description: string | null
     sku: string | null
     stock: number | null
-    price: Decimal | null
+    price: number | null
+    discountPrice: number | null
     shippingWeight: string | null
     handleTime: string | null
-    freeShipping: boolean | null
+    isfreeShipping: boolean | null
     packaging: string | null
-    discountPrice: string | null
     unitSold: string | null
     length: number | null
     width: number | null
@@ -25473,10 +26788,10 @@ export namespace Prisma {
     locationId: string | null
     purchaseOrderId: string | null
     collectionId: string | null
+    warehouseId: string | null
     hasVariation: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
-    warehouseId: string | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -25486,12 +26801,12 @@ export namespace Prisma {
     description: string | null
     sku: string | null
     stock: number | null
-    price: Decimal | null
+    price: number | null
+    discountPrice: number | null
     shippingWeight: string | null
     handleTime: string | null
-    freeShipping: boolean | null
+    isfreeShipping: boolean | null
     packaging: string | null
-    discountPrice: string | null
     unitSold: string | null
     length: number | null
     width: number | null
@@ -25502,10 +26817,10 @@ export namespace Prisma {
     locationId: string | null
     purchaseOrderId: string | null
     collectionId: string | null
+    warehouseId: string | null
     hasVariation: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
-    warehouseId: string | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -25516,11 +26831,11 @@ export namespace Prisma {
     sku: number
     stock: number
     price: number
+    discountPrice: number
     shippingWeight: number
     handleTime: number
-    freeShipping: number
+    isfreeShipping: number
     packaging: number
-    discountPrice: number
     unitSold: number
     length: number
     width: number
@@ -25532,10 +26847,10 @@ export namespace Prisma {
     locationId: number
     purchaseOrderId: number
     collectionId: number
+    warehouseId: number
     hasVariation: number
     createdAt: number
     updatedAt: number
-    warehouseId: number
     _all: number
   }
 
@@ -25543,6 +26858,7 @@ export namespace Prisma {
   export type ProductAvgAggregateInputType = {
     stock?: true
     price?: true
+    discountPrice?: true
     length?: true
     width?: true
     height?: true
@@ -25551,6 +26867,7 @@ export namespace Prisma {
   export type ProductSumAggregateInputType = {
     stock?: true
     price?: true
+    discountPrice?: true
     length?: true
     width?: true
     height?: true
@@ -25564,11 +26881,11 @@ export namespace Prisma {
     sku?: true
     stock?: true
     price?: true
+    discountPrice?: true
     shippingWeight?: true
     handleTime?: true
-    freeShipping?: true
+    isfreeShipping?: true
     packaging?: true
-    discountPrice?: true
     unitSold?: true
     length?: true
     width?: true
@@ -25579,10 +26896,10 @@ export namespace Prisma {
     locationId?: true
     purchaseOrderId?: true
     collectionId?: true
+    warehouseId?: true
     hasVariation?: true
     createdAt?: true
     updatedAt?: true
-    warehouseId?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -25593,11 +26910,11 @@ export namespace Prisma {
     sku?: true
     stock?: true
     price?: true
+    discountPrice?: true
     shippingWeight?: true
     handleTime?: true
-    freeShipping?: true
+    isfreeShipping?: true
     packaging?: true
-    discountPrice?: true
     unitSold?: true
     length?: true
     width?: true
@@ -25608,10 +26925,10 @@ export namespace Prisma {
     locationId?: true
     purchaseOrderId?: true
     collectionId?: true
+    warehouseId?: true
     hasVariation?: true
     createdAt?: true
     updatedAt?: true
-    warehouseId?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -25622,11 +26939,11 @@ export namespace Prisma {
     sku?: true
     stock?: true
     price?: true
+    discountPrice?: true
     shippingWeight?: true
     handleTime?: true
-    freeShipping?: true
+    isfreeShipping?: true
     packaging?: true
-    discountPrice?: true
     unitSold?: true
     length?: true
     width?: true
@@ -25638,10 +26955,10 @@ export namespace Prisma {
     locationId?: true
     purchaseOrderId?: true
     collectionId?: true
+    warehouseId?: true
     hasVariation?: true
     createdAt?: true
     updatedAt?: true
-    warehouseId?: true
     _all?: true
   }
 
@@ -25738,12 +27055,12 @@ export namespace Prisma {
     description: string | null
     sku: string | null
     stock: number | null
-    price: Decimal
+    price: number
+    discountPrice: number | null
     shippingWeight: string | null
     handleTime: string | null
-    freeShipping: boolean | null
+    isfreeShipping: boolean | null
     packaging: string | null
-    discountPrice: string | null
     unitSold: string | null
     length: number | null
     width: number | null
@@ -25755,10 +27072,10 @@ export namespace Prisma {
     locationId: string | null
     purchaseOrderId: string | null
     collectionId: string | null
+    warehouseId: string | null
     hasVariation: boolean | null
     createdAt: Date
     updatedAt: Date
-    warehouseId: string | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -25788,11 +27105,11 @@ export namespace Prisma {
     sku?: boolean
     stock?: boolean
     price?: boolean
+    discountPrice?: boolean
     shippingWeight?: boolean
     handleTime?: boolean
-    freeShipping?: boolean
+    isfreeShipping?: boolean
     packaging?: boolean
-    discountPrice?: boolean
     unitSold?: boolean
     length?: boolean
     width?: boolean
@@ -25804,10 +27121,10 @@ export namespace Prisma {
     locationId?: boolean
     purchaseOrderId?: boolean
     collectionId?: boolean
+    warehouseId?: boolean
     hasVariation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    warehouseId?: boolean
     featuredBrands?: boolean | Product$featuredBrandsArgs<ExtArgs>
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
     productVariation?: boolean | Product$productVariationArgs<ExtArgs>
@@ -25829,11 +27146,11 @@ export namespace Prisma {
     sku?: boolean
     stock?: boolean
     price?: boolean
+    discountPrice?: boolean
     shippingWeight?: boolean
     handleTime?: boolean
-    freeShipping?: boolean
+    isfreeShipping?: boolean
     packaging?: boolean
-    discountPrice?: boolean
     unitSold?: boolean
     length?: boolean
     width?: boolean
@@ -25845,10 +27162,10 @@ export namespace Prisma {
     locationId?: boolean
     purchaseOrderId?: boolean
     collectionId?: boolean
+    warehouseId?: boolean
     hasVariation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    warehouseId?: boolean
     collection?: boolean | Product$collectionArgs<ExtArgs>
     purchase?: boolean | Product$purchaseArgs<ExtArgs>
     store?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -25864,11 +27181,11 @@ export namespace Prisma {
     sku?: boolean
     stock?: boolean
     price?: boolean
+    discountPrice?: boolean
     shippingWeight?: boolean
     handleTime?: boolean
-    freeShipping?: boolean
+    isfreeShipping?: boolean
     packaging?: boolean
-    discountPrice?: boolean
     unitSold?: boolean
     length?: boolean
     width?: boolean
@@ -25880,10 +27197,10 @@ export namespace Prisma {
     locationId?: boolean
     purchaseOrderId?: boolean
     collectionId?: boolean
+    warehouseId?: boolean
     hasVariation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    warehouseId?: boolean
     collection?: boolean | Product$collectionArgs<ExtArgs>
     purchase?: boolean | Product$purchaseArgs<ExtArgs>
     store?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -25899,11 +27216,11 @@ export namespace Prisma {
     sku?: boolean
     stock?: boolean
     price?: boolean
+    discountPrice?: boolean
     shippingWeight?: boolean
     handleTime?: boolean
-    freeShipping?: boolean
+    isfreeShipping?: boolean
     packaging?: boolean
-    discountPrice?: boolean
     unitSold?: boolean
     length?: boolean
     width?: boolean
@@ -25915,13 +27232,13 @@ export namespace Prisma {
     locationId?: boolean
     purchaseOrderId?: boolean
     collectionId?: boolean
+    warehouseId?: boolean
     hasVariation?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    warehouseId?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "shortDescription" | "description" | "sku" | "stock" | "price" | "shippingWeight" | "handleTime" | "freeShipping" | "packaging" | "discountPrice" | "unitSold" | "length" | "width" | "height" | "productSize" | "productStatus" | "imageUrl" | "storeId" | "locationId" | "purchaseOrderId" | "collectionId" | "hasVariation" | "createdAt" | "updatedAt" | "warehouseId", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "shortDescription" | "description" | "sku" | "stock" | "price" | "discountPrice" | "shippingWeight" | "handleTime" | "isfreeShipping" | "packaging" | "unitSold" | "length" | "width" | "height" | "productSize" | "productStatus" | "imageUrl" | "storeId" | "locationId" | "purchaseOrderId" | "collectionId" | "warehouseId" | "hasVariation" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     featuredBrands?: boolean | Product$featuredBrandsArgs<ExtArgs>
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
@@ -25971,12 +27288,12 @@ export namespace Prisma {
       description: string | null
       sku: string | null
       stock: number | null
-      price: Prisma.Decimal
+      price: number
+      discountPrice: number | null
       shippingWeight: string | null
       handleTime: string | null
-      freeShipping: boolean | null
+      isfreeShipping: boolean | null
       packaging: string | null
-      discountPrice: string | null
       unitSold: string | null
       length: number | null
       width: number | null
@@ -25988,10 +27305,10 @@ export namespace Prisma {
       locationId: string | null
       purchaseOrderId: string | null
       collectionId: string | null
+      warehouseId: string | null
       hasVariation: boolean | null
       createdAt: Date
       updatedAt: Date
-      warehouseId: string | null
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -26431,12 +27748,12 @@ export namespace Prisma {
     readonly description: FieldRef<"Product", 'String'>
     readonly sku: FieldRef<"Product", 'String'>
     readonly stock: FieldRef<"Product", 'Int'>
-    readonly price: FieldRef<"Product", 'Decimal'>
+    readonly price: FieldRef<"Product", 'Float'>
+    readonly discountPrice: FieldRef<"Product", 'Float'>
     readonly shippingWeight: FieldRef<"Product", 'String'>
     readonly handleTime: FieldRef<"Product", 'String'>
-    readonly freeShipping: FieldRef<"Product", 'Boolean'>
+    readonly isfreeShipping: FieldRef<"Product", 'Boolean'>
     readonly packaging: FieldRef<"Product", 'String'>
-    readonly discountPrice: FieldRef<"Product", 'String'>
     readonly unitSold: FieldRef<"Product", 'String'>
     readonly length: FieldRef<"Product", 'Float'>
     readonly width: FieldRef<"Product", 'Float'>
@@ -26448,10 +27765,10 @@ export namespace Prisma {
     readonly locationId: FieldRef<"Product", 'String'>
     readonly purchaseOrderId: FieldRef<"Product", 'String'>
     readonly collectionId: FieldRef<"Product", 'String'>
+    readonly warehouseId: FieldRef<"Product", 'String'>
     readonly hasVariation: FieldRef<"Product", 'Boolean'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
-    readonly warehouseId: FieldRef<"Product", 'String'>
   }
     
 
@@ -42114,6 +43431,7 @@ export namespace Prisma {
     modifyProductState?: boolean
     members?: boolean | Organization$membersArgs<ExtArgs>
     invitations?: boolean | Organization$invitationsArgs<ExtArgs>
+    domain?: boolean | Organization$domainArgs<ExtArgs>
     bankDetails?: boolean | Organization$bankDetailsArgs<ExtArgs>
     wallet?: boolean | Organization$walletArgs<ExtArgs>
     location?: boolean | Organization$locationArgs<ExtArgs>
@@ -42248,6 +43566,7 @@ export namespace Prisma {
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Organization$membersArgs<ExtArgs>
     invitations?: boolean | Organization$invitationsArgs<ExtArgs>
+    domain?: boolean | Organization$domainArgs<ExtArgs>
     bankDetails?: boolean | Organization$bankDetailsArgs<ExtArgs>
     wallet?: boolean | Organization$walletArgs<ExtArgs>
     location?: boolean | Organization$locationArgs<ExtArgs>
@@ -42277,6 +43596,7 @@ export namespace Prisma {
     objects: {
       members: Prisma.$MemberPayload<ExtArgs>[]
       invitations: Prisma.$InvitationPayload<ExtArgs>[]
+      domain: Prisma.$DomainPayload<ExtArgs> | null
       bankDetails: Prisma.$BankDetailsPayload<ExtArgs> | null
       wallet: Prisma.$WalletPayload<ExtArgs> | null
       location: Prisma.$LocationPayload<ExtArgs>[]
@@ -42727,6 +44047,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     members<T extends Organization$membersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invitations<T extends Organization$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    domain<T extends Organization$domainArgs<ExtArgs> = {}>(args?: Subset<T, Organization$domainArgs<ExtArgs>>): Prisma__DomainClient<$Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     bankDetails<T extends Organization$bankDetailsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$bankDetailsArgs<ExtArgs>>): Prisma__BankDetailsClient<$Result.GetResult<Prisma.$BankDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     wallet<T extends Organization$walletArgs<ExtArgs> = {}>(args?: Subset<T, Organization$walletArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     location<T extends Organization$locationArgs<ExtArgs> = {}>(args?: Subset<T, Organization$locationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -43241,6 +44562,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.domain
+   */
+  export type Organization$domainArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Domain
+     */
+    select?: DomainSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Domain
+     */
+    omit?: DomainOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DomainInclude<ExtArgs> | null
+    where?: DomainWhereInput
   }
 
   /**
@@ -57584,6 +58924,27 @@ export namespace Prisma {
   export type CustomerGroupMemberScalarFieldEnum = (typeof CustomerGroupMemberScalarFieldEnum)[keyof typeof CustomerGroupMemberScalarFieldEnum]
 
 
+  export const DomainScalarFieldEnum: {
+    id: 'id',
+    storeId: 'storeId',
+    domainNames: 'domainNames',
+    paymentStatus: 'paymentStatus',
+    paymentRef: 'paymentRef',
+    lockStatus: 'lockStatus',
+    domainPrice: 'domainPrice',
+    pricePaid: 'pricePaid',
+    isdomainRegistered: 'isdomainRegistered',
+    domainProvider: 'domainProvider',
+    expiryDate: 'expiryDate',
+    failedReason: 'failedReason',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DomainScalarFieldEnum = (typeof DomainScalarFieldEnum)[keyof typeof DomainScalarFieldEnum]
+
+
   export const ExpenseScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -57768,11 +59129,11 @@ export namespace Prisma {
     sku: 'sku',
     stock: 'stock',
     price: 'price',
+    discountPrice: 'discountPrice',
     shippingWeight: 'shippingWeight',
     handleTime: 'handleTime',
-    freeShipping: 'freeShipping',
+    isfreeShipping: 'isfreeShipping',
     packaging: 'packaging',
-    discountPrice: 'discountPrice',
     unitSold: 'unitSold',
     length: 'length',
     width: 'width',
@@ -57784,10 +59145,10 @@ export namespace Prisma {
     locationId: 'locationId',
     purchaseOrderId: 'purchaseOrderId',
     collectionId: 'collectionId',
+    warehouseId: 'warehouseId',
     hasVariation: 'hasVariation',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    warehouseId: 'warehouseId'
+    updatedAt: 'updatedAt'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -58837,6 +60198,113 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"CustomerGroupMember"> | Date | string
   }
 
+  export type DomainWhereInput = {
+    AND?: DomainWhereInput | DomainWhereInput[]
+    OR?: DomainWhereInput[]
+    NOT?: DomainWhereInput | DomainWhereInput[]
+    id?: StringFilter<"Domain"> | string
+    storeId?: StringFilter<"Domain"> | string
+    domainNames?: StringNullableListFilter<"Domain">
+    paymentStatus?: StringNullableFilter<"Domain"> | string | null
+    paymentRef?: StringNullableFilter<"Domain"> | string | null
+    lockStatus?: StringFilter<"Domain"> | string
+    domainPrice?: DecimalNullableFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: DecimalNullableFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFilter<"Domain"> | boolean
+    domainProvider?: StringNullableFilter<"Domain"> | string | null
+    expiryDate?: StringFilter<"Domain"> | string
+    failedReason?: StringNullableFilter<"Domain"> | string | null
+    isActive?: BoolFilter<"Domain"> | boolean
+    createdAt?: DateTimeFilter<"Domain"> | Date | string
+    updatedAt?: DateTimeFilter<"Domain"> | Date | string
+    store?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type DomainOrderByWithRelationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    domainNames?: SortOrder
+    paymentStatus?: SortOrderInput | SortOrder
+    paymentRef?: SortOrderInput | SortOrder
+    lockStatus?: SortOrder
+    domainPrice?: SortOrderInput | SortOrder
+    pricePaid?: SortOrderInput | SortOrder
+    isdomainRegistered?: SortOrder
+    domainProvider?: SortOrderInput | SortOrder
+    expiryDate?: SortOrder
+    failedReason?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    store?: OrganizationOrderByWithRelationInput
+  }
+
+  export type DomainWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    storeId?: string
+    AND?: DomainWhereInput | DomainWhereInput[]
+    OR?: DomainWhereInput[]
+    NOT?: DomainWhereInput | DomainWhereInput[]
+    domainNames?: StringNullableListFilter<"Domain">
+    paymentStatus?: StringNullableFilter<"Domain"> | string | null
+    paymentRef?: StringNullableFilter<"Domain"> | string | null
+    lockStatus?: StringFilter<"Domain"> | string
+    domainPrice?: DecimalNullableFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: DecimalNullableFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFilter<"Domain"> | boolean
+    domainProvider?: StringNullableFilter<"Domain"> | string | null
+    expiryDate?: StringFilter<"Domain"> | string
+    failedReason?: StringNullableFilter<"Domain"> | string | null
+    isActive?: BoolFilter<"Domain"> | boolean
+    createdAt?: DateTimeFilter<"Domain"> | Date | string
+    updatedAt?: DateTimeFilter<"Domain"> | Date | string
+    store?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "storeId">
+
+  export type DomainOrderByWithAggregationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    domainNames?: SortOrder
+    paymentStatus?: SortOrderInput | SortOrder
+    paymentRef?: SortOrderInput | SortOrder
+    lockStatus?: SortOrder
+    domainPrice?: SortOrderInput | SortOrder
+    pricePaid?: SortOrderInput | SortOrder
+    isdomainRegistered?: SortOrder
+    domainProvider?: SortOrderInput | SortOrder
+    expiryDate?: SortOrder
+    failedReason?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DomainCountOrderByAggregateInput
+    _avg?: DomainAvgOrderByAggregateInput
+    _max?: DomainMaxOrderByAggregateInput
+    _min?: DomainMinOrderByAggregateInput
+    _sum?: DomainSumOrderByAggregateInput
+  }
+
+  export type DomainScalarWhereWithAggregatesInput = {
+    AND?: DomainScalarWhereWithAggregatesInput | DomainScalarWhereWithAggregatesInput[]
+    OR?: DomainScalarWhereWithAggregatesInput[]
+    NOT?: DomainScalarWhereWithAggregatesInput | DomainScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Domain"> | string
+    storeId?: StringWithAggregatesFilter<"Domain"> | string
+    domainNames?: StringNullableListFilter<"Domain">
+    paymentStatus?: StringNullableWithAggregatesFilter<"Domain"> | string | null
+    paymentRef?: StringNullableWithAggregatesFilter<"Domain"> | string | null
+    lockStatus?: StringWithAggregatesFilter<"Domain"> | string
+    domainPrice?: DecimalNullableWithAggregatesFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: DecimalNullableWithAggregatesFilter<"Domain"> | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolWithAggregatesFilter<"Domain"> | boolean
+    domainProvider?: StringNullableWithAggregatesFilter<"Domain"> | string | null
+    expiryDate?: StringWithAggregatesFilter<"Domain"> | string
+    failedReason?: StringNullableWithAggregatesFilter<"Domain"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Domain"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Domain"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Domain"> | Date | string
+  }
+
   export type ExpenseWhereInput = {
     AND?: ExpenseWhereInput | ExpenseWhereInput[]
     OR?: ExpenseWhereInput[]
@@ -59772,12 +61240,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Product"> | string | null
     sku?: StringNullableFilter<"Product"> | string | null
     stock?: IntNullableFilter<"Product"> | number | null
-    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    price?: FloatFilter<"Product"> | number
+    discountPrice?: FloatNullableFilter<"Product"> | number | null
     shippingWeight?: StringNullableFilter<"Product"> | string | null
     handleTime?: StringNullableFilter<"Product"> | string | null
-    freeShipping?: BoolNullableFilter<"Product"> | boolean | null
+    isfreeShipping?: BoolNullableFilter<"Product"> | boolean | null
     packaging?: StringNullableFilter<"Product"> | string | null
-    discountPrice?: StringNullableFilter<"Product"> | string | null
     unitSold?: StringNullableFilter<"Product"> | string | null
     length?: FloatNullableFilter<"Product"> | number | null
     width?: FloatNullableFilter<"Product"> | number | null
@@ -59789,10 +61257,10 @@ export namespace Prisma {
     locationId?: StringNullableFilter<"Product"> | string | null
     purchaseOrderId?: StringNullableFilter<"Product"> | string | null
     collectionId?: StringNullableFilter<"Product"> | string | null
+    warehouseId?: StringNullableFilter<"Product"> | string | null
     hasVariation?: BoolNullableFilter<"Product"> | boolean | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
-    warehouseId?: StringNullableFilter<"Product"> | string | null
     featuredBrands?: FeaturedBrandsListRelationFilter
     cartItems?: CartItemListRelationFilter
     productVariation?: ProductVariationListRelationFilter
@@ -59813,11 +61281,11 @@ export namespace Prisma {
     sku?: SortOrderInput | SortOrder
     stock?: SortOrderInput | SortOrder
     price?: SortOrder
+    discountPrice?: SortOrderInput | SortOrder
     shippingWeight?: SortOrderInput | SortOrder
     handleTime?: SortOrderInput | SortOrder
-    freeShipping?: SortOrderInput | SortOrder
+    isfreeShipping?: SortOrderInput | SortOrder
     packaging?: SortOrderInput | SortOrder
-    discountPrice?: SortOrderInput | SortOrder
     unitSold?: SortOrderInput | SortOrder
     length?: SortOrderInput | SortOrder
     width?: SortOrderInput | SortOrder
@@ -59829,10 +61297,10 @@ export namespace Prisma {
     locationId?: SortOrderInput | SortOrder
     purchaseOrderId?: SortOrderInput | SortOrder
     collectionId?: SortOrderInput | SortOrder
+    warehouseId?: SortOrderInput | SortOrder
     hasVariation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    warehouseId?: SortOrderInput | SortOrder
     featuredBrands?: FeaturedBrandsOrderByRelationAggregateInput
     cartItems?: CartItemOrderByRelationAggregateInput
     productVariation?: ProductVariationOrderByRelationAggregateInput
@@ -59855,12 +61323,12 @@ export namespace Prisma {
     shortDescription?: StringNullableFilter<"Product"> | string | null
     description?: StringNullableFilter<"Product"> | string | null
     stock?: IntNullableFilter<"Product"> | number | null
-    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    price?: FloatFilter<"Product"> | number
+    discountPrice?: FloatNullableFilter<"Product"> | number | null
     shippingWeight?: StringNullableFilter<"Product"> | string | null
     handleTime?: StringNullableFilter<"Product"> | string | null
-    freeShipping?: BoolNullableFilter<"Product"> | boolean | null
+    isfreeShipping?: BoolNullableFilter<"Product"> | boolean | null
     packaging?: StringNullableFilter<"Product"> | string | null
-    discountPrice?: StringNullableFilter<"Product"> | string | null
     unitSold?: StringNullableFilter<"Product"> | string | null
     length?: FloatNullableFilter<"Product"> | number | null
     width?: FloatNullableFilter<"Product"> | number | null
@@ -59872,10 +61340,10 @@ export namespace Prisma {
     locationId?: StringNullableFilter<"Product"> | string | null
     purchaseOrderId?: StringNullableFilter<"Product"> | string | null
     collectionId?: StringNullableFilter<"Product"> | string | null
+    warehouseId?: StringNullableFilter<"Product"> | string | null
     hasVariation?: BoolNullableFilter<"Product"> | boolean | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
-    warehouseId?: StringNullableFilter<"Product"> | string | null
     featuredBrands?: FeaturedBrandsListRelationFilter
     cartItems?: CartItemListRelationFilter
     productVariation?: ProductVariationListRelationFilter
@@ -59896,11 +61364,11 @@ export namespace Prisma {
     sku?: SortOrderInput | SortOrder
     stock?: SortOrderInput | SortOrder
     price?: SortOrder
+    discountPrice?: SortOrderInput | SortOrder
     shippingWeight?: SortOrderInput | SortOrder
     handleTime?: SortOrderInput | SortOrder
-    freeShipping?: SortOrderInput | SortOrder
+    isfreeShipping?: SortOrderInput | SortOrder
     packaging?: SortOrderInput | SortOrder
-    discountPrice?: SortOrderInput | SortOrder
     unitSold?: SortOrderInput | SortOrder
     length?: SortOrderInput | SortOrder
     width?: SortOrderInput | SortOrder
@@ -59912,10 +61380,10 @@ export namespace Prisma {
     locationId?: SortOrderInput | SortOrder
     purchaseOrderId?: SortOrderInput | SortOrder
     collectionId?: SortOrderInput | SortOrder
+    warehouseId?: SortOrderInput | SortOrder
     hasVariation?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    warehouseId?: SortOrderInput | SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -59933,12 +61401,12 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Product"> | string | null
     sku?: StringNullableWithAggregatesFilter<"Product"> | string | null
     stock?: IntNullableWithAggregatesFilter<"Product"> | number | null
-    price?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    price?: FloatWithAggregatesFilter<"Product"> | number
+    discountPrice?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     shippingWeight?: StringNullableWithAggregatesFilter<"Product"> | string | null
     handleTime?: StringNullableWithAggregatesFilter<"Product"> | string | null
-    freeShipping?: BoolNullableWithAggregatesFilter<"Product"> | boolean | null
+    isfreeShipping?: BoolNullableWithAggregatesFilter<"Product"> | boolean | null
     packaging?: StringNullableWithAggregatesFilter<"Product"> | string | null
-    discountPrice?: StringNullableWithAggregatesFilter<"Product"> | string | null
     unitSold?: StringNullableWithAggregatesFilter<"Product"> | string | null
     length?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     width?: FloatNullableWithAggregatesFilter<"Product"> | number | null
@@ -59950,10 +61418,10 @@ export namespace Prisma {
     locationId?: StringNullableWithAggregatesFilter<"Product"> | string | null
     purchaseOrderId?: StringNullableWithAggregatesFilter<"Product"> | string | null
     collectionId?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    warehouseId?: StringNullableWithAggregatesFilter<"Product"> | string | null
     hasVariation?: BoolNullableWithAggregatesFilter<"Product"> | boolean | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
-    warehouseId?: StringNullableWithAggregatesFilter<"Product"> | string | null
   }
 
   export type ProductCategoryWhereInput = {
@@ -60944,6 +62412,7 @@ export namespace Prisma {
     modifyProductState?: BoolNullableFilter<"Organization"> | boolean | null
     members?: MemberListRelationFilter
     invitations?: InvitationListRelationFilter
+    domain?: XOR<DomainNullableScalarRelationFilter, DomainWhereInput> | null
     bankDetails?: XOR<BankDetailsNullableScalarRelationFilter, BankDetailsWhereInput> | null
     wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
     location?: LocationListRelationFilter
@@ -61001,6 +62470,7 @@ export namespace Prisma {
     modifyProductState?: SortOrderInput | SortOrder
     members?: MemberOrderByRelationAggregateInput
     invitations?: InvitationOrderByRelationAggregateInput
+    domain?: DomainOrderByWithRelationInput
     bankDetails?: BankDetailsOrderByWithRelationInput
     wallet?: WalletOrderByWithRelationInput
     location?: LocationOrderByRelationAggregateInput
@@ -61061,6 +62531,7 @@ export namespace Prisma {
     modifyProductState?: BoolNullableFilter<"Organization"> | boolean | null
     members?: MemberListRelationFilter
     invitations?: InvitationListRelationFilter
+    domain?: XOR<DomainNullableScalarRelationFilter, DomainWhereInput> | null
     bankDetails?: XOR<BankDetailsNullableScalarRelationFilter, BankDetailsWhereInput> | null
     wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
     location?: LocationListRelationFilter
@@ -62541,6 +64012,131 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DomainCreateInput = {
+    id?: string
+    domainNames?: DomainCreatedomainNamesInput | string[]
+    paymentStatus?: string | null
+    paymentRef?: string | null
+    lockStatus: string
+    domainPrice?: Decimal | DecimalJsLike | number | string | null
+    pricePaid?: Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered: boolean
+    domainProvider?: string | null
+    expiryDate: string
+    failedReason?: string | null
+    isActive: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: OrganizationCreateNestedOneWithoutDomainInput
+  }
+
+  export type DomainUncheckedCreateInput = {
+    id?: string
+    storeId: string
+    domainNames?: DomainCreatedomainNamesInput | string[]
+    paymentStatus?: string | null
+    paymentRef?: string | null
+    lockStatus: string
+    domainPrice?: Decimal | DecimalJsLike | number | string | null
+    pricePaid?: Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered: boolean
+    domainProvider?: string | null
+    expiryDate: string
+    failedReason?: string | null
+    isActive: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DomainUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: OrganizationUpdateOneRequiredWithoutDomainNestedInput
+  }
+
+  export type DomainUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainCreateManyInput = {
+    id?: string
+    storeId: string
+    domainNames?: DomainCreatedomainNamesInput | string[]
+    paymentStatus?: string | null
+    paymentRef?: string | null
+    lockStatus: string
+    domainPrice?: Decimal | DecimalJsLike | number | string | null
+    pricePaid?: Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered: boolean
+    domainProvider?: string | null
+    expiryDate: string
+    failedReason?: string | null
+    isActive: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DomainUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ExpenseCreateInput = {
     id?: string
     name?: string | null
@@ -63562,12 +65158,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -63597,12 +65193,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -63614,10 +65210,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -63632,12 +65228,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63667,12 +65263,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63684,10 +65280,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -63702,12 +65298,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -63719,10 +65315,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -63732,12 +65328,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63757,12 +65353,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63774,10 +65370,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductCategoryCreateInput = {
@@ -64854,6 +66450,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -64911,6 +66508,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -64968,6 +66566,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -65025,6 +66624,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -66666,6 +68266,103 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type DomainCountOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    domainNames?: SortOrder
+    paymentStatus?: SortOrder
+    paymentRef?: SortOrder
+    lockStatus?: SortOrder
+    domainPrice?: SortOrder
+    pricePaid?: SortOrder
+    isdomainRegistered?: SortOrder
+    domainProvider?: SortOrder
+    expiryDate?: SortOrder
+    failedReason?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DomainAvgOrderByAggregateInput = {
+    domainPrice?: SortOrder
+    pricePaid?: SortOrder
+  }
+
+  export type DomainMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    paymentStatus?: SortOrder
+    paymentRef?: SortOrder
+    lockStatus?: SortOrder
+    domainPrice?: SortOrder
+    pricePaid?: SortOrder
+    isdomainRegistered?: SortOrder
+    domainProvider?: SortOrder
+    expiryDate?: SortOrder
+    failedReason?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DomainMinOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    paymentStatus?: SortOrder
+    paymentRef?: SortOrder
+    lockStatus?: SortOrder
+    domainPrice?: SortOrder
+    pricePaid?: SortOrder
+    isdomainRegistered?: SortOrder
+    domainProvider?: SortOrder
+    expiryDate?: SortOrder
+    failedReason?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DomainSumOrderByAggregateInput = {
+    domainPrice?: SortOrder
+    pricePaid?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -67385,14 +69082,6 @@ export namespace Prisma {
     not?: NestedEnumProductStatusNullableFilter<$PrismaModel> | $Enums.ProductStatus | null
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type FeaturedBrandsListRelationFilter = {
     every?: FeaturedBrandsWhereInput
     some?: FeaturedBrandsWhereInput
@@ -67456,11 +69145,11 @@ export namespace Prisma {
     sku?: SortOrder
     stock?: SortOrder
     price?: SortOrder
+    discountPrice?: SortOrder
     shippingWeight?: SortOrder
     handleTime?: SortOrder
-    freeShipping?: SortOrder
+    isfreeShipping?: SortOrder
     packaging?: SortOrder
-    discountPrice?: SortOrder
     unitSold?: SortOrder
     length?: SortOrder
     width?: SortOrder
@@ -67472,15 +69161,16 @@ export namespace Prisma {
     locationId?: SortOrder
     purchaseOrderId?: SortOrder
     collectionId?: SortOrder
+    warehouseId?: SortOrder
     hasVariation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    warehouseId?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
     stock?: SortOrder
     price?: SortOrder
+    discountPrice?: SortOrder
     length?: SortOrder
     width?: SortOrder
     height?: SortOrder
@@ -67494,11 +69184,11 @@ export namespace Prisma {
     sku?: SortOrder
     stock?: SortOrder
     price?: SortOrder
+    discountPrice?: SortOrder
     shippingWeight?: SortOrder
     handleTime?: SortOrder
-    freeShipping?: SortOrder
+    isfreeShipping?: SortOrder
     packaging?: SortOrder
-    discountPrice?: SortOrder
     unitSold?: SortOrder
     length?: SortOrder
     width?: SortOrder
@@ -67509,10 +69199,10 @@ export namespace Prisma {
     locationId?: SortOrder
     purchaseOrderId?: SortOrder
     collectionId?: SortOrder
+    warehouseId?: SortOrder
     hasVariation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    warehouseId?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -67523,11 +69213,11 @@ export namespace Prisma {
     sku?: SortOrder
     stock?: SortOrder
     price?: SortOrder
+    discountPrice?: SortOrder
     shippingWeight?: SortOrder
     handleTime?: SortOrder
-    freeShipping?: SortOrder
+    isfreeShipping?: SortOrder
     packaging?: SortOrder
-    discountPrice?: SortOrder
     unitSold?: SortOrder
     length?: SortOrder
     width?: SortOrder
@@ -67538,15 +69228,16 @@ export namespace Prisma {
     locationId?: SortOrder
     purchaseOrderId?: SortOrder
     collectionId?: SortOrder
+    warehouseId?: SortOrder
     hasVariation?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    warehouseId?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
     stock?: SortOrder
     price?: SortOrder
+    discountPrice?: SortOrder
     length?: SortOrder
     width?: SortOrder
     height?: SortOrder
@@ -68124,6 +69815,11 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DomainNullableScalarRelationFilter = {
+    is?: DomainWhereInput | null
+    isNot?: DomainWhereInput | null
   }
 
   export type BankDetailsNullableScalarRelationFilter = {
@@ -68725,17 +70421,6 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
   export type SubscriptionCountOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
@@ -68835,22 +70520,6 @@ export namespace Prisma {
     cardLast4?: SortOrder
     expMonth?: SortOrder
     expYear?: SortOrder
-  }
-
-  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type PlanCountOrderByAggregateInput = {
@@ -69448,6 +71117,37 @@ export namespace Prisma {
     upsert?: CustomerGroupsUpsertWithoutCustomerGroupMemberInput
     connect?: CustomerGroupsWhereUniqueInput
     update?: XOR<XOR<CustomerGroupsUpdateToOneWithWhereWithoutCustomerGroupMemberInput, CustomerGroupsUpdateWithoutCustomerGroupMemberInput>, CustomerGroupsUncheckedUpdateWithoutCustomerGroupMemberInput>
+  }
+
+  export type DomainCreatedomainNamesInput = {
+    set: string[]
+  }
+
+  export type OrganizationCreateNestedOneWithoutDomainInput = {
+    create?: XOR<OrganizationCreateWithoutDomainInput, OrganizationUncheckedCreateWithoutDomainInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDomainInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type DomainUpdatedomainNamesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutDomainNestedInput = {
+    create?: XOR<OrganizationCreateWithoutDomainInput, OrganizationUncheckedCreateWithoutDomainInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDomainInput
+    upsert?: OrganizationUpsertWithoutDomainInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDomainInput, OrganizationUpdateWithoutDomainInput>, OrganizationUncheckedUpdateWithoutDomainInput>
   }
 
   export type ExpenseCategoryCreateNestedManyWithoutExpenseInput = {
@@ -71027,6 +72727,12 @@ export namespace Prisma {
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
+  export type DomainCreateNestedOneWithoutStoreInput = {
+    create?: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+    connectOrCreate?: DomainCreateOrConnectWithoutStoreInput
+    connect?: DomainWhereUniqueInput
+  }
+
   export type BankDetailsCreateNestedOneWithoutStoreInput = {
     create?: XOR<BankDetailsCreateWithoutStoreInput, BankDetailsUncheckedCreateWithoutStoreInput>
     connectOrCreate?: BankDetailsCreateOrConnectWithoutStoreInput
@@ -71168,6 +72874,12 @@ export namespace Prisma {
     connectOrCreate?: InvitationCreateOrConnectWithoutOrganizationInput | InvitationCreateOrConnectWithoutOrganizationInput[]
     createMany?: InvitationCreateManyOrganizationInputEnvelope
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
+  export type DomainUncheckedCreateNestedOneWithoutStoreInput = {
+    create?: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+    connectOrCreate?: DomainCreateOrConnectWithoutStoreInput
+    connect?: DomainWhereUniqueInput
   }
 
   export type BankDetailsUncheckedCreateNestedOneWithoutStoreInput = {
@@ -71325,6 +73037,16 @@ export namespace Prisma {
     update?: InvitationUpdateWithWhereUniqueWithoutOrganizationInput | InvitationUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: InvitationUpdateManyWithWhereWithoutOrganizationInput | InvitationUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
+  export type DomainUpdateOneWithoutStoreNestedInput = {
+    create?: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+    connectOrCreate?: DomainCreateOrConnectWithoutStoreInput
+    upsert?: DomainUpsertWithoutStoreInput
+    disconnect?: DomainWhereInput | boolean
+    delete?: DomainWhereInput | boolean
+    connect?: DomainWhereUniqueInput
+    update?: XOR<XOR<DomainUpdateToOneWithWhereWithoutStoreInput, DomainUpdateWithoutStoreInput>, DomainUncheckedUpdateWithoutStoreInput>
   }
 
   export type BankDetailsUpdateOneWithoutStoreNestedInput = {
@@ -71603,6 +73325,16 @@ export namespace Prisma {
     update?: InvitationUpdateWithWhereUniqueWithoutOrganizationInput | InvitationUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: InvitationUpdateManyWithWhereWithoutOrganizationInput | InvitationUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
+  export type DomainUncheckedUpdateOneWithoutStoreNestedInput = {
+    create?: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+    connectOrCreate?: DomainCreateOrConnectWithoutStoreInput
+    upsert?: DomainUpsertWithoutStoreInput
+    disconnect?: DomainWhereInput | boolean
+    delete?: DomainWhereInput | boolean
+    connect?: DomainWhereUniqueInput
+    update?: XOR<XOR<DomainUpdateToOneWithWhereWithoutStoreInput, DomainUpdateWithoutStoreInput>, DomainUncheckedUpdateWithoutStoreInput>
   }
 
   export type BankDetailsUncheckedUpdateOneWithoutStoreNestedInput = {
@@ -72178,14 +73910,6 @@ export namespace Prisma {
     connect?: OrganizationWhereUniqueInput
   }
 
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string | null
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
   export type OrganizationUpdateOneWithoutSubscriptionNestedInput = {
     create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
@@ -72534,6 +74258,33 @@ export namespace Prisma {
     _max?: NestedEnumCustomerTypeFilter<$PrismaModel>
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -72748,33 +74499,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type CartItemCreateWithoutCartInput = {
@@ -73098,12 +74822,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -73132,12 +74856,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -73149,10 +74873,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
     productCategory?: ProductCategoryUncheckedCreateNestedManyWithoutProductInput
@@ -73213,12 +74937,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -73247,12 +74971,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -73264,10 +74988,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
     productCategory?: ProductCategoryUncheckedUpdateManyWithoutProductNestedInput
@@ -73494,6 +75218,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -73550,6 +75275,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -73785,6 +75511,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -73841,6 +75568,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -73981,6 +75709,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -74037,6 +75766,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -74131,6 +75861,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -74187,6 +75918,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -74355,6 +76087,250 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OrganizationCreateWithoutDomainInput = {
+    id: string
+    name: string
+    slug?: string | null
+    logo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    metadata?: string | null
+    businessName?: string | null
+    businessType?: string | null
+    storeBaseCurrency?: string | null
+    banner?: string | null
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    description?: string | null
+    country?: string | null
+    address?: string | null
+    state?: string | null
+    region?: string | null
+    zipCode?: string | null
+    city?: string | null
+    status?: string | null
+    storeTag?: string | null
+    whitelabel?: string | null
+    facebook?: string | null
+    instagram?: string | null
+    tiktok?: string | null
+    twitter?: string | null
+    linkedin?: string | null
+    currency?: string | null
+    storeUrl?: string | null
+    storeApproval?: boolean | null
+    modifyProductState?: boolean | null
+    members?: MemberCreateNestedManyWithoutOrganizationInput
+    invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
+    wallet?: WalletCreateNestedOneWithoutStoreInput
+    location?: LocationCreateNestedManyWithoutStoreInput
+    order?: OrderCreateNestedManyWithoutStoreInput
+    customer?: CustomerCreateNestedManyWithoutStoreInput
+    customerGroups?: CustomerGroupsCreateNestedManyWithoutStoreInput
+    expense?: ExpenseCreateNestedManyWithoutStoreInput
+    invoice?: InvoiceCreateNestedManyWithoutStoreInput
+    pointOfSale?: PointOfSaleCreateNestedOneWithoutStoreInput
+    product?: ProductCreateNestedManyWithoutStoreInput
+    supplier?: SupplierCreateNestedManyWithoutStoreInput
+    purchase?: PurchaseCreateNestedManyWithoutStoreInput
+    settlements?: SettlementCreateNestedManyWithoutStoreInput
+    subscription?: SubscriptionCreateNestedOneWithoutStoreInput
+    transaction?: TransactionCreateNestedManyWithoutStoreInput
+    warehouse?: WarehouseCreateNestedManyWithoutStoreInput
+    ShippingMethod?: ShippingMethodCreateNestedManyWithoutStoreInput
+    ShippingZone?: ShippingZoneCreateNestedManyWithoutStoreInput
+    productCategory?: ProductCategoryCreateNestedManyWithoutStoreInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutDomainInput = {
+    id: string
+    name: string
+    slug?: string | null
+    logo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    metadata?: string | null
+    businessName?: string | null
+    businessType?: string | null
+    storeBaseCurrency?: string | null
+    banner?: string | null
+    phoneNumber?: string | null
+    email?: string | null
+    website?: string | null
+    description?: string | null
+    country?: string | null
+    address?: string | null
+    state?: string | null
+    region?: string | null
+    zipCode?: string | null
+    city?: string | null
+    status?: string | null
+    storeTag?: string | null
+    whitelabel?: string | null
+    facebook?: string | null
+    instagram?: string | null
+    tiktok?: string | null
+    twitter?: string | null
+    linkedin?: string | null
+    currency?: string | null
+    storeUrl?: string | null
+    storeApproval?: boolean | null
+    modifyProductState?: boolean | null
+    members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
+    location?: LocationUncheckedCreateNestedManyWithoutStoreInput
+    order?: OrderUncheckedCreateNestedManyWithoutStoreInput
+    customer?: CustomerUncheckedCreateNestedManyWithoutStoreInput
+    customerGroups?: CustomerGroupsUncheckedCreateNestedManyWithoutStoreInput
+    expense?: ExpenseUncheckedCreateNestedManyWithoutStoreInput
+    invoice?: InvoiceUncheckedCreateNestedManyWithoutStoreInput
+    pointOfSale?: PointOfSaleUncheckedCreateNestedOneWithoutStoreInput
+    product?: ProductUncheckedCreateNestedManyWithoutStoreInput
+    supplier?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    purchase?: PurchaseUncheckedCreateNestedManyWithoutStoreInput
+    settlements?: SettlementUncheckedCreateNestedManyWithoutStoreInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutStoreInput
+    transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
+    warehouse?: WarehouseUncheckedCreateNestedManyWithoutStoreInput
+    ShippingMethod?: ShippingMethodUncheckedCreateNestedManyWithoutStoreInput
+    ShippingZone?: ShippingZoneUncheckedCreateNestedManyWithoutStoreInput
+    productCategory?: ProductCategoryUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutDomainInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutDomainInput, OrganizationUncheckedCreateWithoutDomainInput>
+  }
+
+  export type OrganizationUpsertWithoutDomainInput = {
+    update: XOR<OrganizationUpdateWithoutDomainInput, OrganizationUncheckedUpdateWithoutDomainInput>
+    create: XOR<OrganizationCreateWithoutDomainInput, OrganizationUncheckedCreateWithoutDomainInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutDomainInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutDomainInput, OrganizationUncheckedUpdateWithoutDomainInput>
+  }
+
+  export type OrganizationUpdateWithoutDomainInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
+    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
+    banner?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    storeTag?: NullableStringFieldUpdateOperationsInput | string | null
+    whitelabel?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktok?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    storeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    members?: MemberUpdateManyWithoutOrganizationNestedInput
+    invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
+    wallet?: WalletUpdateOneWithoutStoreNestedInput
+    location?: LocationUpdateManyWithoutStoreNestedInput
+    order?: OrderUpdateManyWithoutStoreNestedInput
+    customer?: CustomerUpdateManyWithoutStoreNestedInput
+    customerGroups?: CustomerGroupsUpdateManyWithoutStoreNestedInput
+    expense?: ExpenseUpdateManyWithoutStoreNestedInput
+    invoice?: InvoiceUpdateManyWithoutStoreNestedInput
+    pointOfSale?: PointOfSaleUpdateOneWithoutStoreNestedInput
+    product?: ProductUpdateManyWithoutStoreNestedInput
+    supplier?: SupplierUpdateManyWithoutStoreNestedInput
+    purchase?: PurchaseUpdateManyWithoutStoreNestedInput
+    settlements?: SettlementUpdateManyWithoutStoreNestedInput
+    subscription?: SubscriptionUpdateOneWithoutStoreNestedInput
+    transaction?: TransactionUpdateManyWithoutStoreNestedInput
+    warehouse?: WarehouseUpdateManyWithoutStoreNestedInput
+    ShippingMethod?: ShippingMethodUpdateManyWithoutStoreNestedInput
+    ShippingZone?: ShippingZoneUpdateManyWithoutStoreNestedInput
+    productCategory?: ProductCategoryUpdateManyWithoutStoreNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutDomainInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    businessName?: NullableStringFieldUpdateOperationsInput | string | null
+    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
+    banner?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    storeTag?: NullableStringFieldUpdateOperationsInput | string | null
+    whitelabel?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktok?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    storeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
+    location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
+    order?: OrderUncheckedUpdateManyWithoutStoreNestedInput
+    customer?: CustomerUncheckedUpdateManyWithoutStoreNestedInput
+    customerGroups?: CustomerGroupsUncheckedUpdateManyWithoutStoreNestedInput
+    expense?: ExpenseUncheckedUpdateManyWithoutStoreNestedInput
+    invoice?: InvoiceUncheckedUpdateManyWithoutStoreNestedInput
+    pointOfSale?: PointOfSaleUncheckedUpdateOneWithoutStoreNestedInput
+    product?: ProductUncheckedUpdateManyWithoutStoreNestedInput
+    supplier?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    purchase?: PurchaseUncheckedUpdateManyWithoutStoreNestedInput
+    settlements?: SettlementUncheckedUpdateManyWithoutStoreNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutStoreNestedInput
+    transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
+    warehouse?: WarehouseUncheckedUpdateManyWithoutStoreNestedInput
+    ShippingMethod?: ShippingMethodUncheckedUpdateManyWithoutStoreNestedInput
+    ShippingZone?: ShippingZoneUncheckedUpdateManyWithoutStoreNestedInput
+    productCategory?: ProductCategoryUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
   export type ExpenseCategoryCreateWithoutExpenseInput = {
     id?: string
     name: string
@@ -74419,6 +76395,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -74475,6 +76452,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -74576,6 +76554,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -74632,6 +76611,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -74760,6 +76740,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
     order?: OrderCreateNestedManyWithoutStoreInput
@@ -74816,6 +76797,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
     order?: OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -74888,6 +76870,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
     order?: OrderUpdateManyWithoutStoreNestedInput
@@ -74944,6 +76927,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
     order?: OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -75000,6 +76984,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
     order?: OrderCreateNestedManyWithoutStoreInput
@@ -75056,6 +77041,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
     order?: OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -75128,6 +77114,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
     order?: OrderUpdateManyWithoutStoreNestedInput
@@ -75184,6 +77171,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
     order?: OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -75240,6 +77228,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -75296,6 +77285,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -75368,6 +77358,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -75424,6 +77415,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -75587,12 +77579,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -75621,12 +77613,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -75637,10 +77629,10 @@ export namespace Prisma {
     storeId: string
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -75694,6 +77686,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     order?: OrderCreateNestedManyWithoutStoreInput
@@ -75750,6 +77743,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     order?: OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -75855,12 +77849,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Product"> | string | null
     sku?: StringNullableFilter<"Product"> | string | null
     stock?: IntNullableFilter<"Product"> | number | null
-    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    price?: FloatFilter<"Product"> | number
+    discountPrice?: FloatNullableFilter<"Product"> | number | null
     shippingWeight?: StringNullableFilter<"Product"> | string | null
     handleTime?: StringNullableFilter<"Product"> | string | null
-    freeShipping?: BoolNullableFilter<"Product"> | boolean | null
+    isfreeShipping?: BoolNullableFilter<"Product"> | boolean | null
     packaging?: StringNullableFilter<"Product"> | string | null
-    discountPrice?: StringNullableFilter<"Product"> | string | null
     unitSold?: StringNullableFilter<"Product"> | string | null
     length?: FloatNullableFilter<"Product"> | number | null
     width?: FloatNullableFilter<"Product"> | number | null
@@ -75872,10 +77866,10 @@ export namespace Prisma {
     locationId?: StringNullableFilter<"Product"> | string | null
     purchaseOrderId?: StringNullableFilter<"Product"> | string | null
     collectionId?: StringNullableFilter<"Product"> | string | null
+    warehouseId?: StringNullableFilter<"Product"> | string | null
     hasVariation?: BoolNullableFilter<"Product"> | boolean | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
-    warehouseId?: StringNullableFilter<"Product"> | string | null
   }
 
   export type OrganizationUpsertWithoutLocationInput = {
@@ -75925,6 +77919,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     order?: OrderUpdateManyWithoutStoreNestedInput
@@ -75981,6 +77976,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     order?: OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -76183,6 +78179,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -76239,6 +78236,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -76485,6 +78483,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -76541,6 +78540,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -77093,6 +79093,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -77149,6 +79150,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -77276,6 +79278,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -77332,6 +79335,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -77636,6 +79640,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -77692,6 +79697,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -78021,6 +80027,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -78077,6 +80084,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -78180,12 +80188,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78214,12 +80222,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78231,10 +80239,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -78282,6 +80290,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -78338,6 +80347,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -78426,6 +80436,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -78482,6 +80493,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -78509,12 +80521,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78543,12 +80555,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78559,10 +80571,10 @@ export namespace Prisma {
     storeId: string
     locationId?: string | null
     purchaseOrderId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -78603,12 +80615,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78637,12 +80649,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -78654,10 +80666,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productCategory?: ProductCategoryUncheckedCreateNestedManyWithoutProductInput
@@ -78711,12 +80723,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -78745,12 +80757,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -78762,10 +80774,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productCategory?: ProductCategoryUncheckedUpdateManyWithoutProductNestedInput
@@ -79059,12 +81071,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -79093,12 +81105,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -79110,10 +81122,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
     productCategory?: ProductCategoryUncheckedCreateNestedManyWithoutProductInput
@@ -79143,12 +81155,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -79177,12 +81189,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -79194,10 +81206,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
     productCategory?: ProductCategoryUncheckedUpdateManyWithoutProductNestedInput
@@ -79274,6 +81286,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -79330,6 +81343,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -79433,6 +81447,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -79489,6 +81504,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -79574,6 +81590,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -79630,6 +81647,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -79662,12 +81680,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -79696,12 +81714,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -79712,10 +81730,10 @@ export namespace Prisma {
     storeId: string
     locationId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -79815,6 +81833,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -79871,6 +81890,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -80683,6 +82703,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DomainCreateWithoutStoreInput = {
+    id?: string
+    domainNames?: DomainCreatedomainNamesInput | string[]
+    paymentStatus?: string | null
+    paymentRef?: string | null
+    lockStatus: string
+    domainPrice?: Decimal | DecimalJsLike | number | string | null
+    pricePaid?: Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered: boolean
+    domainProvider?: string | null
+    expiryDate: string
+    failedReason?: string | null
+    isActive: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DomainUncheckedCreateWithoutStoreInput = {
+    id?: string
+    domainNames?: DomainCreatedomainNamesInput | string[]
+    paymentStatus?: string | null
+    paymentRef?: string | null
+    lockStatus: string
+    domainPrice?: Decimal | DecimalJsLike | number | string | null
+    pricePaid?: Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered: boolean
+    domainProvider?: string | null
+    expiryDate: string
+    failedReason?: string | null
+    isActive: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DomainCreateOrConnectWithoutStoreInput = {
+    where: DomainWhereUniqueInput
+    create: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+  }
+
   export type BankDetailsCreateWithoutStoreInput = {
     id?: string
     bankName: string
@@ -81025,12 +83084,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -81059,12 +83118,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -81075,10 +83134,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -81430,6 +83489,51 @@ export namespace Prisma {
   export type InvitationUpdateManyWithWhereWithoutOrganizationInput = {
     where: InvitationScalarWhereInput
     data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type DomainUpsertWithoutStoreInput = {
+    update: XOR<DomainUpdateWithoutStoreInput, DomainUncheckedUpdateWithoutStoreInput>
+    create: XOR<DomainCreateWithoutStoreInput, DomainUncheckedCreateWithoutStoreInput>
+    where?: DomainWhereInput
+  }
+
+  export type DomainUpdateToOneWithWhereWithoutStoreInput = {
+    where?: DomainWhereInput
+    data: XOR<DomainUpdateWithoutStoreInput, DomainUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type DomainUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domainNames?: DomainUpdatedomainNamesInput | string[]
+    paymentStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentRef?: NullableStringFieldUpdateOperationsInput | string | null
+    lockStatus?: StringFieldUpdateOperationsInput | string
+    domainPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    pricePaid?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    isdomainRegistered?: BoolFieldUpdateOperationsInput | boolean
+    domainProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: StringFieldUpdateOperationsInput | string
+    failedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BankDetailsUpsertWithoutStoreInput = {
@@ -82014,6 +84118,7 @@ export namespace Prisma {
     storeApproval?: boolean | null
     modifyProductState?: boolean | null
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -82070,6 +84175,7 @@ export namespace Prisma {
     storeApproval?: boolean | null
     modifyProductState?: boolean | null
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -82197,6 +84303,7 @@ export namespace Prisma {
     storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -82253,6 +84360,7 @@ export namespace Prisma {
     storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -82370,6 +84478,7 @@ export namespace Prisma {
     storeApproval?: boolean | null
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -82426,6 +84535,7 @@ export namespace Prisma {
     storeApproval?: boolean | null
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -82553,6 +84663,7 @@ export namespace Prisma {
     storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -82609,6 +84720,7 @@ export namespace Prisma {
     storeApproval?: NullableBoolFieldUpdateOperationsInput | boolean | null
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -82727,6 +84839,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -82783,6 +84896,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -82855,6 +84969,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -82911,6 +85026,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -83103,6 +85219,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -83159,6 +85276,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -83306,6 +85424,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -83362,6 +85481,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -83472,6 +85592,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -83528,6 +85649,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -83635,6 +85757,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -83691,6 +85814,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -83855,6 +85979,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -83911,6 +86036,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -83983,6 +86109,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -84039,6 +86166,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -84095,6 +86223,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -84151,6 +86280,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -84223,6 +86353,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -84279,6 +86410,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -84306,12 +86438,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -84340,12 +86472,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -84494,6 +86626,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationCreateNestedManyWithoutOrganizationInput
+    domain?: DomainCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsCreateNestedOneWithoutStoreInput
     wallet?: WalletCreateNestedOneWithoutStoreInput
     location?: LocationCreateNestedManyWithoutStoreInput
@@ -84550,6 +86683,7 @@ export namespace Prisma {
     modifyProductState?: boolean | null
     members?: MemberUncheckedCreateNestedManyWithoutOrganizationInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+    domain?: DomainUncheckedCreateNestedOneWithoutStoreInput
     bankDetails?: BankDetailsUncheckedCreateNestedOneWithoutStoreInput
     wallet?: WalletUncheckedCreateNestedOneWithoutStoreInput
     location?: LocationUncheckedCreateNestedManyWithoutStoreInput
@@ -84715,6 +86849,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUpdateOneWithoutStoreNestedInput
     wallet?: WalletUpdateOneWithoutStoreNestedInput
     location?: LocationUpdateManyWithoutStoreNestedInput
@@ -84771,6 +86906,7 @@ export namespace Prisma {
     modifyProductState?: NullableBoolFieldUpdateOperationsInput | boolean | null
     members?: MemberUncheckedUpdateManyWithoutOrganizationNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+    domain?: DomainUncheckedUpdateOneWithoutStoreNestedInput
     bankDetails?: BankDetailsUncheckedUpdateOneWithoutStoreNestedInput
     wallet?: WalletUncheckedUpdateOneWithoutStoreNestedInput
     location?: LocationUncheckedUpdateManyWithoutStoreNestedInput
@@ -84798,12 +86934,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -84832,12 +86968,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -84849,10 +86985,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
     featuredBrands?: FeaturedBrandsUncheckedCreateNestedManyWithoutProductInput
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
     productVariation?: ProductVariationUncheckedCreateNestedManyWithoutProductInput
@@ -84909,12 +87045,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -84943,12 +87079,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -84960,10 +87096,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -85414,12 +87550,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -85430,10 +87566,10 @@ export namespace Prisma {
     storeId: string
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
   }
 
   export type UserUpdateWithoutLocationInput = {
@@ -85607,12 +87743,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85641,12 +87777,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85657,10 +87793,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -85675,12 +87811,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85691,10 +87827,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrderItemCreateManyOrderInput = {
@@ -85901,12 +88037,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85935,12 +88071,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85952,10 +88088,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -85969,12 +88105,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -85986,10 +88122,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductCreateManyCollectionInput = {
@@ -85999,12 +88135,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -86015,10 +88151,10 @@ export namespace Prisma {
     storeId: string
     locationId?: string | null
     purchaseOrderId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
   }
 
   export type ProductUpdateWithoutCollectionInput = {
@@ -86028,12 +88164,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86062,12 +88198,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86078,10 +88214,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -86096,12 +88232,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86112,10 +88248,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductVariationOptionCreateManyVariationInput = {
@@ -86257,12 +88393,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -86273,10 +88409,10 @@ export namespace Prisma {
     storeId: string
     locationId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
   }
 
   export type ProductUpdateWithoutPurchaseInput = {
@@ -86286,12 +88422,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86320,12 +88456,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86336,10 +88472,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -86354,12 +88490,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -86370,10 +88506,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberCreateManyUserInput = {
@@ -86715,12 +88851,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -86731,10 +88867,10 @@ export namespace Prisma {
     locationId?: string | null
     purchaseOrderId?: string | null
     collectionId?: string | null
+    warehouseId?: string | null
     hasVariation?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    warehouseId?: string | null
   }
 
   export type SupplierCreateManyStoreInput = {
@@ -87182,12 +89318,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -87216,12 +89352,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -87232,10 +89368,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     featuredBrands?: FeaturedBrandsUncheckedUpdateManyWithoutProductNestedInput
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
     productVariation?: ProductVariationUncheckedUpdateManyWithoutProductNestedInput
@@ -87250,12 +89386,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -87266,10 +89402,10 @@ export namespace Prisma {
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
     purchaseOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     collectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
     hasVariation?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    warehouseId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SupplierUpdateWithoutStoreInput = {
@@ -87714,12 +89850,12 @@ export namespace Prisma {
     description?: string | null
     sku?: string | null
     stock?: number | null
-    price: Decimal | DecimalJsLike | number | string
+    price: number
+    discountPrice?: number | null
     shippingWeight?: string | null
     handleTime?: string | null
-    freeShipping?: boolean | null
+    isfreeShipping?: boolean | null
     packaging?: string | null
-    discountPrice?: string | null
     unitSold?: string | null
     length?: number | null
     width?: number | null
@@ -87751,12 +89887,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -87785,12 +89921,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -87819,12 +89955,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: NullableIntFieldUpdateOperationsInput | number | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price?: FloatFieldUpdateOperationsInput | number
+    discountPrice?: NullableFloatFieldUpdateOperationsInput | number | null
     shippingWeight?: NullableStringFieldUpdateOperationsInput | string | null
     handleTime?: NullableStringFieldUpdateOperationsInput | string | null
-    freeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isfreeShipping?: NullableBoolFieldUpdateOperationsInput | boolean | null
     packaging?: NullableStringFieldUpdateOperationsInput | string | null
-    discountPrice?: NullableStringFieldUpdateOperationsInput | string | null
     unitSold?: NullableStringFieldUpdateOperationsInput | string | null
     length?: NullableFloatFieldUpdateOperationsInput | number | null
     width?: NullableFloatFieldUpdateOperationsInput | number | null

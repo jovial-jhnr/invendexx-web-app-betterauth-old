@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   ArrowUpDown,
   ChevronDown,
+  NotebookPen,
   MoreHorizontal,
   UserRoundCog,
   Store,
@@ -44,6 +45,7 @@ import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
 import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";
+import { EditProductModal } from "@/modal/Product/ProductModal";
 
 // Users are fetches here from the backend
 const fetchProduct = async ({ queryKey }) => {
@@ -64,166 +66,6 @@ const fetchProduct = async ({ queryKey }) => {
   };
 };
 
-const columns = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "name",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Product Name
-        <ArrowUpDown />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
-  },
-
-  {
-    accessorKey: "productCategory",
-    header: " Product Category",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("productCategory")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "price",
-    header: "Price",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("price")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "sku",
-    header: "SKU",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("sku")}</div>,
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "country",
-    header: "Country",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("country")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  {
-    accessorKey: "shortDescription",
-    header: "Short Description",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("shortDescription")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
-
-  // {
-  //   accessorKey: "email",
-  //   header: ({ column }) => (
-  //     <Button
-  //       variant="ghost"
-  //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //     >
-  //       Email
-  //       <ArrowUpDown />
-  //     </Button>
-  //   ),
-  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  // },
-
-  // {
-  //   accessorKey: "phoneNumber",
-  //   header: "Phone Number",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: true,
-  // },
-
-  //  Actions for the table
-  {
-    id: "actions",
-    header: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const products = row.original;
-
-      const updateStore = async () => {};
-
-      // Remove (Delete) Store function.
-      const deleteProduct = async (storeId) => {
-        // const storeId =
-        const productIdId = products?.id;
-        await backendUrl.post(
-          `/stores/store/${storeId}/products/product/${productId}/delete-product`
-        );
-      };
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            {/* Deleter user dropdown */}
-            <DropdownMenuItem
-              className="text-red-500 font-medium"
-              onClick={deleteProduct}
-            >
-              <Trash2 className="text-red-500" />
-              Delete Location
-            </DropdownMenuItem>
-
-            {/* <DropdownMenuItem onClick={deleteUser}>
-              Delete User
-            </DropdownMenuItem> */}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
 //  ==== MAIN TABLE FUNCTION ===
 export function ProductTable() {
   const [sorting, setSorting] = React.useState([]);
@@ -235,6 +77,10 @@ export function ProductTable() {
     pageSize: 30 ?? 10,
   });
 
+  // Modal state
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const [selectedProduct, setSelectedProduct] = React.useState();
+
   const { data: activeOrganization } = authClient.useActiveOrganization();
   const storeId = activeOrganization?.id;
 
@@ -243,12 +89,199 @@ export function ProductTable() {
     data: product,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["products", storeId, pagination.pageIndex, pagination.pageSize],
     queryFn: fetchProduct,
     enabled: !!storeId,
     keepPreviousData: true,
   });
+
+  // Handle edit location
+  const handleEditProduct = (product) => {
+    setSelectedProduct(product);
+    setIsEditModalOpen(true);
+  };
+
+  // Handle modal close (only when closing, not opening)
+  const handleModalClose = (open) => {
+    if (!open) {
+      // only run logic when closing
+      setIsEditModalOpen(false);
+      setSelectedProduct(null);
+      refetch(); // refresh only on close
+    }
+  };
+
+  // Success handler (just close modal, refetch will happen there)
+  const handleSuccess = () => {
+    setIsEditModalOpen(false);
+    setSelectedProduct(null);
+    // refetch();
+  };
+
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "name",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Product Name
+            <ArrowUpDown />
+          </Button>
+        ),
+        cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
+      },
+
+      {
+        accessorKey: "productCategory",
+        header: " Product Category",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("productCategory")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "price",
+        header: "Price",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("price")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "sku",
+        header: "SKU",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("sku")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "country",
+        header: "Country",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("country")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "shortDescription",
+        header: "Short Description",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("shortDescription")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      // {
+      //   accessorKey: "email",
+      //   header: ({ column }) => (
+      //     <Button
+      //       variant="ghost"
+      //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      //     >
+      //       Email
+      //       <ArrowUpDown />
+      //     </Button>
+      //   ),
+      //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+      // },
+
+      //  Actions for the table
+      {
+        id: "actions",
+        header: "Actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          const products = row.original;
+
+          const updateStore = async () => {};
+
+          // Remove (Delete) Store function.
+          const deleteProduct = async (storeId) => {
+            // const storeId =
+            const productIdId = products?.id;
+            await backendUrl.post(
+              `/stores/store/${storeId}/products/product/${productId}/delete-product`
+            );
+          };
+
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
+                {/* Edit Location */}
+                <DropdownMenuItem onClick={() => handleEditProduct(products)}>
+                  <NotebookPen className="text-green-500" />
+                  Edit Location
+                </DropdownMenuItem>
+
+                {/* Deleter user dropdown */}
+                <DropdownMenuItem
+                  className="text-red-500 font-medium"
+                  onClick={deleteProduct}
+                >
+                  <Trash2 className="text-red-500" />
+                  Delete Location
+                </DropdownMenuItem>
+
+                {/* <DropdownMenuItem onClick={deleteUser}>
+              Delete User
+            </DropdownMenuItem> */}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    [handleEditProduct, handleModalClose]
+  );
 
   const table = useReactTable({
     data: product?.product ?? [],
@@ -444,6 +477,13 @@ export function ProductTable() {
           </div>
         </div>
       </MetricCard>
+
+      <EditProductModal
+        open={isEditModalOpen}
+        onOpenChange={handleModalClose}
+        product={selectedProduct}
+        onSuccess={handleSuccess} // <-- call this inside your form after successful update
+      />
     </div>
   );
 }

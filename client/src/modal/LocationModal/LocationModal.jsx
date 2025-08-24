@@ -1,7 +1,7 @@
-import NormalModalLayout from "../NormalModalLayout";
-import EditModalLayout from "../EditModalLayout";
-import EditLocationForm from "@/app/Forms/Locations/edit-location-form";
-import AddLocationForm from "@/app/Forms/Locations/add-location-form";
+import NormalModalLayout from "../modal-layouts/NormalModalLayout";
+import EditModalLayout from "../modal-layouts/EditModalLayout";
+import EditLocationForm from "@/Forms/Locations/edit-location-form";
+import AddLocationForm from "@/Forms/Locations/add-location-form";
 
 function AddLocationModal() {
   const stats = [

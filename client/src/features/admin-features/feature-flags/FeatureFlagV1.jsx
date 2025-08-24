@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import FeatFlagModal from "@/app/Modal/FeatFlagModal/FeatFlagModal";
+import FeatFlagModal from "@/Modal/FeatFlagModal/FeatFlagModal";
 // import { useFeatureFlags } from '@/hooks/adminHooks/useFeatureFlags';
 import FeatureFlagTable from "@/components/tables/admin-tables/featureflag-tables/featureflag-table";
 

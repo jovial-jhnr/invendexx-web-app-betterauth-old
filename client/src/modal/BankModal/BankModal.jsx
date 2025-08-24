@@ -1,8 +1,9 @@
 import * as React from "react";
-
-import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import BankForm from "@/Forms/Banks/bank-form";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -11,14 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import {
   Drawer,
@@ -31,32 +24,26 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import FeatFlagForm from "@/app/Forms/FeatureFlag/feature-flag-form";
-
-export default function FeatFlagModal() {
+export default function BankModal() {
   const [open, setOpen] = React.useState(false);
-
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
-          >
-            Create Feat. Flag
+          <Button variant="outline" className="text-green-500">
+            Bank Details
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[500px] max-h-[100vh]">
           <DialogHeader>
-            <DialogTitle>Create Feat. Flag</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
+            <DialogTitle>Bank Details Settings</DialogTitle>
+            <DialogDescription>Bank Details Information</DialogDescription>
           </DialogHeader>
-          <FeatFlagForm />
+          <ScrollArea className="h-[70vh] pr-4">
+            <BankForm />
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     );
@@ -65,21 +52,16 @@ export default function FeatFlagModal() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button
-          variant="outline"
-          className="mr-1 text-sm text-white bg-red-600 hover:bg-red-400"
-        >
-          Create Feat.Flag
-        </Button>
+        <Button variant="outline">Bank Details</Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="max-h-[1000vh]">
         <DrawerHeader className="text-left">
-          <DrawerTitle>Create Feat. Flag</DrawerTitle>
-          <DrawerDescription>
-            Customer is created here for the first time.
-          </DrawerDescription>
+          <DrawerTitle> Bank Details Settings</DrawerTitle>
+          <DrawerDescription>Bank Details Information</DrawerDescription>
         </DrawerHeader>
-        <FeatFlagForm className="px-4" />
+        <ScrollArea className="h-[70vh] px-4">
+          <BankForm />
+        </ScrollArea>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>

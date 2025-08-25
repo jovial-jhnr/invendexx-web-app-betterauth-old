@@ -1,18 +1,20 @@
 import prisma from "../../../lib/db.js";
 
 // Store add new category
-const newCategory = async () => {
+const newCategory = async (req, res) => {
+  const storeId = req.params.storeId;
+  const { name, description } = req.body;
   try {
     const newCategory = await prisma.productCategory.create({
       data: {
         name,
         description,
-      },
-      store: {
-        connect: { storeId },
+        store: {
+          connect: { id: storeId },
+        },
       },
     });
-    return res.status(200).json({
+    return res.status(201).json({
       status: true,
       message: "New category added successfully",
       result: newCategory,
@@ -27,7 +29,7 @@ const newCategory = async () => {
 };
 
 // Store update category
-const updateCategory = async () => {
+const updateCategory = async (req, res) => {
   const storeId = req.params.storeId;
   const productCategoryId = req.params.productCategoryId;
 
@@ -48,7 +50,7 @@ const updateCategory = async () => {
     return res.status(200).json({
       status: true,
       message: "Updated product category successfully",
-      result: updateCategory,
+      // result: updateCategory,
     });
   } catch (error) {
     return res.status(500).json({
@@ -60,7 +62,7 @@ const updateCategory = async () => {
 };
 
 // Store delete category
-const deleteCategory = async () => {
+const deleteCategory = async (req, res) => {
   const storeId = req.params.storeId;
   const productCategoryId = req.parrams.productCategoryId;
 
@@ -74,7 +76,7 @@ const deleteCategory = async () => {
     return res.status(200).json({
       status: true,
       message: "Deleted product category successfully",
-      result: deleteCategory,
+      // result: deleteCategory,
     });
   } catch (error) {
     return res.status(500).json({
@@ -86,7 +88,7 @@ const deleteCategory = async () => {
 };
 
 // Store fetches all category
-const allProductCategory = async () => {
+const allProductCategory = async (req, res) => {
   const storeId = req.params.storeId;
   const limit = req.params.limit;
   const offset = req.params.offset;
@@ -98,9 +100,14 @@ const allProductCategory = async () => {
       },
       skip: offset,
       take: limit,
+      include: {
+        _count: {
+          select: { product: true },
+        },
+      },
     });
-    totalCount = await prisma.productCategory.count();
-    totalProduct = await prisma.product.count();
+    const totalCount = await prisma.productCategory.count();
+    const totalProduct = await prisma.product.count();
 
     return res.status(200).json({
       status: true,

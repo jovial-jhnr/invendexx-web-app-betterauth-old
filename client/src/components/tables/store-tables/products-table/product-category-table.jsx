@@ -56,153 +56,12 @@ const fetchProductCategory = async ({ queryKey }) => {
     }
   );
 
+  // console.log("Category", res?.data?.result);
   return {
-    location: res?.data?.result,
+    category: res?.data?.result,
     total: res?.data?.meta?.totalCount,
   };
 };
-
-const columns = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "name",
-    header: "Category",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("category")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("description")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "product",
-    header: "Product Quantity",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("product")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  // {
-  //   accessorKey: "address",
-  //   header: "Address",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("address")}</div>
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
-
-  // {
-  //   accessorKey: "email",
-  //   header: ({ column }) => (
-  //     <Button
-  //       variant="ghost"
-  //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //     >
-  //       Email
-  //       <ArrowUpDown />
-  //     </Button>
-  //   ),
-  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  // },
-
-  // {
-  //   accessorKey: "phoneNumber",
-  //   header: "Phone Number",
-  //   cell: ({ row }) => (
-  //     <div className="capitalize">{row.getValue("phoneNumber")}</div>
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: true,
-  // },
-
-  //  Actions for the table
-  {
-    id: "actions",
-    header: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const productscategory = row.original;
-
-      const updateStore = async () => {};
-
-      // Remove (Delete) Store function.
-      const deleteLocation = async (storeId) => {
-        // const storeId =
-        const productCategoryId = productscategory?.id;
-
-        await backendUrl.post(
-          `/stores/store/${storeId}/products/product-category/${productCategoryId}/delete-category`
-        );
-      };
-
-      // Change user role here
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            {/* Deleter user dropdown */}
-            <DropdownMenuItem
-              className="text-red-500 font-medium"
-              onClick={deleteLocation}
-            >
-              <Trash2 className="text-red-500" />
-              Delete Location
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-
-            {/* <DropdownMenuItem onClick={deleteUser}>
-              Delete User
-            </DropdownMenuItem> */}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
 
 //  ==== MAIN TABLE FUNCTION ===
 export function ProductCategoryTable() {
@@ -224,14 +83,146 @@ export function ProductCategoryTable() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["locations", storeId, pagination.pageIndex, pagination.pageSize],
+    queryKey: ["category", storeId, pagination.pageIndex, pagination.pageSize],
     queryFn: fetchProductCategory,
     enabled: !!storeId,
     keepPreviousData: true,
   });
 
+  const columns = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+
+    {
+      accessorKey: "name",
+      header: "Category Name",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("name")}</div>
+      ),
+      enableSorting: true,
+      enableHiding: true,
+    },
+
+    {
+      accessorKey: "Product Quantity",
+      header: "Product Quantity",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.original._count?.product ?? 0}</div>
+      ),
+      enableSorting: true,
+      enableHiding: true,
+    },
+
+    {
+      accessorKey: "description",
+      header: "Description",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("description")}</div>
+      ),
+      enableSorting: true,
+      enableHiding: true,
+    },
+    // {
+    //   accessorKey: "address",
+    //   header: "Address",
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue("address")}</div>
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
+
+    // {
+    //   accessorKey: "email",
+    //   header: ({ column }) => (
+    //     <Button
+    //       variant="ghost"
+    //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //     >
+    //       Email
+    //       <ArrowUpDown />
+    //     </Button>
+    //   ),
+    //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    // },
+
+    //  Actions for the table
+    {
+      id: "actions",
+      header: "Actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const productCategories = row.original;
+
+        const { id: productCategoryId } = productCategories;
+
+        const updateStore = async () => {};
+
+        // Remove (Delete) Store Category function.
+        const deleteCategory = async () => {
+          // const storeId =
+
+          await backendUrl.post(
+            `/stores/store/${storeId}/products/product-category/${productCategoryId}/delete-category`
+          );
+        };
+
+        // Change user role here
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              {/* Deleter user dropdown */}
+              <DropdownMenuItem
+                className="text-red-500 font-medium"
+                onClick={deleteCategory}
+              >
+                <Trash2 className="text-red-500" />
+                Delete Category
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+
+              {/* <DropdownMenuItem onClick={deleteUser}>
+              Delete User
+            </DropdownMenuItem> */}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+
   const table = useReactTable({
-    data: productCategory?.location ?? [],
+    data: productCategory?.category ?? [],
     columns,
     manualPagination: true, // <--- ADD THIS
     pageCount: Math.ceil(productCategory?.total / pagination.pageSize) ?? -1, // <-- add this

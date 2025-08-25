@@ -182,8 +182,9 @@ export default function AddProductForm({ className }) {
             </div>
           </div>
 
+          {/* Product Category */}
           <div className="field my-2">
-            <Label htmlFor="productCategory" cl>
+            <Label htmlFor="productCategory" className="text-lg">
               Product Category
             </Label>
             <Controller
@@ -192,26 +193,26 @@ export default function AddProductForm({ className }) {
               defaultValue={[]} // 👈 MUST be array
               render={({ field }) => (
                 <MultiSelector
-                  values={field?.value?.map((id) => {
-                    const cats = categories.find((c) => c.id === id);
+                  values={field?.value?.map((catName) => {
+                    const cats = categories.find((c) => c.name === catName);
                     return { value: cats?.name, label: cats?.name || id };
-                  })}
+                  })} // Values must be mapped for it to work
                   onValuesChange={(vals) =>
                     field.onChange(vals?.map((v) => v.value))
-                  }
+                  } //onValuesChange must be mapped for it to work
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select locations for products" />
+                    <MultiSelectorInput placeholder="" />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
-                      {categories?.map((cats) => (
+                      {categories?.map((cats, idx) => (
                         <MultiSelectorItem
-                          key={cats.id}
-                          value={cats.name}
-                          label={cats.name}
+                          key={idx}
+                          value={cats?.name}
+                          label={cats?.name}
                         >
-                          {cats.name}
+                          {cats?.name}
                         </MultiSelectorItem>
                       ))}
                     </MultiSelectorList>
@@ -414,12 +415,13 @@ export default function AddProductForm({ className }) {
               <Controller
                 control={control}
                 name="locationId"
+                defaultValue={location?.name}
                 // rules={{ required: "Country is required" }}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Location">
-                        {field.value || "location"}
+                        {location?.name || "location"}
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>

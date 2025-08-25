@@ -138,6 +138,9 @@ const fetchProducts = async (req, res) => {
       },
       skip: offset,
       take: limit,
+      include: {
+        productCategory: true,
+      },
     });
 
     const totalCount = await prisma.product.count({

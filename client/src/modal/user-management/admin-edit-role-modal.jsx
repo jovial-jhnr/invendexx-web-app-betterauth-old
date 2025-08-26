@@ -1,0 +1,39 @@
+import EditModalLayout from "../modal-layouts/EditModalLayout";
+import AdminEditRoleForm from "@/Forms/user-managent/admin-edit-role-form";
+
+export default function AdminEditRoleModal({
+  open,
+  onOpenChange,
+  user,
+  onSuccess,
+}) {
+  const stats = [
+    {
+      title: "Set Users Role Form",
+      action_button: "Change Role",
+      description: "Set users role here",
+      open,
+      onOpenChange,
+    },
+  ];
+
+  return (
+    <div className="">
+      {stats.map((stat, index) => (
+        <EditModalLayout
+          key={index}
+          title={stat.title}
+          description={stat.description}
+          //   action_button={stat.action_button}
+          open={open}
+          onOpenChange={onOpenChange}
+          className="text-green-500 bg-blue-600"
+        >
+          <div className="text-xl mx-1">
+            <AdminEditRoleForm user={user} onSuccess={onSuccess} open={open} />
+          </div>
+        </EditModalLayout>
+      ))}
+    </div>
+  );
+}

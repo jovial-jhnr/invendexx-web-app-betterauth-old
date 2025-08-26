@@ -22,7 +22,7 @@ model User {
   phoneNumber   String?
   emailVerified Boolean?
   image         String?
-  role          String?
+  role          String
   banned        Boolean?
   banReason     String?
   banExpires    DateTime?

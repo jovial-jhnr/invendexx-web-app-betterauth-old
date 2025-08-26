@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "public"."user" ALTER COLUMN "role" SET NOT NULL,
+ALTER COLUMN "role" SET DATA TYPE TEXT;

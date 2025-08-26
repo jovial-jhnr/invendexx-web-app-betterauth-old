@@ -23,7 +23,7 @@ export default function DashboardCard({
         </div>
       </CardHeader>
 
-      <CardContent className="text-md sm:text-sm font-bold font-inter items-center text-center p-2">
+      <CardContent className="md:text-md text-sm font-bold font-inter items-center text-center p-2">
         {children}
 
         {description && (

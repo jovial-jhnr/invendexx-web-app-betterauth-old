@@ -34,7 +34,6 @@ export default function EditModalLayout({
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  console.log(3);
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>

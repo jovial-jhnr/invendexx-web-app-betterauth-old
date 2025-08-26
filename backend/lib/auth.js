@@ -71,10 +71,10 @@ export const auth = betterAuth({
   },
 
   // Rate limiting on authentication.
-  // rateLimit: {
-  //   window: 10, // time window in seconds
-  //   max: 10, // max requests in the window
-  // },
+  rateLimit: {
+    window: 10, // time window in seconds
+    max: 10, // max requests in the window
+  },
 
   // Allow user to delete .
   deleteUser: {

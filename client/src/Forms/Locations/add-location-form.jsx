@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Spinner from "@/components/ui/spinner";
 
 // MAIN FUNCTION
 export default function AddLocationForm({ className }) {
@@ -73,22 +74,27 @@ export default function AddLocationForm({ className }) {
 
         <div className="field my-2">
           <Label htmlFor="location-name">Location Name</Label>
-          <Input type="text" id="location-name" {...register("name")} />
+          <Input
+            type="text"
+            required
+            id="location-name"
+            {...register("name")}
+          />
         </div>
 
         <div className="field my-2">
           <Label htmlFor="address">Address</Label>
-          <Input type="text" id="address" {...register("address")} />
+          <Input type="text" required id="address" {...register("address")} />
         </div>
 
         <div className="field my-2">
           <Label htmlFor="city">City</Label>
-          <Input type="text" id="city" {...register("city")} />
+          <Input type="text" required id="city" {...register("city")} />
         </div>
 
         <div className="field my-2">
           <Label htmlFor="region">Region</Label>
-          <Input type="text" id="region" {...register("region")} />
+          <Input type="text" required id="region" {...register("region")} />
         </div>
 
         <div className="grid gap-2 my-2">
@@ -98,7 +104,11 @@ export default function AddLocationForm({ className }) {
             name="country"
             // rules={{ required: "Country is required" }}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value}
+                required
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Country">
                     {field.value || "Select country"}
@@ -128,7 +138,13 @@ export default function AddLocationForm({ className }) {
         {/* Submit */}
         <div className="pt-3 w-full my-2">
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Saving Changes.... 😁😁" : "Save Changes 😁😁"}
+            {isSubmitting ? (
+              <>
+                <Spinner /> "Saving Changes...."
+              </>
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         </div>
       </div>

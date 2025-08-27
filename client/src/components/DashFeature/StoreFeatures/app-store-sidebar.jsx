@@ -272,9 +272,9 @@ export function AppStoreSidebar(props) {
           )}
         </SidebarContent>
         <SidebarFooter>
-          {/* <div>
+          <div>
             <SidebarOptInForm />
-          </div> */}
+          </div>
           <NavStoreUser user={data.user} />
         </SidebarFooter>
       </Sidebar>

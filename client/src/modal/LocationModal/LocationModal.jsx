@@ -1,14 +1,14 @@
 import NormalModalLayout from "../modal-layouts/NormalModalLayout";
 import EditModalLayout from "../modal-layouts/EditModalLayout";
-import EditLocationForm from "@/Forms/Locations/edit-location-form";
-import AddLocationForm from "@/Forms/Locations/add-location-form";
+import EditLocationForm from "@/Forms/locations/edit-location-form";
+import AddLocationForm from "@/Forms/locations/add-location-form";
 
 function AddLocationModal() {
   const stats = [
     {
       title: "Add Location Form",
-      action_button: "Add Location",
-      description: "Add location details here",
+      action_button: "Add New Location",
+      description: "Add New Location details here",
     },
   ];
 

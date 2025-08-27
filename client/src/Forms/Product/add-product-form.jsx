@@ -421,7 +421,7 @@ export default function AddProductForm({ className }) {
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Location">
-                        {location?.name || "location"}
+                        {field?.value || "location"}
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>

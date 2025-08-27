@@ -36,7 +36,7 @@ export default function AdminEditRoleForm({
 }) {
   // User details
   const { data: session } = authClient.useSession();
-  const role = session?.user?.role;
+  const rolle = session?.user?.role;
 
   // All Role options
   const options = [
@@ -77,7 +77,7 @@ export default function AdminEditRoleForm({
 
     try {
       // Admin Check
-      if (role !== "admin") {
+      if (rolle !== "admin") {
         return toast.error("You are not allowed this action");
       }
 

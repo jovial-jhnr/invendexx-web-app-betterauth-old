@@ -8,7 +8,9 @@ import users_icon from "@/assets/table-ui-icons/users_icon.png";
 import {
   ArrowUpDown,
   ChevronDown,
+  LockKeyholeOpen,
   MoreHorizontal,
+  SquareUser,
   UserLock,
   UserRoundCog,
 } from "lucide-react";
@@ -44,6 +46,7 @@ import { useQuery } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 import AdminEditRoleModal from "@/modal/user-management/admin-edit-role-modal";
 import AdminEditPasswordModal from "@/modal/user-management/admin-edit-password-modal";
+import BanUserModal from "@/modal/user-management/ban-user-modal";
 
 // Users are fetches here from the backend
 const fetchUsers = async ({ queryKey }) => {
@@ -77,6 +80,7 @@ export function UserManagementTable() {
   // Modal state
   // const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
   const [isRoleModalOpen, setIsRoleModalOpen] = React.useState(false);
+  const [isBanModalOpen, setIsBanModalOpen] = React.useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState();
 
@@ -92,7 +96,7 @@ export function UserManagementTable() {
     keepPreviousData: true,
   });
 
-  // Handle edit location
+  // Handle edit role
   const handleEditRole = (user) => {
     setSelectedUser(user);
     setIsRoleModalOpen(true);
@@ -103,11 +107,17 @@ export function UserManagementTable() {
     setIsPasswordModalOpen(true);
   };
 
+  // Handle ban user
+  const handleBanUser = (user) => {
+    setSelectedUser(user);
+    setIsBanModalOpen(true);
+  };
+
   // Handle modal close (only when closing, not opening)
   const handleModalClose = (open) => {
     if (!open) {
       // only run logic when closing
-      // setIsEditModalOpen(false);
+      setIsBanModalOpen(false);
       setIsRoleModalOpen(false);
       setIsPasswordModalOpen(false);
       setSelectedUser(null);
@@ -117,7 +127,9 @@ export function UserManagementTable() {
 
   // Success handler (just close modal, refetch will happen there)
   const handleSuccess = () => {
-    setIsEditModalOpen(false);
+    setIsBanModalOpen(false);
+    setIsRoleModalOpen(false);
+    setIsPasswordModalOpen(false);
     setSelectedUser(null);
     // refetch();
   };
@@ -316,24 +328,6 @@ export function UserManagementTable() {
             );
           };
 
-          // Ban User function
-          const bannedUser = async () =>
-            await authClient.admin.banUser(
-              {
-                userId: users?.id,
-                banReason: "", // Optional (if not provided, the default ban reason will be used - No reason)
-                banExpiresIn: 60 * 60 * 24 * 7, // Optional (if not provided, the ban will never expire)
-              },
-              {
-                onSuccess(ctx) {
-                  toast.success("Successfully banned User ");
-                },
-                onError(ctx) {
-                  toast.error("Failed to ban User ");
-                },
-              }
-            );
-
           // Unban User function
           const unbannedUser = async () =>
             await authClient.admin.unbanUser(
@@ -364,7 +358,7 @@ export function UserManagementTable() {
 
                 {/* Change user roles or add more */}
                 <DropdownMenuItem onClick={() => handleEditRole(users)}>
-                  <UserLock />
+                  <SquareUser />
                   Set User Role
                 </DropdownMenuItem>
 
@@ -375,10 +369,7 @@ export function UserManagementTable() {
                 </DropdownMenuItem>
 
                 {/* Impersonate User Session */}
-                <DropdownMenuItem
-                  onClick={impersonatedSession}
-                  className="font-medium"
-                >
+                <DropdownMenuItem onClick={impersonatedSession} className="">
                   <UserRoundCog />
                   Impersonate User
                 </DropdownMenuItem>
@@ -386,17 +377,18 @@ export function UserManagementTable() {
                 {/* Revoke user Session */}
                 <DropdownMenuItem onClick={revokedSession}>
                   <VenetianMask />
-                  Revoke User Session
+                  Logout User
                 </DropdownMenuItem>
 
                 {/* Ban user */}
-                <DropdownMenuItem onClick={bannedUser}>
-                  <Ban /> Ban User
+                <DropdownMenuItem onClick={() => handleBanUser(users)}>
+                  <Ban />
+                  Ban User
                 </DropdownMenuItem>
 
                 {/* Unban User */}
                 <DropdownMenuItem onClick={unbannedUser}>
-                  <ShieldCheck />
+                  <LockKeyholeOpen />
                   Unban User
                 </DropdownMenuItem>
 
@@ -418,7 +410,7 @@ export function UserManagementTable() {
         },
       },
     ],
-    [handleEditPassword, handleEditRole, handleSuccess]
+    [handleEditPassword, handleEditRole, handleBanUser, handleSuccess]
   );
 
   const table = useReactTable({
@@ -635,9 +627,20 @@ export function UserManagementTable() {
         />
       </div>
 
+      {/* Admin edit user password */}
       <div>
         <AdminEditPasswordModal
           open={isPasswordModalOpen}
+          onOpenChange={handleModalClose}
+          user={selectedUser}
+          onSuccess={handleSuccess}
+        />
+      </div>
+
+      {/* Admin ban user */}
+      <div>
+        <BanUserModal
+          open={isBanModalOpen}
           onOpenChange={handleModalClose}
           user={selectedUser}
           onSuccess={handleSuccess}
@@ -648,21 +651,3 @@ export function UserManagementTable() {
 }
 
 export default UserManagementTable;
-
-{
-  /* <div className="text-sm font-semibold">
-  <input
-    type="number"
-    min={1}
-    value={table.getState().pagination.pageSize}
-    onChange={(e) => {
-      const newSize = Number(e.target.value);
-      if (!isNaN(newSize) && newSize > 0) {
-        table.setPageSize(newSize);
-      }
-    }}
-    className="text-inherit w-20 px-2 py-1 border rounded"
-    placeholder="Page size"
-  />
-</div>; */
-}

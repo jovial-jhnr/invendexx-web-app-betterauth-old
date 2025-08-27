@@ -127,7 +127,7 @@ export function ProductCategoryTable() {
       accessorKey: "Product Quantity",
       header: "Product Quantity",
       cell: ({ row }) => (
-        <div className="capitalize">{row.original._count?.product ?? 0}</div>
+        <div className="capitalize">{row.original._count?.product}</div>
       ),
       enableSorting: true,
       enableHiding: true,

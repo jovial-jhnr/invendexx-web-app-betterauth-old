@@ -12,15 +12,7 @@ import toast from "react-hot-toast";
 import useStoreCategory from "@/hooks/storeHooks/use-store-category";
 import useStoreLocation from "@/hooks/storeHooks/use-store-location";
 import { authClient } from "@/lib/auth-client";
-import {
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectContent,
-  SelectGroup,
-  SelectValue,
-  SelectLabel,
-} from "@/components/ui/select";
+
 import {
   MultiSelector,
   MultiSelectorTrigger,
@@ -42,7 +34,9 @@ export default function AdminEditRoleForm({
   open,
   onSuccess,
 }) {
-  // console.log("user", user);
+  // User details
+  const { data: session } = authClient.useSession();
+  const role = session?.user?.role;
 
   // All Role options
   const options = [
@@ -82,17 +76,31 @@ export default function AdminEditRoleForm({
     const { id: userId } = user;
 
     try {
+      // Admin Check
+      if (role !== "admin") {
+        return toast.error("You are not allowed this action");
+      }
+
       // Change user role here
-      await authClient.admin.setRole({
-        userId,
-        role,
-        // this can also be an array for multiple roles (e.g. ["admin", "sale"])
-      });
+      await authClient.admin.setRole(
+        {
+          userId,
+          role,
+          // this can also be an array for multiple roles (e.g. ["admin", "sale"])
+        },
+        {
+          onSuccess(ctx) {
+            toast.success("User Role Changed successfully");
+          },
+          onError(ctx) {
+            toast.error("Failed to change user role");
+          },
+        }
+      );
 
       onSuccess?.();
-      toast.success("User Role Changed successfully");
     } catch (error) {
-      toast.error("Failed to change user role");
+      // toast.error("Failed to change user role");
     }
   };
 
@@ -113,7 +121,7 @@ export default function AdminEditRoleForm({
 
           {/* Update Roles here */}
           <div className="field my-2">
-            <Label htmlFor="productCategory" className="">
+            <Label htmlFor="role" className="">
               User Roles
             </Label>
             <Controller
@@ -152,11 +160,6 @@ export default function AdminEditRoleForm({
                 </MultiSelector>
               )}
             />
-            {/* {errors.role && (
-              <p className="text-red-500 text-sm">
-                {errors.role.message}
-              </p>
-            )} */}
           </div>
 
           {/* Submit */}

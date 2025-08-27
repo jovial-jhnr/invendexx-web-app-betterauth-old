@@ -43,6 +43,7 @@ import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 import AdminEditRoleModal from "@/modal/user-management/admin-edit-role-modal";
+import AdminEditPasswordModal from "@/modal/user-management/admin-edit-password-modal";
 
 // Users are fetches here from the backend
 const fetchUsers = async ({ queryKey }) => {
@@ -74,7 +75,9 @@ export function UserManagementTable() {
   });
 
   // Modal state
-  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  // const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const [isRoleModalOpen, setIsRoleModalOpen] = React.useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState();
 
   // Users from the json
@@ -92,14 +95,21 @@ export function UserManagementTable() {
   // Handle edit location
   const handleEditRole = (user) => {
     setSelectedUser(user);
-    setIsEditModalOpen(true);
+    setIsRoleModalOpen(true);
+  };
+
+  const handleEditPassword = (user) => {
+    setSelectedUser(user);
+    setIsPasswordModalOpen(true);
   };
 
   // Handle modal close (only when closing, not opening)
   const handleModalClose = (open) => {
     if (!open) {
       // only run logic when closing
-      setIsEditModalOpen(false);
+      // setIsEditModalOpen(false);
+      setIsRoleModalOpen(false);
+      setIsPasswordModalOpen(false);
       setSelectedUser(null);
       refetch(); // refresh only on close
     }
@@ -113,265 +123,303 @@ export function UserManagementTable() {
   };
 
   // Table columns
-  const columns = [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-
-    {
-      accessorKey: "firstName",
-      header: "First Name",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("firstName")}</div>
-      ),
-
-      enableSorting: false,
-      enableHiding: false,
-    },
-
-    {
-      accessorKey: "middleName",
-      header: "Middle Name",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("middleName")}</div>
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-
-    {
-      accessorKey: "lastName",
-      header: "Last Name",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("lastName")}</div>
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-
-    {
-      accessorKey: "email",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("email")}</div>
-      ),
-    },
-
-    {
-      accessorKey: "phoneNumber",
-      header: "Phone Number",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("phoneNumber")}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-
-    {
-      accessorKey: "role",
-      header: "Role",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("role")}</div>
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-    {
-      accessorKey: "emailVerified",
-      header: "Email Verified",
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue("emailVerified")?.emailVerified}
-        </div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-
-    {
-      id: "actions",
-      header: "Actions",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const users = row.original;
-
-        // Function to impersonate users.
-        const impersonatedSession = async () =>
-          await authClient.admin.impersonateUser(
-            {
-              userId: users?.id,
-            },
-            {
-              onSuccess(ctx) {
-                toast.success("Successfully impersonated User");
-              },
-              onError(ctx) {
-                toast.error("Failed to impersonate User");
-              },
+  const columns = React.useMemo(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
             }
-          );
-
-        // Function to revoke user session
-        const revokedSession = async () =>
-          await authClient.admin.revokeUserSession(
-            {
-              sessionToken: session?.session?.token,
-            },
-            {
-              onSuccess(ctx) {
-                toast.success("Successfully revoved Users Session");
-              },
-              onError(ctx) {
-                toast.error("Failed to revoke session");
-              },
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
             }
-          );
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
 
-        // Remove (Delete) user function.
-        const deleteUser = async () => {
-          // Checks for the users role before deleting
-          if (users?.role === "admin") {
-            toast.error("User is Admin, Cannot delete");
-            return;
-          }
+      {
+        accessorKey: "firstName",
+        header: "First Name",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("firstName")}</div>
+        ),
 
-          await authClient.admin.removeUser(
-            {
-              userId: users?.id,
-            },
-            {
-              onSuccess(ctx) {
-                toast.success("Successfully deleted User permanently");
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "middleName",
+        header: "Middle Name",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("middleName")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "lastName",
+        header: "Last Name",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("lastName")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: "email",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <ArrowUpDown />
+          </Button>
+        ),
+        cell: ({ row }) => (
+          <div className="lowercase text-blue-600">{row.getValue("email")}</div>
+        ),
+      },
+
+      {
+        accessorKey: "phoneNumber",
+        header: "Phone Number",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("phoneNumber")}</div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "role",
+        header: "Role",
+        cell: ({ row }) => (
+          <div className="capitalize text-blue-500 font-semibold">
+            {row.getValue("role")}
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      {
+        accessorKey: "emailVerified",
+        header: "Email Verified",
+        cell: ({ row }) => (
+          <div className="capitalize font-bold font-inter">
+            {row?.original?.emailVerified?.toString()}
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "banReason",
+        header: "Banned Reason",
+        cell: ({ row }) => (
+          <div className="capitalize font-bold font-inter">
+            {row?.getValue("banReason")}
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        accessorKey: "banned",
+        header: "Is Banned",
+        cell: ({ row }) => (
+          <div className="capitalize font-semibold font-inter text-orange-500">
+            {row?.original?.banned?.toString()}
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+      },
+
+      {
+        id: "actions",
+        header: "Actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          const users = row.original;
+
+          // Function to impersonate users.
+          const impersonatedSession = async () =>
+            await authClient.admin.impersonateUser(
+              {
+                userId: users?.id,
               },
-              onError(ctx) {
-                toast.error("Failed to delete User");
+              {
+                onSuccess(ctx) {
+                  toast.success("Successfully impersonated User");
+                },
+                onError(ctx) {
+                  toast.error("Failed to impersonate User");
+                },
+              }
+            );
+
+          // Function to revoke user session
+          const revokedSession = async () =>
+            await authClient.admin.revokeUserSession(
+              {
+                sessionToken: session?.session?.token,
               },
+              {
+                onSuccess(ctx) {
+                  toast.success("Successfully revoved Users Session");
+                },
+                onError(ctx) {
+                  toast.error("Failed to revoke session");
+                },
+              }
+            );
+
+          // Remove (Delete) user function.
+          const deleteUser = async () => {
+            // Checks for the users role before deleting
+            if (users?.role === "admin") {
+              toast.error("User is Admin, Cannot delete");
+              return;
             }
-          );
-        };
 
-        // Ban User function
-        const bannedUser = async () =>
-          await authClient.admin.banUser(
-            {
-              userId: users?.id,
-              banReason: "", // Optional (if not provided, the default ban reason will be used - No reason)
-              banExpiresIn: 60 * 60 * 24 * 7, // Optional (if not provided, the ban will never expire)
-            },
-            {
-              onSuccess(ctx) {
-                toast.success("Successfully banned User ");
+            await authClient.admin.removeUser(
+              {
+                userId: users?.id,
               },
-              onError(ctx) {
-                toast.error("Failed to ban User ");
+              {
+                onSuccess(ctx) {
+                  toast.success("Successfully deleted User permanently");
+                },
+                onError(ctx) {
+                  toast.error("Failed to delete User");
+                },
+              }
+            );
+          };
+
+          // Ban User function
+          const bannedUser = async () =>
+            await authClient.admin.banUser(
+              {
+                userId: users?.id,
+                banReason: "", // Optional (if not provided, the default ban reason will be used - No reason)
+                banExpiresIn: 60 * 60 * 24 * 7, // Optional (if not provided, the ban will never expire)
               },
-            }
-          );
+              {
+                onSuccess(ctx) {
+                  toast.success("Successfully banned User ");
+                },
+                onError(ctx) {
+                  toast.error("Failed to ban User ");
+                },
+              }
+            );
 
-        // Unban User function
-        const unbannedUser = async () =>
-          await authClient.admin.unbanUser(
-            {
-              userId: users?.id,
-            },
-            {
-              onSuccess(ctx) {
-                toast.success("Successfully unbanned User");
+          // Unban User function
+          const unbannedUser = async () =>
+            await authClient.admin.unbanUser(
+              {
+                userId: users?.id,
               },
-              onError(ctx) {
-                toast.error("Failed to unban User");
-              },
-            }
-          );
+              {
+                onSuccess(ctx) {
+                  toast.success("Successfully unbanned User");
+                },
+                onError(ctx) {
+                  toast.error("Failed to unban User");
+                },
+              }
+            );
 
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
 
-              <DropdownMenuItem onClick={() => handleEditRole(users)}>
-                <UserLock />
-                Set User Role
-              </DropdownMenuItem>
+                {/* Change user roles or add more */}
+                <DropdownMenuItem onClick={() => handleEditRole(users)}>
+                  <UserLock />
+                  Set User Role
+                </DropdownMenuItem>
 
-              {/* Impersonate User Session */}
-              <DropdownMenuItem
-                onClick={impersonatedSession}
-                className="font-medium"
-              >
-                <UserRoundCog />
-                Impersonate User
-              </DropdownMenuItem>
+                {/* Change user Password admin only */}
+                <DropdownMenuItem onClick={() => handleEditPassword(users)}>
+                  <UserLock />
+                  Set User Password
+                </DropdownMenuItem>
 
-              {/* Revoke user Session */}
-              <DropdownMenuItem onClick={revokedSession}>
-                <VenetianMask />
-                Revoke User Session
-              </DropdownMenuItem>
+                {/* Impersonate User Session */}
+                <DropdownMenuItem
+                  onClick={impersonatedSession}
+                  className="font-medium"
+                >
+                  <UserRoundCog />
+                  Impersonate User
+                </DropdownMenuItem>
 
-              {/* Ban user */}
-              <DropdownMenuItem onClick={bannedUser}>
-                <Ban /> Ban User
-              </DropdownMenuItem>
+                {/* Revoke user Session */}
+                <DropdownMenuItem onClick={revokedSession}>
+                  <VenetianMask />
+                  Revoke User Session
+                </DropdownMenuItem>
 
-              {/* Unban User */}
-              <DropdownMenuItem onClick={unbannedUser}>
-                <ShieldCheck />
-                Unban User
-              </DropdownMenuItem>
+                {/* Ban user */}
+                <DropdownMenuItem onClick={bannedUser}>
+                  <Ban /> Ban User
+                </DropdownMenuItem>
 
-              {/* Deleter user dropdown */}
-              <DropdownMenuItem
-                className="text-red-500 font-medium"
-                onClick={deleteUser}
-              >
-                <Trash2 className="text-red-500" />
-                Delete User
-              </DropdownMenuItem>
+                {/* Unban User */}
+                <DropdownMenuItem onClick={unbannedUser}>
+                  <ShieldCheck />
+                  Unban User
+                </DropdownMenuItem>
 
-              {/* <DropdownMenuItem onClick={deleteUser}>
+                {/* Deleter user dropdown */}
+                <DropdownMenuItem
+                  className="text-red-500 font-medium"
+                  onClick={deleteUser}
+                >
+                  <Trash2 className="text-red-500" />
+                  Delete User
+                </DropdownMenuItem>
+
+                {/* <DropdownMenuItem onClick={deleteUser}>
               Delete User
             </DropdownMenuItem> */}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
       },
-    },
-  ];
+    ],
+    [handleEditPassword, handleEditRole, handleSuccess]
+  );
 
   const table = useReactTable({
     data: users?.users ?? [],
@@ -508,7 +556,17 @@ export function UserManagementTable() {
           </div>
           {/* This lets you select the limit you want */}
           <div className="text-sm  font-semibold">
-            <select
+            <div className="text-sm font-semibold">
+              <Input
+                type="number"
+                min={1}
+                defaultValue={30}
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => table.setPageSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            {/* <select
               value={table.getState().pagination.pageSize}
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
@@ -520,7 +578,7 @@ export function UserManagementTable() {
                   Show {pageSize}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
 
           <div className="space-x-2">
@@ -567,9 +625,19 @@ export function UserManagementTable() {
         </div>
       </MetricCard>
 
+      {/* Admin edit role modal */}
       <div>
         <AdminEditRoleModal
-          open={isEditModalOpen}
+          open={isRoleModalOpen}
+          onOpenChange={handleModalClose}
+          user={selectedUser}
+          onSuccess={handleSuccess}
+        />
+      </div>
+
+      <div>
+        <AdminEditPasswordModal
+          open={isPasswordModalOpen}
           onOpenChange={handleModalClose}
           user={selectedUser}
           onSuccess={handleSuccess}

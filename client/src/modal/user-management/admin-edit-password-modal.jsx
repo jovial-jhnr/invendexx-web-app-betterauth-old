@@ -1,7 +1,7 @@
 import EditModalLayout from "../modal-layouts/EditModalLayout";
-import AdminEditRoleForm from "@/Forms/user-management/admin-edit-role-form";
+import AdminEditPasswordForm from "@/Forms/user-management/admin-edit-password-form";
 
-export default function AdminEditRoleModal({
+export default function AdminEditPasswordModal({
   open,
   onOpenChange,
   user,
@@ -9,9 +9,9 @@ export default function AdminEditRoleModal({
 }) {
   const stats = [
     {
-      title: "Set Users Role Form",
-      action_button: "Change Role",
-      description: "Set users role here",
+      title: "Set Users Password Form",
+      action_button: "Change Password ",
+      description: "Set users password here emergency only!!",
       open,
       onOpenChange,
     },
@@ -30,7 +30,11 @@ export default function AdminEditRoleModal({
           className="text-green-500 bg-blue-600"
         >
           <div className="text-xl mx-1">
-            <AdminEditRoleForm user={user} onSuccess={onSuccess} open={open} />
+            <AdminEditPasswordForm
+              user={user}
+              onSuccess={onSuccess}
+              open={open}
+            />
           </div>
         </EditModalLayout>
       ))}

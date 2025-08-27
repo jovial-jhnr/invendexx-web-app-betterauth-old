@@ -83,14 +83,6 @@ const ProtectedRoute = ({
   }
 
   // If the user doesn't have store access
-  if (requiredAccess.length > 0) {
-    if (
-      !store ||
-      !requiredAccess.includes(storeAccess === true || storeAccess === "true")
-    ) {
-      return <Navigate to="/error-404" />;
-    }
-  }
 
   // If the user passes the checks, render the children (protected route content)
   return children;

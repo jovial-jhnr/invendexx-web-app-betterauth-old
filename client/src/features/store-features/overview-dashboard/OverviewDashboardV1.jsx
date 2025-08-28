@@ -8,7 +8,7 @@ import StoreSwitcher from "@/components/GeneralFeatures/store-swittcher";
 import { authClient } from "@/lib/auth-client";
 import MainStoreDashStats from "@/dashboard-stats/store-dashstats/main-store-dashstats";
 
-function OverviewDashboardV1() {
+export default function OverviewDashboardV1() {
   // const { data: user } = useSession();
   const { data: session } = authClient.useSession();
 
@@ -51,14 +51,14 @@ function OverviewDashboardV1() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
         {/* Left column - 2/3 on desktop */}
-        <div className="md:col-span-2 p-0 m-2">
+        <div className="md:col-span-2 p-0 ">
           <div className="my-2 mx-1">
             <AdminSalesCard />
           </div>
         </div>
 
         {/* Right column - 1/3 on desktop */}
-        <div className="md:col-span-1  p-0 m-2">
+        <div className="md:col-span-1  p-0 ">
           <div className="my-2 mx-1">
             <TotalCustomers />
           </div>
@@ -67,5 +67,3 @@ function OverviewDashboardV1() {
     </>
   );
 }
-
-export default OverviewDashboardV1;

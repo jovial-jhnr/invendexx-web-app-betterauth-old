@@ -45,26 +45,25 @@ function OverviewDashboardV1() {
         </Button>
       </div>
 
-      {/* <div>
-        <StoreSwitcher />
-      </div> */}
-
       <div className="m-1 pl-2">
         <MainStoreDashStats />
       </div>
 
-      <div className="flex flex-col lg:flex-row  p-1 gap-3 ">
-        <div className="pt-1 w-full sm:w-2/3 lg:w-2/3 ">
-          <AdminSalesCard />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+        {/* Left column - 2/3 on desktop */}
+        <div className="md:col-span-2 p-0 m-2">
+          <div className="my-2 mx-1">
+            <AdminSalesCard />
+          </div>
         </div>
 
-        <div className="pt-3 w-full sm:w-2/3 lg:w-1/3 ">
-          <TotalCustomers />
+        {/* Right column - 1/3 on desktop */}
+        <div className="md:col-span-1  p-0 m-2">
+          <div className="my-2 mx-1">
+            <TotalCustomers />
+          </div>
         </div>
       </div>
-      {/* <div className="m-2">
-        <TableData />
-      </div> */}
     </>
   );
 }

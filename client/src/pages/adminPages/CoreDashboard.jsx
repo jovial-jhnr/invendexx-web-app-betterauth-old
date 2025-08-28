@@ -2,7 +2,7 @@ import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/Sta
 import TotalCustomers from "@/components/DashFeature/StoreFeatures/storeCharts/TotalCustomers";
 import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/AdminSalesCard";
 import ProductCategoryChart from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ProductCategoryChart";
-import { SystemHealthCard } from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/SystemHealthCard";
+import SystemHealthCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/SystemHealthCard";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/useSession";
@@ -47,23 +47,25 @@ export default function CoreDashboard() {
             <StatCard />
           </div> */}
 
-          <div className="flex lg:flex-row flex-col p-1 gap-3">
-            <div className="pt-1 w-full sm:w-2/3 lg:w-2/3 ">
-              <AdminSalesCard />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+            {/* Left column - 2/3 on desktop */}
+            <div className="md:col-span-2 p-0">
+              <div className="my-2 mx-1">
+                <AdminSalesCard />
+              </div>
+              <div className="my-2 mx-1">
+                <ProductCategoryChart />
+              </div>
             </div>
 
-            <div className="pt-3 w-full sm:w-2/3 lg:w-1/3 ">
-              <SystemHealthCard />
-            </div>
-          </div>
-
-          <div className="flex flex-col lg:flex-row p-1 gap-2">
-            <div className="pt-1 sm:w-2/3  lg:w-2/3 ">
-              <ProductCategoryChart />
-            </div>
-
-            <div className="pt-1 sm:w-1/3  lg:w-1/3">
-              <TotalCustomers />
+            {/* Right column - 1/3 on desktop */}
+            <div className="md:col-span-1 p-0 ">
+              <div className="my-2 mx-1">
+                <SystemHealthCard />
+              </div>
+              <div className="my-2 mx-1">
+                <TotalCustomers />
+              </div>
             </div>
           </div>
         </div>

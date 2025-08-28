@@ -42,6 +42,7 @@ import {
 } from "@/components/ui/table";
 import { Trash2, Ban, VenetianMask, ShieldCheck } from "lucide-react";
 import MetricCard from "@/components/ui/metric-card";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 import AdminEditRoleModal from "@/modal/user-management/admin-edit-role-modal";
@@ -84,12 +85,22 @@ export function UserManagementTable() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState();
 
+  // Navigation setup
+  const navigate = useNavigate();
+
+  // User Session data here
+  const {
+    data: session, //user session
+    refetch: refetchSession, // Refetches the user session
+    error,
+  } = authClient.useSession();
+
   // Users from the json
   const {
     data: users,
     isLoading,
     isError,
-    refetch,
+    refetch: refetchUsers,
   } = useQuery({
     queryKey: ["users", pagination.pageIndex, pagination.pageSize],
     queryFn: fetchUsers,
@@ -101,7 +112,7 @@ export function UserManagementTable() {
     setSelectedUser(user);
     setIsRoleModalOpen(true);
   };
-
+  // Handle setting password
   const handleEditPassword = (user) => {
     setSelectedUser(user);
     setIsPasswordModalOpen(true);
@@ -274,20 +285,38 @@ export function UserManagementTable() {
           const users = row.original;
 
           // Function to impersonate users.
+          // const impersonatedSession = async () => {
+
           const impersonatedSession = async () =>
             await authClient.admin.impersonateUser(
               {
                 userId: users?.id,
               },
               {
-                onSuccess(ctx) {
+                onSuccess: () => {
                   toast.success("Successfully impersonated User");
+                  refetchSession();
+                  navigate("/storedashboard");
                 },
-                onError(ctx) {
+                onError: (ctx) => {
                   toast.error("Failed to impersonate User");
                 },
               }
             );
+
+          //   try {
+          //     await authClient.admin.impersonateUser({
+          //       userId: users?.id,
+          //     });
+
+          //     toast.success("Impersonated User now");
+          //     refetchSession();
+          //     navigate("/storedashboard");
+          //     // await refetch();
+          //   } catch (error) {
+          //     toast.error("Failed to impersonate User");
+          //   }
+          // };
 
           // Function to revoke user session
           const revokedSession = async () =>
@@ -546,31 +575,17 @@ export function UserManagementTable() {
               {Math?.ceil(users?.total / Number(users?.limit))}
             </p>
           </div>
+
           {/* This lets you select the limit you want */}
-          <div className="text-sm  font-semibold">
-            <div className="text-sm font-semibold">
-              <Input
-                type="number"
-                min={1}
-                defaultValue={30}
-                value={table.getState().pagination.pageSize}
-                onChange={(e) => table.setPageSize(Number(e.target.value))}
-                className="w-24"
-              />
-            </div>
-            {/* <select
+          <div className="text-sm font-semibold">
+            <Input
+              type="number"
+              min={1}
+              defaultValue={30}
               value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value));
-              }}
-              className="text-inherit"
-            >
-              {[1, 2, 5, 10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select> */}
+              onChange={(e) => table.setPageSize(Number(e.target.value))}
+              className="w-24"
+            />
           </div>
 
           <div className="space-x-2">

@@ -3,7 +3,6 @@ import { CheckCircle } from "lucide-react";
 // import { useSession } from "@/hooks/useSession.jsx";
 import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard.jsx";
 import TotalCustomers from "@/components/DashFeature/StoreFeatures/storeCharts/TotalCustomers";
-import OverallSalesCard from "@/components/DashFeature/StoreFeatures/storeCharts/OverallSalesCard";
 import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/AdminSalesCard";
 import StoreSwitcher from "@/components/GeneralFeatures/store-swittcher";
 import { authClient } from "@/lib/auth-client";

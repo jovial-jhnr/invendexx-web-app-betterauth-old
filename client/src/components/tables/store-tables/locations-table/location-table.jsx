@@ -450,21 +450,17 @@ export function LocationTable() {
               {Math?.ceil(location?.total / pagination?.pageSize)}
             </p>
           </div>
+
           {/* This lets you select the limit you want */}
-          <div className="text-sm  font-semibold">
-            <select
+          <div className="text-sm font-semibold">
+            <Input
+              type="number"
+              min={1}
+              defaultValue={30}
               value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value));
-              }}
-              className="text-inherit"
-            >
-              {[1, 2, 5, 10, 20, 30, 40, 50, 75, 100].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
+              onChange={(e) => table.setPageSize(Number(e.target.value))}
+              className="w-24"
+            />
           </div>
 
           <div className="space-x-2">

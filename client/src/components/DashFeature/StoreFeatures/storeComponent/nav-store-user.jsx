@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
   CreditCard,
+  HatGlasses,
   LogOut,
   Sparkles,
 } from "lucide-react";
@@ -30,11 +31,13 @@ import {
 } from "@/components/ui/sidebar";
 
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 import signOut from "@/auth/signout";
 import Spinner from "@/components/ui/spinner";
 
 export function NavStoreUser({}) {
   const { isMobile } = useSidebar();
+  const navigate = useNavigate();
 
   const {
     data: session,
@@ -55,7 +58,7 @@ export function NavStoreUser({}) {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className=" data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
@@ -71,6 +74,11 @@ export function NavStoreUser({}) {
                 </span>
                 <span className="truncate text-s">{session?.user?.email}</span>
                 {/* <span className="truncate text-xs">{session?.user?.role}</span> */}
+                {session?.session?.impersonatedBy && (
+                  <span className="truncate text-xs text-green-500">
+                    <p>Impersonating User</p>
+                  </span>
+                )}
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -99,6 +107,11 @@ export function NavStoreUser({}) {
                     {session?.user?.email}
                   </span>
                   {/* <span className="truncate text-md">{user.role}</span> */}
+                  {session?.session?.impersonatedBy && (
+                    <span className="truncate text-xs text-green-500">
+                      <p>Impersonating User</p>
+                    </span>
+                  )}
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -129,8 +142,30 @@ export function NavStoreUser({}) {
                 <Bell />
                 <Link>Notifications</Link>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+
+              {/* Impersonation button */}
+              {session?.session?.impersonatedBy && (
+                <DropdownMenuItem
+                  onClick={async () => {
+                    try {
+                      await authClient.admin.stopImpersonating();
+                      refetch();
+                      toast.success("System Stopped impersonating User");
+                      navigate("/coredashboard");
+                    } catch (error) {
+                      toast.error("Failed to stop impersonating User");
+                    }
+                  }}
+                >
+                  <HatGlasses className="text-blue-600" />
+                  Stop Impersonating User
+                </DropdownMenuItem>
+              )}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
+
+            {/* LogOut function */}
             <DropdownMenuItem>
               <LogOut className="text-red-500" />
               <button

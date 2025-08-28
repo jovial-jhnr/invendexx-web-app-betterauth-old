@@ -6,9 +6,9 @@ import {
 } from "@/Modal/LocationModal/LocationModal";
 import LocationTable from "@/components/tables/store-tables/locations-table/location-table";
 import LocationStoreStats from "@/dashboard-stats/store-dashstats/location-store-stats";
+import { BarChart } from "lucide-react";
 
 function LocationV1() {
-  console.log(1);
   return (
     <>
       <div>

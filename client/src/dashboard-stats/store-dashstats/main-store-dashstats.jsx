@@ -13,7 +13,6 @@ const fetchStoreStats = async ({ queryKey }) => {
   const res = await backendUrl.get(
     `/stores/store/${storeId}/dashstats/main-store-stats`
   );
-  console.log("Main Sats", res.data);
 
   return {
     // totalRevenue: res?.data?.result?.totalRevenue?._sum?.amount || 0.0,

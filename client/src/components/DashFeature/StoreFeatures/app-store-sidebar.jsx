@@ -42,6 +42,7 @@ import { NavStoreMain } from "@/components/DashFeature/StoreFeatures/nav-store-m
 // import { NavProjects } from "@/components/nav-projects"
 import { NavStoreSecondary } from "@/components/DashFeature/StoreFeatures/nav-store-secondary";
 import { NavStoreUser } from "@/components/DashFeature/StoreFeatures/storeComponent/nav-store-user";
+import ImpersonateUserBar from "@/features/admin-features/user-management/impersonate-user-bar";
 import permAccess from "@/hooks/permAccess";
 import { authClient } from "@/lib/auth-client";
 
@@ -272,10 +273,9 @@ export function AppStoreSidebar(props) {
           )}
         </SidebarContent>
         <SidebarFooter>
-          <div>
-            <SidebarOptInForm />
-          </div>
+          <div>{/* <SidebarOptInForm /> */}</div>
           <NavStoreUser user={data.user} />
+          {/* <ImpersonateUserBar /> */}
         </SidebarFooter>
       </Sidebar>
     </ScrollArea>

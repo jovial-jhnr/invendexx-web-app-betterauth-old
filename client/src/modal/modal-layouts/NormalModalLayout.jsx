@@ -26,6 +26,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function NormalModalLayout({
   title,
+  icon,
   description,
   action_button,
   children,
@@ -37,7 +38,12 @@ export default function NormalModalLayout({
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          {action_button && <Button variant="outline">{action_button}</Button>}
+          {action_button && (
+            <Button variant="outline">
+              {icon && <span className="text-blue-500">{icon}</span>}
+              {action_button}
+            </Button>
+          )}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -55,7 +61,12 @@ export default function NormalModalLayout({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        {action_button && <Button variant="outline">{action_button}</Button>}
+        {action_button && (
+          <Button variant="outline">
+            {icon && <span className="text-blue-500">{icon}</span>}
+            {action_button}
+          </Button>
+        )}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="mx-3 text-left">

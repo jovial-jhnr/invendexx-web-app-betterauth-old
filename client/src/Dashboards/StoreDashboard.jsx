@@ -93,7 +93,7 @@ export default function StoreDashboard() {
             <div className="sm:flex hidden mr-3">
               <Link
                 to="/storedashboard/point-of-sale"
-                className="flex flex-row font-roboto hover: text-green-300 bg:bg-inherit gap-2 p-2 rounded-lg "
+                className="flex flex-row font-roboto text-inherit bg:bg-inherit gap-2 p-2 rounded-lg "
               >
                 <HardDrive className="text-inherit hover:text-green-500" />
                 Point of Sale

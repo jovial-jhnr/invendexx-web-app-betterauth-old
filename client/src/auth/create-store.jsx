@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import useCountry from "@/hooks/storeHooks/use-country";
+import { generate, count } from "random-words";
 import {
   Select,
   SelectLabel,
@@ -29,7 +30,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import Spinner from "@/components/ui/spinner";
 import AuthPageLayout from "@/auth/auth-layout";
 import { authClient } from "@/lib/auth-client";
@@ -39,12 +39,11 @@ const organizationSchema = z.object({
   slug: z.string().min(3, "Store slug required. Egs. connet-store"),
   logo: z.string().optional().nullable(),
   country: z.string().optional().nullable(),
-  storeUrl: z
-    .string()
-    .min(5, "Store Url is requried and must be atleast 5 small characters")
-    .nullable(),
+  storeUrl: z.string().optional(),
+  businessCategory: z.string().optional().nullable(),
 });
 
+// ====MAIN CREATE STORE FUNCTION====
 export default function CreateStore({ className, ...props }) {
   const { data: session, error, refresh } = authClient.useSession();
 
@@ -63,8 +62,13 @@ export default function CreateStore({ className, ...props }) {
   });
 
   const onSubmit = async (data) => {
-    const { name, slug, logo, storeUrl, country } = data;
+    // All data to submit
+    const { name, slug, logo, country } = data;
 
+    // Auto generate storeUrl to add to data
+    const storeUrl = generate({ exactly: 1, join: "" }).toLowerCase();
+
+    // Check if store slug is available to use
     const slugCheck = await authClient.organization.checkSlug({
       slug: slug,
     });
@@ -78,11 +82,12 @@ export default function CreateStore({ className, ...props }) {
 
     await authClient.organization.create(
       {
-        name: name,
-        slug: slug,
-        logo: logo,
-        storeUrl: storeUrl,
+        name,
+        slug,
+        logo,
+        storeUrl,
         country,
+        businessCategory,
       },
       {
         onSuccess(ctx) {
@@ -122,6 +127,7 @@ export default function CreateStore({ className, ...props }) {
                   </p>
                 )}
               </div> */}
+
               {/* Organization Name */}
               <div>
                 <Label htmlFor="name">Store Name</Label>
@@ -150,7 +156,8 @@ export default function CreateStore({ className, ...props }) {
                   </p>
                 )}
               </div>
-              <div>
+
+              {/* <div>
                 <Label htmlFor="storeUrl">Store Url</Label>
                 <Input
                   id="storeUrl"
@@ -163,20 +170,20 @@ export default function CreateStore({ className, ...props }) {
                     {errors.storeUrl.message}
                   </p>
                 )}
-              </div>
+              </div> */}
 
               {/* Business Type */}
               <div>
-                <Label htmlFor="location">Business Type</Label>
+                <Label htmlFor="location">Business Category</Label>
                 <Controller
                   control={control}
-                  name="businessType"
+                  name="businessCategory"
                   // rules={{ required: "Country is required" }}
                   render={({ field }) => (
                     <Select onValueChange={field.onChange} value={field.value}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Business Type">
-                          {field.value || "Select Business Type"}
+                        <SelectValue placeholder="Select Business Category">
+                          {field.value || "Select Business Category"}
                         </SelectValue>
                       </SelectTrigger>
                       <SelectContent>

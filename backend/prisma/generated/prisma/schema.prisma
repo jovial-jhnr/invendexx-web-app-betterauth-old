@@ -577,8 +577,8 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   @@map("account")
 }
@@ -606,7 +606,7 @@ model Organization {
   invitations        Invitation[]
   // Custom section
   businessName       String?
-  businessType       String?
+  businessCategory   String?
   storeBaseCurrency  String?           @default("GHS")
   banner             String?
   phoneNumber        String?

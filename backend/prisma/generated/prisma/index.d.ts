@@ -44289,7 +44289,7 @@ export namespace Prisma {
     updatedAt: Date | null
     metadata: string | null
     businessName: string | null
-    businessType: string | null
+    businessCategory: string | null
     storeBaseCurrency: string | null
     banner: string | null
     phoneNumber: string | null
@@ -44325,7 +44325,7 @@ export namespace Prisma {
     updatedAt: Date | null
     metadata: string | null
     businessName: string | null
-    businessType: string | null
+    businessCategory: string | null
     storeBaseCurrency: string | null
     banner: string | null
     phoneNumber: string | null
@@ -44361,7 +44361,7 @@ export namespace Prisma {
     updatedAt: number
     metadata: number
     businessName: number
-    businessType: number
+    businessCategory: number
     storeBaseCurrency: number
     banner: number
     phoneNumber: number
@@ -44399,7 +44399,7 @@ export namespace Prisma {
     updatedAt?: true
     metadata?: true
     businessName?: true
-    businessType?: true
+    businessCategory?: true
     storeBaseCurrency?: true
     banner?: true
     phoneNumber?: true
@@ -44435,7 +44435,7 @@ export namespace Prisma {
     updatedAt?: true
     metadata?: true
     businessName?: true
-    businessType?: true
+    businessCategory?: true
     storeBaseCurrency?: true
     banner?: true
     phoneNumber?: true
@@ -44471,7 +44471,7 @@ export namespace Prisma {
     updatedAt?: true
     metadata?: true
     businessName?: true
-    businessType?: true
+    businessCategory?: true
     storeBaseCurrency?: true
     banner?: true
     phoneNumber?: true
@@ -44580,7 +44580,7 @@ export namespace Prisma {
     updatedAt: Date
     metadata: string | null
     businessName: string | null
-    businessType: string | null
+    businessCategory: string | null
     storeBaseCurrency: string | null
     banner: string | null
     phoneNumber: string | null
@@ -44633,7 +44633,7 @@ export namespace Prisma {
     updatedAt?: boolean
     metadata?: boolean
     businessName?: boolean
-    businessType?: boolean
+    businessCategory?: boolean
     storeBaseCurrency?: boolean
     banner?: boolean
     phoneNumber?: boolean
@@ -44692,7 +44692,7 @@ export namespace Prisma {
     updatedAt?: boolean
     metadata?: boolean
     businessName?: boolean
-    businessType?: boolean
+    businessCategory?: boolean
     storeBaseCurrency?: boolean
     banner?: boolean
     phoneNumber?: boolean
@@ -44728,7 +44728,7 @@ export namespace Prisma {
     updatedAt?: boolean
     metadata?: boolean
     businessName?: boolean
-    businessType?: boolean
+    businessCategory?: boolean
     storeBaseCurrency?: boolean
     banner?: boolean
     phoneNumber?: boolean
@@ -44764,7 +44764,7 @@ export namespace Prisma {
     updatedAt?: boolean
     metadata?: boolean
     businessName?: boolean
-    businessType?: boolean
+    businessCategory?: boolean
     storeBaseCurrency?: boolean
     banner?: boolean
     phoneNumber?: boolean
@@ -44791,7 +44791,7 @@ export namespace Prisma {
     modifyProductState?: boolean
   }
 
-  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "logo" | "createdAt" | "updatedAt" | "metadata" | "businessName" | "businessType" | "storeBaseCurrency" | "banner" | "phoneNumber" | "email" | "website" | "description" | "country" | "address" | "state" | "region" | "zipCode" | "city" | "status" | "storeTag" | "whitelabel" | "facebook" | "instagram" | "tiktok" | "twitter" | "linkedin" | "currency" | "storeUrl" | "storeApproval" | "modifyProductState", ExtArgs["result"]["organization"]>
+  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "logo" | "createdAt" | "updatedAt" | "metadata" | "businessName" | "businessCategory" | "storeBaseCurrency" | "banner" | "phoneNumber" | "email" | "website" | "description" | "country" | "address" | "state" | "region" | "zipCode" | "city" | "status" | "storeTag" | "whitelabel" | "facebook" | "instagram" | "tiktok" | "twitter" | "linkedin" | "currency" | "storeUrl" | "storeApproval" | "modifyProductState", ExtArgs["result"]["organization"]>
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Organization$membersArgs<ExtArgs>
     invitations?: boolean | Organization$invitationsArgs<ExtArgs>
@@ -44855,7 +44855,7 @@ export namespace Prisma {
       updatedAt: Date
       metadata: string | null
       businessName: string | null
-      businessType: string | null
+      businessCategory: string | null
       storeBaseCurrency: string | null
       banner: string | null
       phoneNumber: string | null
@@ -45333,7 +45333,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Organization", 'DateTime'>
     readonly metadata: FieldRef<"Organization", 'String'>
     readonly businessName: FieldRef<"Organization", 'String'>
-    readonly businessType: FieldRef<"Organization", 'String'>
+    readonly businessCategory: FieldRef<"Organization", 'String'>
     readonly storeBaseCurrency: FieldRef<"Organization", 'String'>
     readonly banner: FieldRef<"Organization", 'String'>
     readonly phoneNumber: FieldRef<"Organization", 'String'>
@@ -60584,7 +60584,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     metadata: 'metadata',
     businessName: 'businessName',
-    businessType: 'businessType',
+    businessCategory: 'businessCategory',
     storeBaseCurrency: 'storeBaseCurrency',
     banner: 'banner',
     phoneNumber: 'phoneNumber',
@@ -63683,7 +63683,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     metadata?: StringNullableFilter<"Organization"> | string | null
     businessName?: StringNullableFilter<"Organization"> | string | null
-    businessType?: StringNullableFilter<"Organization"> | string | null
+    businessCategory?: StringNullableFilter<"Organization"> | string | null
     storeBaseCurrency?: StringNullableFilter<"Organization"> | string | null
     banner?: StringNullableFilter<"Organization"> | string | null
     phoneNumber?: StringNullableFilter<"Organization"> | string | null
@@ -63741,7 +63741,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     metadata?: SortOrderInput | SortOrder
     businessName?: SortOrderInput | SortOrder
-    businessType?: SortOrderInput | SortOrder
+    businessCategory?: SortOrderInput | SortOrder
     storeBaseCurrency?: SortOrderInput | SortOrder
     banner?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
@@ -63802,7 +63802,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     metadata?: StringNullableFilter<"Organization"> | string | null
     businessName?: StringNullableFilter<"Organization"> | string | null
-    businessType?: StringNullableFilter<"Organization"> | string | null
+    businessCategory?: StringNullableFilter<"Organization"> | string | null
     storeBaseCurrency?: StringNullableFilter<"Organization"> | string | null
     banner?: StringNullableFilter<"Organization"> | string | null
     phoneNumber?: StringNullableFilter<"Organization"> | string | null
@@ -63860,7 +63860,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     metadata?: SortOrderInput | SortOrder
     businessName?: SortOrderInput | SortOrder
-    businessType?: SortOrderInput | SortOrder
+    businessCategory?: SortOrderInput | SortOrder
     storeBaseCurrency?: SortOrderInput | SortOrder
     banner?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
@@ -63902,7 +63902,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     metadata?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     businessName?: StringNullableWithAggregatesFilter<"Organization"> | string | null
-    businessType?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    businessCategory?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     storeBaseCurrency?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     banner?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     phoneNumber?: StringNullableWithAggregatesFilter<"Organization"> | string | null
@@ -67613,8 +67613,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAccountsInput
   }
 
@@ -67630,8 +67630,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUpdateInput = {
@@ -67678,8 +67678,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUpdateManyMutationInput = {
@@ -67785,7 +67785,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -67843,7 +67843,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -67901,7 +67901,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67959,7 +67959,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68017,7 +68017,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -68053,7 +68053,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68089,7 +68089,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71352,7 +71352,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     metadata?: SortOrder
     businessName?: SortOrder
-    businessType?: SortOrder
+    businessCategory?: SortOrder
     storeBaseCurrency?: SortOrder
     banner?: SortOrder
     phoneNumber?: SortOrder
@@ -71388,7 +71388,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     metadata?: SortOrder
     businessName?: SortOrder
-    businessType?: SortOrder
+    businessCategory?: SortOrder
     storeBaseCurrency?: SortOrder
     banner?: SortOrder
     phoneNumber?: SortOrder
@@ -71424,7 +71424,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     metadata?: SortOrder
     businessName?: SortOrder
-    businessType?: SortOrder
+    businessCategory?: SortOrder
     storeBaseCurrency?: SortOrder
     banner?: SortOrder
     phoneNumber?: SortOrder
@@ -76667,7 +76667,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -76724,7 +76724,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -76960,7 +76960,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77017,7 +77017,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77158,7 +77158,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -77215,7 +77215,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -77310,7 +77310,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77367,7 +77367,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77572,7 +77572,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -77629,7 +77629,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -77702,7 +77702,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77759,7 +77759,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77844,7 +77844,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -77901,7 +77901,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78003,7 +78003,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78060,7 +78060,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78189,7 +78189,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78246,7 +78246,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78319,7 +78319,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78376,7 +78376,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78433,7 +78433,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78490,7 +78490,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78563,7 +78563,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78620,7 +78620,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78677,7 +78677,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78734,7 +78734,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -78807,7 +78807,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78864,7 +78864,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79137,7 +79137,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -79194,7 +79194,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -79370,7 +79370,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79427,7 +79427,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79630,7 +79630,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -79687,7 +79687,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -79934,7 +79934,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79991,7 +79991,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80544,7 +80544,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -80601,7 +80601,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -80729,7 +80729,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80786,7 +80786,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81112,7 +81112,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -81169,7 +81169,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -81526,7 +81526,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81583,7 +81583,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81791,7 +81791,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -81848,7 +81848,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -81937,7 +81937,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81994,7 +81994,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82888,7 +82888,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -82945,7 +82945,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -83049,7 +83049,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83106,7 +83106,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83192,7 +83192,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -83249,7 +83249,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -83437,7 +83437,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83494,7 +83494,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83603,8 +83603,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUncheckedCreateWithoutUserInput = {
@@ -83618,8 +83618,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountCreateOrConnectWithoutUserInput = {
@@ -85725,7 +85725,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -85782,7 +85782,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -85910,7 +85910,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85967,7 +85967,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86085,7 +86085,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -86142,7 +86142,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -86270,7 +86270,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86327,7 +86327,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86445,7 +86445,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -86502,7 +86502,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -86575,7 +86575,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86632,7 +86632,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86825,7 +86825,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -86882,7 +86882,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87030,7 +87030,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87087,7 +87087,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87198,7 +87198,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87255,7 +87255,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87363,7 +87363,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87420,7 +87420,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87585,7 +87585,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87642,7 +87642,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87715,7 +87715,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87772,7 +87772,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87829,7 +87829,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87886,7 +87886,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -87959,7 +87959,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88016,7 +88016,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88234,7 +88234,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -88291,7 +88291,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     metadata?: string | null
     businessName?: string | null
-    businessType?: string | null
+    businessCategory?: string | null
     storeBaseCurrency?: string | null
     banner?: string | null
     phoneNumber?: string | null
@@ -88457,7 +88457,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88514,7 +88514,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     businessName?: NullableStringFieldUpdateOperationsInput | string | null
-    businessType?: NullableStringFieldUpdateOperationsInput | string | null
+    businessCategory?: NullableStringFieldUpdateOperationsInput | string | null
     storeBaseCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -90306,8 +90306,8 @@ export namespace Prisma {
     refreshTokenExpiresAt?: Date | string | null
     scope?: string | null
     password?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MemberCreateManyUserInput = {

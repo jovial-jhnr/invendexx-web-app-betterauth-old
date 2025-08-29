@@ -528,7 +528,7 @@ exports.Prisma.OrganizationScalarFieldEnum = {
   updatedAt: 'updatedAt',
   metadata: 'metadata',
   businessName: 'businessName',
-  businessType: 'businessType',
+  businessCategory: 'businessCategory',
   storeBaseCurrency: 'storeBaseCurrency',
   banner: 'banner',
   phoneNumber: 'phoneNumber',

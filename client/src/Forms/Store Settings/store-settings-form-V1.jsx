@@ -44,7 +44,7 @@ const allCountries = async () => {
   }
 };
 
-function StoreSettingsFormV2({ className }) {
+export default function StoreSettingsFormV1({ className }) {
   // Get userId from useSession.
   const { data: session, isPending, error } = authClient.useSession();
   const ownerId = session?.user?.id;
@@ -64,7 +64,7 @@ function StoreSettingsFormV2({ className }) {
     logo: z.any().optional(),
     banner: z.string().min(0).optional().nullable(),
     phoneNumber: z.string().min(0).optional().nullable(),
-    email: z.string().optional().nullable(),
+    email: z.string().min(0).optional().nullable(),
     website: z.string().min(0).optional().nullable(),
     description: z.string().min(0).optional().nullable(),
     country: z.string().min(0).optional().nullable(),
@@ -83,6 +83,8 @@ function StoreSettingsFormV2({ className }) {
     linkedin: z.string().min(0).optional().nullable(),
     currency: z.string().min(0).optional().nullable(),
     storeUrl: z.string().min(0).optional().nullable(),
+    businessName: z.string().min(0).optional().nullable(),
+    businessCategory: z.string().min(0).optional().nullable(),
   });
 
   const {
@@ -117,11 +119,12 @@ function StoreSettingsFormV2({ className }) {
       linkedin: activeOrganization?.linkedin,
       currency: activeOrganization?.currency,
       storeUrl: activeOrganization?.storeUrl,
+      businessName: activeOrganization?.businessName,
+      businessCategory: activeOrganization?.businessCategory,
     },
   });
 
   const onSubmit = async (data) => {
-    // console.log("SUBMITTING DATA", data);
     try {
       const {
         name,
@@ -148,6 +151,8 @@ function StoreSettingsFormV2({ className }) {
         linkedin,
         currency,
         storeUrl,
+        businessName,
+        businessCategory,
       } = data;
       await backendUrl.post(
         `stores/store/${storeId}/settings/update-store-details`,
@@ -176,6 +181,8 @@ function StoreSettingsFormV2({ className }) {
           linkedin,
           currency,
           storeUrl,
+          businessName,
+          businessCategory,
         }
       );
       toast.success("Store details updated successfully");
@@ -183,25 +190,13 @@ function StoreSettingsFormV2({ className }) {
       toast.error("Could not update store details");
     }
   };
-  if (!activeOrganization) {
-    return (
-      <>
-        <div>
-          <Spinner />
-        </div>
-        <div>
-          {toast.error("No active store available. Login again to set it up.")}
-        </div>
-      </>
-    );
-  }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={cn("grid gap-1", className)}
     >
-      <div className="gap-2 my-2">
+      <div className="gap-2 my-2 mx-2">
         <Label htmlFor="logo">Store Logo</Label>
         <FileUploader
           maxFiles={1}
@@ -224,12 +219,13 @@ function StoreSettingsFormV2({ className }) {
         )}
       </div>
       <div className="grid gap-2 my-2">
-        <Label htmlFor="banner">Banner</Label>
-        <Input type="text" id="banner" {...register("banner")} />
-        {errors.banner && (
-          <p className="text-red-500 text-sm">{errors.banner.message}</p>
+        <Label htmlFor="businessName">Business Name</Label>
+        <Input type="text" id="businessName" {...register("businessName")} />
+        {errors.businessName && (
+          <p className="text-red-500 text-sm">{errors.businessName.message}</p>
         )}
       </div>
+
       <div className="grid gap-2 my-2">
         <Label htmlFor="phoneNumber">Phone Number</Label>
         <Controller
@@ -256,15 +252,15 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
       </div>
-      <div className="grid gap-2 my-2">
+      {/* <div className="grid gap-2 my-2">
         <Label htmlFor="website">Website</Label>
         <Input type="text" id="website" {...register("website")} />
         {errors.website && (
           <p className="text-red-500 text-sm">{errors.website.message}</p>
         )}
-      </div>
+      </div> */}
       <div className="grid gap-2 my-2">
-        <Label htmlFor="address">Address</Label>
+        <Label htmlFor="address">Store Address</Label>
         <Input type="text" id="address" {...register("address")} />
         {errors.address && (
           <p className="text-red-500 text-sm">{errors.address.message}</p>
@@ -312,13 +308,13 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
         )}
       </div>
-      <div className="grid gap-2 my-2">
+      {/* <div className="grid gap-2 my-2">
         <Label htmlFor="whitlabel">White Label</Label>
         <Input type="text" id="whitlabel" {...register("whitelabel")} />
         {errors.whitelabel && (
           <p className="text-red-500 text-sm">{errors.whitelabel.message}</p>
         )}
-      </div>
+      </div> */}
       <div className="grid gap-2 my-2">
         <Label htmlFor="facebook">Facebook</Label>
         <Input type="text" id="facebook" {...register("facebook")} />
@@ -353,6 +349,42 @@ function StoreSettingsFormV2({ className }) {
         {errors.linkedin && (
           <p className="text-red-500 text-sm">{errors.linkedin.message}</p>
         )}
+      </div>
+      {/* Business Category */}
+      <div>
+        <Label htmlFor="businessCategory">Business Category</Label>
+        <Controller
+          control={control}
+          name="businessCategory"
+          // rules={{ required: "Country is required" }}
+          render={({ field }) => (
+            <Select onValueChange={field.onChange} value={field.value}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Business Category">
+                  {field.value || "Select Business Category"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Select Business Type</SelectLabel>
+                  <SelectItem value="Electronics & Gadgets">
+                    Electronics & Gadgets
+                  </SelectItem>
+                  <SelectItem value="Fashion & Apparel">
+                    Fashion & Apparel
+                  </SelectItem>
+                  <SelectItem value="Food & Groceries">
+                    Food & Groceries
+                  </SelectItem>
+                  <SelectItem value="Jewelries & Accessories">
+                    Jewelries & Accessories
+                  </SelectItem>
+                  <SelectItem value="Others">Others</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
       </div>
       <div className="grid gap-2 my-2">
         <Label htmlFor="country">Country</Label>
@@ -404,7 +436,14 @@ function StoreSettingsFormV2({ className }) {
             </Select>
           )}
         />
-      </div>{" "}
+      </div>
+      <div className="grid gap-2 my-2">
+        <Label htmlFor="banner">Banner</Label>
+        <Textarea type="text" id="banner" {...register("banner")} />
+        {errors.banner && (
+          <p className="text-red-500 text-sm">{errors.banner.message}</p>
+        )}
+      </div>
       <div className="grid gap-2 my-2">
         <Label htmlFor="description">Description (Optional)</Label>
         <Textarea
@@ -417,13 +456,11 @@ function StoreSettingsFormV2({ className }) {
           <p className="text-red-500 text-sm">{errors.description.message}</p>
         )}
       </div>
-      <div className=" my-2 w-full">
-        <Button type="submit" disabled={isSubmitting}>
+      <div className="">
+        <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Saving..." : "Save Changes"}
         </Button>
       </div>
     </form>
   );
 }
-
-export default StoreSettingsFormV2;

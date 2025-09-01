@@ -2,7 +2,6 @@
 import React from "react";
 import toast from "react-hot-toast";
 import store_icon from "@/assets/table-ui-icons/store_icon.png";
-import StoreSettingsModal from "@/Modal/StoreSettingsModals/StoreSettingsModal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -44,6 +43,7 @@ import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
 import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";
+import StoreSettingsModal from "@/modal/StoreSettingsModals/StoreSettingsModal";
 
 // Users are fetches here from the backend
 const fetchBusinesses = async ({ queryKey }) => {
@@ -106,15 +106,13 @@ const columns = [
     enableHiding: false,
   },
 
-  //   {
-  //     accessorKey: "middleName",
-  //     header: "Middle Name",
-  //     cell: ({ row }) => (
-  //       <div className="capitalize">{row.getValue("middleName")}</div>
-  //     ),
-  //     enableSorting: false,
-  //     enableHiding: false,
-  //   },
+  {
+    accessorKey: "storeUrl",
+    header: "Store Url",
+    cell: ({ row }) => <div className="">{row.getValue("storeUrl")}</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
 
   //   {
   //     accessorKey: "lastName",
@@ -133,7 +131,7 @@ const columns = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Email
+        Store Email
         <ArrowUpDown />
       </Button>
     ),
@@ -151,9 +149,31 @@ const columns = [
   },
 
   {
-    accessorKey: "role",
-    header: "Role",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("role")}</div>,
+    accessorKey: "businessName",
+    header: "Business Name",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("businessName")}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+
+  {
+    accessorKey: "businessCategory",
+    header: "Business Category",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("businessCategory")}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+
+  {
+    accessorKey: "banner",
+    header: "Store Banner",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("banner")}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -164,89 +184,6 @@ const columns = [
     enableHiding: false,
     cell: ({ row }) => {
       const stores = row.original;
-
-      const updateStore = async () => {};
-
-      // Function to impersonate users.
-      const impersonatedSession = async () =>
-        await authClient.admin.impersonateUser(
-          {
-            userId: users?.id,
-          },
-          {
-            onSuccess(ctx) {
-              toast.success("Successfully impersonated User");
-            },
-            onError(ctx) {
-              toast.error("Failed to impersonate User");
-            },
-          }
-        );
-
-      const revokedSession = async () =>
-        await authClient.admin.revokeUserSession(
-          {
-            sessionToken: session?.session?.token,
-          },
-          {
-            onSuccess(ctx) {
-              toast.success("Successfully revoved Users Session");
-            },
-            onError(ctx) {
-              toast.error("Failed to revoke session");
-            },
-          }
-        );
-
-      // Remove (Delete) Store function.
-      const deleteStore = async () => {
-        const storeId = stores?.id;
-
-        await backendUrl.post(
-          `/admin/businesses/store/${storeId}/delete-store`
-        );
-      };
-
-      // Change user role here
-      const updatedUser = async () =>
-        await authClient.admin.setRole({
-          userId: users?.id,
-          role: "user", // this can also be an array for multiple roles (e.g. ["admin", "sale"])
-        });
-
-      // Ban User function
-      const bannedUser = async () =>
-        await authClient.admin.banUser(
-          {
-            userId: users?.id,
-            banReason: "", // Optional (if not provided, the default ban reason will be used - No reason)
-            banExpiresIn: 60 * 60 * 24 * 7, // Optional (if not provided, the ban will never expire)
-          },
-          {
-            onSuccess(ctx) {
-              toast.success("Successfully banned User ");
-            },
-            onError(ctx) {
-              toast.error("Failed to ban User ");
-            },
-          }
-        );
-
-      // Unban User function
-      const unbannedUser = async () =>
-        await authClient.admin.unbanUser(
-          {
-            userId: users?.id,
-          },
-          {
-            onSuccess(ctx) {
-              toast.success("Successfully unbanned User");
-            },
-            onError(ctx) {
-              toast.error("Failed to unban User");
-            },
-          }
-        );
 
       return (
         <DropdownMenu>
@@ -260,54 +197,11 @@ const columns = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            {/* Upsate store details */}
-            <StoreSettingsModal />
-            {/* <DropdownMenuItem
-              onClick={StoreSettingsModal}
-              className="font-medium"
-            >
-              <Store />
-              Update Store
-            </DropdownMenuItem> */}
-
             {/* Impersonate User Session */}
-            <DropdownMenuItem
-              onClick={impersonatedSession}
-              className="font-medium"
-            >
+            <DropdownMenuItem className="font-medium">
               <UserRoundCog />
               Impersonate User
             </DropdownMenuItem>
-
-            {/* Revoke user Session */}
-            <DropdownMenuItem onClick={revokedSession}>
-              <VenetianMask />
-              Revoke User Session
-            </DropdownMenuItem>
-
-            {/* Ban user */}
-            <DropdownMenuItem onClick={bannedUser}>
-              <Ban /> Ban User
-            </DropdownMenuItem>
-
-            {/* Unban User */}
-            <DropdownMenuItem onClick={unbannedUser}>
-              <ShieldCheck />
-              Unban User
-            </DropdownMenuItem>
-
-            {/* Deleter user dropdown */}
-            <DropdownMenuItem
-              className="text-red-500 font-medium"
-              onClick={deleteStore}
-            >
-              <Trash2 className="text-red-500" />
-              Delete Store
-            </DropdownMenuItem>
-
-            {/* <DropdownMenuItem onClick={deleteUser}>
-              Delete User
-            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -323,7 +217,7 @@ export function BusinessManagementTable() {
   const [rowSelection, setRowSelection] = React.useState({});
   const [pagination, setPagination] = React.useState({
     pageIndex: 0 ?? 0,
-    pageSize: 10 ?? 10,
+    pageSize: 100 ?? 30,
   });
 
   // User details to confirm user

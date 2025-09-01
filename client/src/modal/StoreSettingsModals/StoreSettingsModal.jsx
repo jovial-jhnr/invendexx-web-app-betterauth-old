@@ -1,7 +1,8 @@
-import StoreSettingsFormV2 from "@/Forms/Store Settings/store-settings-form-V1";
+import StoreSettingsFormV2 from "@/Forms/Store Settings/store-settings-formV2";
 import NormalModalLayout from "../modal-layouts/NormalModalLayout";
+import StoreSettingsFormV1 from "@/Forms/Store Settings/store-settings-form-V1";
 
-export default function AddLocationModal() {
+export default function StoreSettingsModal() {
   const stats = [
     {
       title: "Store Settings",
@@ -21,7 +22,7 @@ export default function AddLocationModal() {
           action_button={stat.action_button}
         >
           <div className="text-xl mx-1">
-            <StoreSettingsFormV2 />
+            <StoreSettingsFormV1 />
           </div>
         </NormalModalLayout>
       ))}

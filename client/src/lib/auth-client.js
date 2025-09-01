@@ -21,7 +21,7 @@ export const authClient = createAuthClient({
               type: "string",
               input: true,
             },
-            businessType: {
+            businessCategory: {
               type: "string",
               input: true,
             },

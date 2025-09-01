@@ -37,7 +37,7 @@ const allCountries = async () => {
     .sort((a, b) => a.localeCompare(b));
 };
 
-function StoreSettingsForm({ className }) {
+export default function StoreSettingsFormV2({ className }) {
   // Get userId from useSession.
   const { data: session, isPending, error } = authClient.useSession();
   const ownerId = session?.user?.id;
@@ -56,9 +56,14 @@ function StoreSettingsForm({ className }) {
     slug: z.string().min(0).optional().nullable(),
     logo: z.any().optional(),
     businessName: z.string().min(0).optional().nullable(),
+    businessCategory: z.string().optional().nullable(),
     banner: z.string().min(0).optional().nullable(),
     phoneNumber: z.string().min(0).optional().nullable(),
-    email: z.string("Invalid email or wrong email").optional().nullable(),
+    // email: z
+    //   .string("Invalid email or wrong email")
+    //   .min(0)
+    //   .optional()
+    //   .nullable(),
     website: z.string().min(0).optional().nullable(),
     description: z.string().min(0).optional().nullable(),
     country: z.string().min(0).optional().nullable(),
@@ -93,7 +98,8 @@ function StoreSettingsForm({ className }) {
       banner: activeOrganization?.banner,
       phoneNumber: activeOrganization?.phoneNumber,
       businessName: activeOrganization?.businessName,
-      email: activeOrganization?.email,
+      businessCategory: activeOrganization?.businessCategory,
+      // email: activeOrganization?.email,
       website: activeOrganization?.website,
       description: activeOrganization?.description,
       country: activeOrganization?.country,
@@ -124,7 +130,7 @@ function StoreSettingsForm({ className }) {
       banner,
       phoneNumber,
       businessName,
-      email,
+      // email,
       website,
       description,
       country,
@@ -143,6 +149,7 @@ function StoreSettingsForm({ className }) {
       linkedin,
       currency,
       storeUrl,
+      businessCategory,
     } = data;
     await authClient.organization.update(
       {
@@ -151,9 +158,10 @@ function StoreSettingsForm({ className }) {
           logo,
           slug,
           businessName,
+          businessCategory,
           banner,
           phoneNumber,
-          email,
+          // email,
           website,
           description,
           country,
@@ -256,13 +264,13 @@ function StoreSettingsForm({ className }) {
         )}
       </div>
 
-      <div className="grid my-2 gap-2">
+      {/* <div className="grid my-2 gap-2">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" {...register("email")} />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
-      </div>
+      </div> */}
 
       <div className="grid gap-2">
         <Label htmlFor="website">Website</Label>
@@ -372,6 +380,44 @@ function StoreSettingsForm({ className }) {
           <p className="text-red-500 text-sm">{errors.storeUrl.message}</p>
         )}
       </div>
+
+      {/* Business Category */}
+      <div>
+        <Label htmlFor="businessCategory">Business Category</Label>
+        <Controller
+          control={control}
+          name="businessCategory"
+          // rules={{ required: "Country is required" }}
+          render={({ field }) => (
+            <Select onValueChange={field.onChange} value={field.value}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Business Category">
+                  {field.value || "Select Business Category"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Select Business Type</SelectLabel>
+                  <SelectItem value="Electronics & Gadgets">
+                    Electronics & Gadgets
+                  </SelectItem>
+                  <SelectItem value="Fashion & Apparel">
+                    Fashion & Apparel
+                  </SelectItem>
+                  <SelectItem value="Food & Groceries">
+                    Food & Groceries
+                  </SelectItem>
+                  <SelectItem value="Jewelries & Accessories">
+                    Jewelries & Accessories
+                  </SelectItem>
+                  <SelectItem value="Others">Others</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </div>
+
       <div className="grid my-2 gap-2">
         <Label htmlFor="location">Select Country</Label>
         <Controller
@@ -446,5 +492,3 @@ function StoreSettingsForm({ className }) {
     </form>
   );
 }
-
-export default StoreSettingsForm;

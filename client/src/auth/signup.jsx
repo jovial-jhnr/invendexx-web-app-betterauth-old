@@ -125,7 +125,7 @@ export function SignUp({ className, ...props }) {
                   </span>
                 </div>
                 <div className="grid gap-6">
-                  <div className="flex flex-row gap-2">
+                  <div className="flex flex-row gap-1">
                     <div className="grid gap-2">
                       <Label htmlFor="text">First Name</Label>
                       <Input

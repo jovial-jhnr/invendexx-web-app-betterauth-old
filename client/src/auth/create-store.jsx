@@ -63,7 +63,7 @@ export default function CreateStore({ className, ...props }) {
 
   const onSubmit = async (data) => {
     // All data to submit
-    const { name, slug, logo, country } = data;
+    const { name, slug, logo, businessCategory, country } = data;
 
     // Auto generate storeUrl to add to data
     const storeUrl = generate({ exactly: 1, join: "" }).toLowerCase();
@@ -174,7 +174,7 @@ export default function CreateStore({ className, ...props }) {
 
               {/* Business Type */}
               <div>
-                <Label htmlFor="location">Business Category</Label>
+                <Label htmlFor="businessCategory">Business Category</Label>
                 <Controller
                   control={control}
                   name="businessCategory"

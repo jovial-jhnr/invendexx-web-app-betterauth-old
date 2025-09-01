@@ -48,6 +48,8 @@ const updateStore = async (req, res) => {
     linkedin,
     currency,
     storeUrl,
+    businessName,
+    businessCategory,
   } = req.body;
 
   try {
@@ -80,13 +82,15 @@ const updateStore = async (req, res) => {
         linkedin,
         currency,
         storeUrl,
+        businessName,
+        businessCategory,
       },
     });
 
     return res.status(200).json({
       status: true,
       message: "Store details updated successfully",
-      result: { updateStore },
+      result: updateStore,
     });
   } catch (error) {
     return res.status(500).json({

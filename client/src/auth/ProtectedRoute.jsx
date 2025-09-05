@@ -63,7 +63,7 @@ const ProtectedRoute = ({
   }
 
   // Skip permission check for admins and store owners
-  if (["admin", "owner"].includes(user.role)) {
+  if (["admin", "owner"].includes(user?.role)) {
     return children;
   }
 

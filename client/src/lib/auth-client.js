@@ -6,14 +6,20 @@ import { emailOTPClient } from "better-auth/client/plugins";
 import { organizationClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-  /** The base URL of the server (optional if you're using the same domain) */
+  /** The baseURL of the server (optional if you're using the same domain) */
   baseURL: import.meta.env.VITE_BACKEND_URL,
 
   plugins: [
     inferAdditionalFields(),
     emailOTPClient(),
-    adminClient(),
+    adminClient({}),
     organizationClient({
+      // Activate dynamic control to custom create roles
+      dynamicAccessControl: {
+        enabled: true,
+      },
+
+      // Additional custom fields for organization
       schema: inferOrgAdditionalFields({
         organization: {
           additionalFields: {

@@ -18,7 +18,7 @@ import {
   cashier,
   marketer,
   customer_support,
-} from "../auth/permissioins.js";
+} from "../auth/permissions.js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -67,7 +67,7 @@ export const auth = betterAuth({
 
   // Email verification setup
   emailVerification: {
-    autoSignInAfterVerification: true,
+    autoSignInAfterVerification: false,
   },
 
   // Rate limiting on authentication.
@@ -103,6 +103,11 @@ export const auth = betterAuth({
 
     // Organization plugin setup
     organization({
+      // Activate dynamic control to custom create roles
+      dynamicAccessControl: {
+        enabled: true,
+      },
+
       // Organization (store) invite email setup
       async sendInvitationEmail(data) {
         const inviteLink = `https://indendex.com/accept-invitation/${data?.id}`;

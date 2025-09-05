@@ -18,7 +18,7 @@ const updatePasswordSchema = z.object({
   newPassword: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-function AppAccount() {
+export default function AppAccount() {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const {
@@ -67,115 +67,121 @@ function AppAccount() {
         </div>
 
         {/* Account Settings Button */}
-        <div className="text-end mr-2">
+        <div className="text-end my-4 mx-2">
           <UserProfileModal />
         </div>
 
-        <div className="m-3 md:m-12">
-          <DashboardCard>
-            <section className="m-2">User Avatar</section>
-            <div className="flex justify-center">
-              <Avatar className="rounded-full size-20">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="User Avatar"
-                />
-                <AvatarFallback>AD</AvatarFallback>
-              </Avatar>
-            </div>
-
-            <section className="m-2">Personal Information</section>
-
-            <div className="text-start">
-              <Label htmlFor="first-name">First Name</Label>
-              <Input type="text" value={session?.user?.firstName} readOnly />
-            </div>
-
-            <div className="text-start">
-              <Label htmlFor="middle-name">Middle Name</Label>
-              <Input type="text" value={session?.user?.middleName} readOnly />
-            </div>
-
-            <div className="text-start">
-              <Label htmlFor="last-name">Last Name</Label>
-              <Input type="text" value={session?.user?.lastName} readOnly />
-            </div>
-
-            <div className="text-start">
-              <Label htmlFor="email">Email</Label>
-              <Input type="email" value={session?.user?.email} readOnly />
-            </div>
-
-            <div className="text-start">
-              <Label htmlFor="number">Phone Number</Label>
-              <Input type="text" value={session?.user?.phoneNumber} readOnly />
-            </div>
-          </DashboardCard>
-        </div>
-
-        {/* Password Change Section */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="m-3 md:m-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 m-1">
+          <div className="md:col-span-2 p-0 ">
             <DashboardCard>
-              <section>Change Password</section>
-
-              <div className="text-start mb-2 font-medium relative grid gap-2">
-                <Label htmlFor="currentPassword" className="text-red-400">
-                  Current Password
-                </Label>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  {...register("currentPassword")}
-                  placeholder="Current Password"
-                  className="pr-10"
-                />
-                <span
-                  className="absolute right-3 top-1/2 cursor-pointer text-blue-500"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </span>
-                {errors.currentPassword && (
-                  <p className="text-red-500 text-sm">
-                    {errors.currentPassword.message}
-                  </p>
-                )}
+              <section className="m-2">User Avatar</section>
+              <div className="flex justify-center">
+                <Avatar className="rounded-full size-20">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="User Avatar"
+                  />
+                  <AvatarFallback>AD</AvatarFallback>
+                </Avatar>
               </div>
 
-              <div className="text-start font-medium mb-2 relative grid gap-2">
-                <Label htmlFor="password" className="text-red-400">
-                  New Password
-                </Label>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  {...register("newPassword")}
-                  placeholder="New Password"
-                  className="pr-10"
-                />
-                <span
-                  className="absolute right-3 top-1/2 cursor-pointer text-blue-500"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </span>
-                {errors.newPassword && (
-                  <p className="text-red-500 text-sm">
-                    {errors.newPassword.message}
-                  </p>
-                )}
+              <section className="m-2">Personal Information</section>
+
+              <div className="text-start">
+                <Label htmlFor="first-name">First Name</Label>
+                <Input type="text" value={session?.user?.firstName} readOnly />
               </div>
 
-              <div className="m-3 max-w-full">
-                <Button type="submit">Save Changes</Button>
+              <div className="text-start">
+                <Label htmlFor="middle-name">Middle Name</Label>
+                <Input type="text" value={session?.user?.middleName} readOnly />
+              </div>
+
+              <div className="text-start">
+                <Label htmlFor="last-name">Last Name</Label>
+                <Input type="text" value={session?.user?.lastName} readOnly />
+              </div>
+
+              <div className="text-start">
+                <Label htmlFor="email">Email</Label>
+                <Input type="email" value={session?.user?.email} readOnly />
+              </div>
+
+              <div className="text-start">
+                <Label htmlFor="number">Phone Number</Label>
+                <Input
+                  type="text"
+                  value={session?.user?.phoneNumber}
+                  readOnly
+                />
               </div>
             </DashboardCard>
           </div>
-        </form>
+
+          <div className="md:col-span-1 p-0 ">
+            {/* Password Change Section */}
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="">
+                <DashboardCard>
+                  <section>Change Password</section>
+
+                  <div className="text-start mb-2 font-medium relative grid gap-2">
+                    <Label htmlFor="currentPassword" className="text-red-400">
+                      Current Password
+                    </Label>
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      {...register("currentPassword")}
+                      placeholder="Current Password"
+                      className="pr-10"
+                    />
+                    <span
+                      className="absolute right-3 top-1/2 cursor-pointer text-blue-500"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </span>
+                    {errors.currentPassword && (
+                      <p className="text-red-500 text-sm">
+                        {errors.currentPassword.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="text-start font-medium mb-2 relative grid gap-2">
+                    <Label htmlFor="password" className="text-red-400">
+                      New Password
+                    </Label>
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      {...register("newPassword")}
+                      placeholder="New Password"
+                      className="pr-10"
+                    />
+                    <span
+                      className="absolute right-3 top-1/2 cursor-pointer text-blue-500"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </span>
+                    {errors.newPassword && (
+                      <p className="text-red-500 text-sm">
+                        {errors.newPassword.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="m-3 max-w-full">
+                    <Button type="submit">Save Changes</Button>
+                  </div>
+                </DashboardCard>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </>
   );
 }
-
-export default AppAccount;

@@ -90,9 +90,8 @@ export function UserManagementTable() {
 
   // User Session data here
   const {
-    data: session, //user session
+    data: session, // has user session
     refetch: refetchSession, // Refetches the user session
-    error,
   } = authClient.useSession();
 
   // Users from the json
@@ -112,6 +111,7 @@ export function UserManagementTable() {
     setSelectedUser(user);
     setIsRoleModalOpen(true);
   };
+
   // Handle setting password
   const handleEditPassword = (user) => {
     setSelectedUser(user);
@@ -239,7 +239,7 @@ export function UserManagementTable() {
           </div>
         ),
         enableSorting: false,
-        enableHiding: false,
+        enableHiding: true,
       },
       {
         accessorKey: "emailVerified",
@@ -289,9 +289,7 @@ export function UserManagementTable() {
 
           const impersonatedSession = async () =>
             await authClient.admin.impersonateUser(
-              {
-                userId: users?.id,
-              },
+              { userId: users?.id },
               {
                 onSuccess: () => {
                   toast.success("Successfully impersonated User");
@@ -326,10 +324,13 @@ export function UserManagementTable() {
               },
               {
                 onSuccess(ctx) {
-                  toast.success("Successfully revoved Users Session");
+                  toast.success("Successfully Revoked Users Session");
+
+                  // Refrech the users screen
+                  refetchSession;
                 },
                 onError(ctx) {
-                  toast.error("Failed to revoke session");
+                  toast.error("Failed to Revoke User session");
                 },
               }
             );
@@ -581,7 +582,7 @@ export function UserManagementTable() {
             <Input
               type="number"
               min={1}
-              defaultValue={30}
+              defaultValue={100}
               value={table.getState().pagination.pageSize}
               onChange={(e) => table.setPageSize(Number(e.target.value))}
               className="w-24"

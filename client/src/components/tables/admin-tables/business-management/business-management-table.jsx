@@ -297,6 +297,7 @@ export function BusinessManagementTable() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+
         <div className="rounded-md border grid grid-cols-1 text-center">
           <Table>
             <TableHeader>

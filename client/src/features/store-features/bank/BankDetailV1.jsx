@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import InfoCard from "@/components/ui/infocard";
-import BankModal from "@/Modal/BankModal/BankModal";
+import BankModal from "@/modal/BankModal/bankmodal";
 import { useQuery } from "@tanstack/react-query";
 import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";

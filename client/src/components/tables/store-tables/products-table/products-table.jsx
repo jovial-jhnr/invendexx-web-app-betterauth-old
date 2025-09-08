@@ -45,7 +45,7 @@ import MetricCard from "@/components/ui/metric-card";
 import { useQuery } from "@tanstack/react-query";
 import backendUrl from "@/lib/backendUrl";
 import { authClient } from "@/lib/auth-client";
-import { EditProductModal } from "@/modal/Product/ProductModal";
+import { EditProductModal } from "@/modal/product-modal/product-modal";
 
 // Users are fetches here from the backend
 const fetchProduct = async ({ queryKey }) => {

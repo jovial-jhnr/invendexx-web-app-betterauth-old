@@ -31,7 +31,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import FeatFlagForm from "@/Forms/FeatureFlag/feature-flag-form";
+import FeatFlagForm from "@/Forms/feature-flag/feature-flag-form";
 
 export default function FeatFlagModal() {
   const [open, setOpen] = React.useState(false);

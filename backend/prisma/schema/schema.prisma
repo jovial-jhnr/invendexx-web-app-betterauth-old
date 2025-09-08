@@ -149,8 +149,24 @@ model Organization {
   ShippingZone       ShippingZone[]
   productCategory    ProductCategory[]
 
+  organizationroles OrganizationRole[]
+
   @@unique([slug])
   @@map("organization")
+}
+
+model OrganizationRole {
+  id             String       @id @default(uuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role           String
+  permission     String
+  // Custom section
+  roleColor      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime?    @updatedAt
+
+  @@map("organizationRole")
 }
 
 model Member {

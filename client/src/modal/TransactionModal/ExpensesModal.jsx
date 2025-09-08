@@ -23,7 +23,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import ExpensesForm from "@/Forms/Expense/expense-form";
+import ExpensesForm from "@/Forms/expense/expense-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function ExpensesModal() {

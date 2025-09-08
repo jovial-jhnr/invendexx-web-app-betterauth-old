@@ -1,5 +1,5 @@
 import React from "react";
-import UserProfileModal from "@/Modal/UserProfileModal/UserProfileModal";
+import UserProfileModal from "@/modal/user-profile-modal/user-profile-modal";
 import DashboardCard from "@/components/ui/dashboard-card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";

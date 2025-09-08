@@ -1,4 +1,4 @@
-import AddProductModal from "@/Modal/Product/ProductModal";
+import AddProductModal from "@/modal/product-modal/product-modal";
 import ProductCategoryTable from "@/components/tables/store-tables/products-table/product-category-table";
 import ProductTable from "@/components/tables/store-tables/products-table/products-table";
 import { Button } from "@/components/ui/button";

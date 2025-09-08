@@ -1,14 +1,13 @@
-import AddProductForm from "@/Forms/Product/add-product-form";
-import EditModalLayout from "../modal-layouts/EditModalLayout";
-import NormalModalLayout from "../modal-layouts/NormalModalLayout";
-import EditProductForm from "@/Forms/Product/edit-product-form";
+import EditModalLayout from "../../modal-layouts/EditModalLayout";
+import NormalModalLayout from "../../modal-layouts/NormalModalLayout";
+import StoreAddRoleForm from "@/Forms/roles-setup/store-roles/store-add-role-form";
 
-export default function AddProductModal() {
+export default function StoreAddRoleModal() {
   const stats = [
     {
-      title: "Add Product Form",
-      action_button: "Add Product",
-      description: "Add new products here",
+      title: "Add Role Form",
+      action_button: "Add New Role",
+      description: "Add new roles here",
     },
   ];
 
@@ -23,7 +22,7 @@ export default function AddProductModal() {
           className="text-green-500 bg-blue-600"
         >
           <div className="text-xl mx-1">
-            <AddProductForm />
+            <StoreAddRoleForm />
           </div>
         </NormalModalLayout>
       ))}
@@ -31,16 +30,15 @@ export default function AddProductModal() {
   );
 }
 
-function EditProductModal({ open, onOpenChange, product, onSuccess }) {
+function StoreEditRoleModal({ open, onOpenChange, product, onSuccess }) {
   const stats = [
     {
-      title: "Edit Location Form",
+      title: "Edit Role Form",
       // action_button: "Edit Location",
-      description: "Edit location details here",
+      description: "Edit role details here",
     },
   ];
 
-  // console.log({ open, location });
   return (
     <div className="">
       {stats.map((stat, index) => (
@@ -65,4 +63,4 @@ function EditProductModal({ open, onOpenChange, product, onSuccess }) {
   );
 }
 
-export { AddProductModal, EditProductModal };
+export { StoreAddRoleModal, StoreEditRoleModal };

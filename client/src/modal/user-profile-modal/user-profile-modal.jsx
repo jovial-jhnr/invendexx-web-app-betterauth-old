@@ -1,5 +1,5 @@
 import NormalModalLayout from "../modal-layouts/NormalModalLayout";
-import UserProfileForm from "../../Forms/UserProfile/user-profile-form";
+import UserProfileForm from "../../Forms/user-profile/user-profile-form";
 
 export default function UserProfileModal() {
   const stats = [

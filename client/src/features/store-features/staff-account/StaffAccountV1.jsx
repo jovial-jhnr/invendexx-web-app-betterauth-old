@@ -3,6 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import StaffModal from "@/Modal/StaffModals/StaffModal";
 import ReportsDashCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ReportsDashCard";
 import StaffAccountTable from "@/components/tables/store-tables/staff-accounts-table/staff-account-table";
+import StoreAddRoleModal from "@/modal/role-modal/store-role-modal/store-role-modal";
 
 function StaffAccountV1() {
   return (
@@ -20,6 +21,10 @@ function StaffAccountV1() {
         {/* Staff modal */}
         <div className="text-end m-2">
           <StaffModal />
+        </div>
+
+        <div className="text-end m-2">
+          <StoreAddRoleModal />
         </div>
 
         {/* Body content */}

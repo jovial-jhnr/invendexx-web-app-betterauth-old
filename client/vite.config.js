@@ -4,6 +4,13 @@ import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // server: {
+  //   allowedHosts: [
+  //     "localhost",
+  //     "127.0.0.1",
+  //     "8b4ed46cb0b9.ngrok-free.app", // 👈 add your ngrok host here
+  //   ],
+  // },
   plugins: [
     react(),
     VitePWA({

@@ -70,7 +70,7 @@ export function NavStoreUser({}) {
 
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {session?.user?.firstName}
+                  {session?.user?.firstName} {session?.user?.lastName}
                 </span>
                 <span className="truncate text-s">{session?.user?.email}</span>
                 {/* <span className="truncate text-xs">{session?.user?.role}</span> */}

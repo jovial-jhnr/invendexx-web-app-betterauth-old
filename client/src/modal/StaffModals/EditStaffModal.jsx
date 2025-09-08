@@ -23,7 +23,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import EditStaffForm from "@/Forms/Staff Setup/edit-staff-form";
+import EditStaffForm from "@/Forms/staff-setup/edit-staff-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function EditStaffModal() {

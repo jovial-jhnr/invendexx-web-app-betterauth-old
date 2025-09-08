@@ -25,7 +25,7 @@ import ActiveOrganization from "./lib/setActiveOrg";
 import VerifyForgotPassword from "./auth/verify-forgot-password";
 
 // Admin Dashboard Imports
-import AdminDashboard from "@/Dashboards/AdminDashboard.jsx";
+import AdminDashboard from "@/dashboards/AdminDashboard.jsx";
 import CoreDashboard from "./pages/adminPages/CoreDashboard.jsx";
 import ReportsandAnalytics from "./pages/adminPages/ReportsandAnalytics.jsx";
 import AppTransactions from "./pages/adminPages/AppTransactions.jsx";
@@ -48,7 +48,7 @@ import Customers from "./pages/storePages/Customers.jsx";
 import Purchases from "./pages/storePages/Purchases.jsx";
 import StoreDetails from "./pages/storePages/StoreDetails.jsx";
 import Transactions from "./pages/storePages/Transactions.jsx";
-import StoreDashboard from "@/Dashboards/StoreDashboard.jsx";
+import StoreDashboard from "@/dashboards/StoreDashboard.jsx";
 import BankDetails from "./pages/storePages/BankDetails.jsx";
 import Shipping from "./pages/storePages/Shipping.jsx";
 import Location from "./pages/storePages/Location.jsx";

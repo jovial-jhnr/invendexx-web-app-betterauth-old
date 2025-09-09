@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 // import { useSession } from "@/hooks/useSession.jsx";
 import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard.jsx";
@@ -10,6 +11,10 @@ import MainStoreDashStats from "@/dashboard-stats/store-dashstats/main-store-das
 import ImpersonateUserBanner from "@/components/banners/admin-banners/impersonate-user-banner";
 
 export default function OverviewDashboardV1() {
+  // Navigation
+  const navigate = useNavigate();
+
+  // User data here
   const { data: session } = authClient.useSession();
 
   return (
@@ -35,7 +40,10 @@ export default function OverviewDashboardV1() {
           <p className="font-medium text-sm md:text-md items-center">
             {/* Your on the free plan */}
           </p>
-          <Button className="flex flex-end mx-3 my-2 bg-blue-600">
+          <Button
+            className="flex flex-end mx-3 my-2 bg-blue-600"
+            onClick={() => navigate("/storedashboard/plans-and-billings")}
+          >
             <CheckCircle size="4" />
             Unpgrade
           </Button>

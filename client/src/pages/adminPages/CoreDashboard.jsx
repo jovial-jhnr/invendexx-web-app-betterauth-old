@@ -7,6 +7,8 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/useSession";
 import MainAdminDashStats from "@/dashboard-stats/admin-dashstats/main-admin-dashstats";
+import StoreAddRoleForm from "@/Forms/roles-setup/store-roles/store-add-role-form";
+import StoreAddRoleModal from "@/modal/role-modal/store-role-modal/store-role-modal";
 
 export default function CoreDashboard() {
   // const {data: user } = useSession();
@@ -29,6 +31,7 @@ export default function CoreDashboard() {
           </div>
 
           <div className=" text-end ml-2 pt-2">
+            <StoreAddRoleModal />
             <Button className="mr-2 bg-green-600 hover:bg-green-400 ">
               Export
             </Button>

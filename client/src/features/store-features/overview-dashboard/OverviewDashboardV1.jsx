@@ -7,14 +7,21 @@ import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts
 import StoreSwitcher from "@/components/GeneralFeatures/store-swittcher";
 import { authClient } from "@/lib/auth-client";
 import MainStoreDashStats from "@/dashboard-stats/store-dashstats/main-store-dashstats";
+import ImpersonateUserBanner from "@/components/banners/admin-banners/impersonate-user-banner";
 
 export default function OverviewDashboardV1() {
-  // const { data: user } = useSession();
   const { data: session } = authClient.useSession();
 
   return (
     <>
+      <div>
+        {/* Impersonate User Banner */}
+        <div>
+          <ImpersonateUserBanner />
+        </div>
+      </div>
       <div className="flex flex-row justify-between ml-2 ">
+        {/* Signed In user details here */}
         <div className="mt-2">
           <h3 className="font-medium font-roboto text-md md:text-lg">
             Welcome, {session?.user.firstName}
@@ -44,7 +51,7 @@ export default function OverviewDashboardV1() {
           See Analytics
         </Button>
       </div>
-
+      {/* Overview dash sats of the owner */}
       <div className="m-1 pl-2">
         <MainStoreDashStats />
       </div>

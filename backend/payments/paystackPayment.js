@@ -32,7 +32,7 @@ router.get("/plans", async (req, res) => {
 
 // This endpoint fetches the subscriptions from the Paystack dashboard.
 router.get("/all-subscriptions", async (req, res) => {
-  let fetchSubscriptionsResponse = await paystack.subscription.list({});
+  const fetchSubscriptionsResponse = await paystack.subscription.list({});
 
   if (fetchSubscriptionsResponse.status === false) {
     console.log("Error fetching plans: ", fetchSubscriptionsResponse.message);
@@ -49,13 +49,13 @@ router.get("/all-subscriptions", async (req, res) => {
 // This endpoint fetches the Subscriptions from the Paystack dashboard.
 router.get("/subscription", async (req, res) => {
   try {
-    let { customer } = req.query;
+    const { customer } = req.query;
 
     if (!customer) {
       throw Error("Please include a valid customer ID");
     }
 
-    let fetchSubscriptionsResponse = await paystack.subscription.list({
+    const fetchSubscriptionsResponse = await paystack.subscription.list({
       customer,
     });
     if (fetchSubscriptionsResponse.status === false) {
@@ -70,7 +70,7 @@ router.get("/subscription", async (req, res) => {
         );
     }
 
-    let subscriptions = fetchSubscriptionsResponse.data.filter(
+    const subscriptions = fetchSubscriptionsResponse.data.filter(
       (subscription) =>
         subscription.status === "active" ||
         subscription.status === "non-renewing"
@@ -94,15 +94,17 @@ router.post("/initialize-transaction-with-plan", async (req, res) => {
       );
     }
 
-    let initializeTransactionResponse = await paystack.transaction.initialize({
-      first_name,
-      last_name,
-      email,
-      amount,
-      plan,
-      channels: ["card", "mobile_money"],
-      callback_url: `${process.env.APP_URL}/thank-you`,
-    });
+    const initializeTransactionResponse = await paystack.transaction.initialize(
+      {
+        first_name,
+        last_name,
+        email,
+        amount,
+        plan,
+        channels: ["card", "mobile_money"],
+        callback_url: `${process.env.APP_URL}/thank-you`,
+      }
+    );
 
     if (initializeTransactionResponse.status === false) {
       return console.log(

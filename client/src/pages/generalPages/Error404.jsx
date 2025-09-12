@@ -10,9 +10,9 @@ export default function Error404() {
   const handleGoBack = () => {
     if (!user) return;
 
-    if (user.role === "admin" || user.role === "app_member") {
+    if (user?.role === "admin" || user?.role === "app_member") {
       navigate("/syntaxdashboard");
-    } else if (user.role === "store_owner" || user.role === "staff") {
+    } else if (user?.role === "store_owner" || user?.role === "staff") {
       navigate("/storedashboard");
     } else {
       navigate("/");

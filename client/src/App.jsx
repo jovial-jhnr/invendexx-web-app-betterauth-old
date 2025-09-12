@@ -68,7 +68,7 @@ import LocationBranch from "./pages/storePages/LocationBranch";
 import ApiKeys from "./pages/storePages/ApiKeys.jsx";
 
 // UI Theme Imports
-import { ThemeProvider } from "@/components/GeneralFeatures/theme-provider";
+import { ThemeProvider } from "@/components/general-features/theme-provider";
 
 function App() {
   return (

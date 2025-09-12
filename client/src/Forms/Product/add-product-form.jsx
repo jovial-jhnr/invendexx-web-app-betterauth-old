@@ -34,6 +34,7 @@ import backendUrl from "@/lib/backendUrl";
 const addProductSchema = z.object({
   name: z.string(),
   price: z.number(),
+  costPrice: z.number().nullable(),
   stock: z.number(),
   discountPrice: z.number().min(0).optional().nullable(),
   shortDescription: z.string().optional().nullable(),
@@ -70,6 +71,7 @@ export default function AddProductForm({ className }) {
     resolver: zodResolver(addProductSchema),
     defaultValues: {
       discountPrice: 0,
+      costPrice: 0,
     },
   });
   // const files = fil;
@@ -86,6 +88,7 @@ export default function AddProductForm({ className }) {
     const {
       name,
       price,
+      costPrice,
       description,
       shortDescription,
       discountPrice,
@@ -107,6 +110,7 @@ export default function AddProductForm({ className }) {
         {
           name,
           price,
+          costPrice,
           description,
           shortDescription,
           discountPrice,
@@ -184,7 +188,7 @@ export default function AddProductForm({ className }) {
 
           {/* Product Category */}
           <div className="field my-2">
-            <Label htmlFor="productCategory" className="text-lg">
+            <Label htmlFor="productCategory" className="">
               Product Category
             </Label>
             <Controller
@@ -195,14 +199,14 @@ export default function AddProductForm({ className }) {
                 <MultiSelector
                   values={field?.value?.map((catName) => {
                     const cats = categories.find((c) => c.name === catName);
-                    return { value: cats?.name, label: cats?.name || id };
+                    return { value: cats?.name, label: cats?.name ?? catName };
                   })} // Values must be mapped for it to work
                   onValuesChange={(vals) =>
                     field.onChange(vals?.map((v) => v.value))
                   } //onValuesChange must be mapped for it to work
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="" />
+                    <MultiSelectorInput placeholder="Categories" />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -220,11 +224,11 @@ export default function AddProductForm({ className }) {
                 </MultiSelector>
               )}
             />
-            {errors.productCategory && (
+            {/* {errors.productCategory && (
               <p className="text-red-500 text-sm">
                 {errors.productCategory.message}
               </p>
-            )}
+            )} */}
           </div>
 
           <h1 className="m-3 text-lg font-bold text-center">
@@ -235,221 +239,244 @@ export default function AddProductForm({ className }) {
           <div className="">
             <div className="field my-2">
               <Label htmlFor="price"> Product Price</Label>
-              <Input
-                type="number"
-                id="price"
-                {...register("price", { valueAsNumber: true })}
-              />
+              <Input min="0" type="number" id="price" {...register("price")} />
             </div>
-            <div className="field">
+            <div className="field my-2">
               <Label htmlFor="discountPrice">Discount Price (Optional)</Label>
               <Input
+                min="0"
                 type="number"
                 id="discountPrice"
-                {...register("discountPrice", { valueAsNumber: true })}
+                {...register("discountPrice")}
               />
             </div>
 
-            <div className="field my-2">
-              <Label htmlFor="stock">Product Stock</Label>
-              <Input
-                type="number"
-                id="stock"
-                {...register("stock", { valueAsNumber: true })}
-              />
-              {errors.stock && (
-                <p className="text-red-500 text-sm">{errors.stock.message}</p>
-              )}
-            </div>
+            <div className="">
+              <div className="field my-2">
+                <Label htmlFor="costPrice">Cost Price (Optional)</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="costPrice"
+                  {...register("costPrice")}
+                />
+              </div>
 
-            <div className="field my-2">
-              <Label htmlFor="sku">Product SKU</Label>
-              <Input type="text" id="sku" {...register("sku")} />
-              {errors.sku && (
-                <p className="text-red-500 text-sm">{errors.sku.message}</p>
-              )}
-            </div>
-
-            <div className="field my-2">
-              <Label htmlFor="productStatus">Product Status</Label>
-              <Controller
-                control={control}
-                name="productStatus"
-                // rules={{ required: "Country is required" }}
-                render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Product Status">
-                        {field.value || "Select Product Status"}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Select Product Status</SelectLabel>
-                        <SelectItem value="Published">Published</SelectItem>
-                        <SelectItem value="Unpublished">UnPublished</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+              <div className="field my-2">
+                <Label htmlFor="stock">Product Stock</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="stock"
+                  {...register("stock")}
+                />
+                {errors.stock && (
+                  <p className="text-red-500 text-sm">{errors.stock.message}</p>
                 )}
-              />
-              {errors.productCategory && (
-                <p className="text-red-500 text-sm">
-                  {errors.productCategory.message}
-                </p>
-              )}
-            </div>
-          </div>
+              </div>
 
-          <h1 className="m-3 text-lg font-bold text-center">Product Weight</h1>
-
-          {/* Product Weight */}
-          <div>
-            <div className="field my-2">
-              <Label htmlFor="productSize">Product Size</Label>
-              <Input type="text" id="length" {...register("productSize")} />
-              {errors.productSize && (
-                <p className="text-red-500 text-sm">
-                  {errors.productSize.message}
-                </p>
-              )}
-            </div>
-
-            <div className="field my-2">
-              <Label htmlFor="sizeUnit">Size Unit</Label>
-              <Controller
-                control={control}
-                name="sizeUnit"
-                // rules={{ required: "Country is required" }}
-                render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Size Unit">
-                        {field.value || "Unit Size"}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Unit Size</SelectLabel>
-                        <SelectItem value="G">gram</SelectItem>
-                        <SelectItem value="KG">kg</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+              <div className="field my-2">
+                <Label htmlFor="sku">Product SKU</Label>
+                <Input type="text" id="sku" {...register("sku")} />
+                {errors.sku && (
+                  <p className="text-red-500 text-sm">{errors.sku.message}</p>
                 )}
-              />
-              {errors.productSize && (
-                <p className="text-red-500 text-sm">
-                  {errors.productSize.message}
-                </p>
-              )}
-            </div>
-          </div>
+              </div>
 
-          {/* Produt Measurement */}
-          <div className="grid grid-cols-3 gap-3 my-3">
-            <div className="field my-2">
-              <Label htmlFor="length">Length</Label>
-              <Input
-                type="number"
-                id="length"
-                {...register("length", { valueAsNumber: true })}
-              />
-            </div>
-
-            <div className="field my-2">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                type="number"
-                id="width"
-                {...register("width", { valueAsNumber: true })}
-              />
-            </div>
-
-            <div className="field my-2">
-              <Label htmlFor="height">Height</Label>
-              <Input
-                type="number"
-                id="height"
-                {...register("height", { valueAsNumber: true })}
-              />
-            </div>
-          </div>
-
-          {/* Packaging  Preferences */}
-          <div>
-            <div className="field my-2">
-              <Label htmlFor="packaging">Packaging</Label>
-              <Controller
-                control={control}
-                name="packaging"
-                // rules={{ required: "Country is required" }}
-                render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Size Unit">
-                        {field.value || "Packaging"}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Packaging</SelectLabel>
-                        <SelectItem value="Box">Box</SelectItem>
-                        <SelectItem value="Packing Materials">
-                          Packing Materials
-                        </SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              {errors.packaging && (
-                <p className="text-red-500 text-sm">
-                  {errors.packaging.message}
-                </p>
-              )}
-            </div>
-
-            <div className="field my-2">
-              <Label htmlFor="productSize">Location</Label>
-              <Controller
-                control={control}
-                name="locationId"
-                defaultValue={location?.name}
-                // rules={{ required: "Country is required" }}
-                render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Location">
-                        {field?.value || "location"}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Select Country</SelectLabel>
-                        {locations?.map((location, idx) => (
-                          <SelectItem key={idx} value={location?.id}>
-                            {location?.name}
+              <div className="field my-2">
+                <Label htmlFor="productStatus">Product Status</Label>
+                <Controller
+                  control={control}
+                  name="productStatus"
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Product Status">
+                          {field.value || "Select Product Status"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Select Product Status</SelectLabel>
+                          <SelectItem value="Published">Published</SelectItem>
+                          <SelectItem value="Unpublished">
+                            UnPublished
                           </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.productCategory && (
+                  <p className="text-red-500 text-sm">
+                    {errors.productCategory.message}
+                  </p>
                 )}
-              />
-              {/* {errors.location && (
+              </div>
+            </div>
+
+            <h1 className="m-3 text-lg font-bold text-center">
+              Product Weight
+            </h1>
+
+            {/* Product Weight */}
+            <div>
+              <div className="field my-2">
+                <Label htmlFor="productSize">Product Size</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="productSize"
+                  {...register("productSize")}
+                />
+                {errors.productSize && (
+                  <p className="text-red-500 text-sm">
+                    {errors.productSize.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="field my-2">
+                <Label htmlFor="sizeUnit">Size Unit</Label>
+                <Controller
+                  control={control}
+                  name="sizeUnit"
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Size Unit">
+                          {field.value || "Unit Size"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Unit Size</SelectLabel>
+                          <SelectItem value="G">gram</SelectItem>
+                          <SelectItem value="KG">kg</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.productSize && (
+                  <p className="text-red-500 text-sm">
+                    {errors.productSize.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Produt Measurement */}
+            <div className="grid grid-cols-3 gap-3 my-3">
+              <div className="field my-2">
+                <Label htmlFor="length">Length</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="length"
+                  {...register("length")}
+                />
+              </div>
+
+              <div className="field my-2">
+                <Label htmlFor="width">Width</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="width"
+                  {...register("width")}
+                />
+              </div>
+
+              <div className="field my-2">
+                <Label htmlFor="height">Height</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="height"
+                  {...register("height")}
+                />
+              </div>
+            </div>
+
+            {/* Packaging  Preferences */}
+            <div>
+              <div className="field my-2">
+                <Label htmlFor="packaging">Packaging</Label>
+                <Controller
+                  control={control}
+                  name="packaging"
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Size Unit">
+                          {field.value || "Packaging"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Packaging</SelectLabel>
+                          <SelectItem value="Box">Box</SelectItem>
+                          <SelectItem value="Packing Materials">
+                            Packing Materials
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.packaging && (
+                  <p className="text-red-500 text-sm">
+                    {errors.packaging.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="field my-2">
+                <Label htmlFor="locationId">Location</Label>
+                <Controller
+                  control={control}
+                  name="locationId"
+                  defaultValue={location?.name}
+                  // rules={{ required: "Country is required" }}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Location">
+                          {locations.find((loc) => loc.id === field.value)
+                            ?.name || " Select Location"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Select Country</SelectLabel>
+                          {locations?.map((location, idx) => (
+                            <SelectItem key={idx} value={location?.id}>
+                              {location?.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {/* {errors.location && (
                 <p className="text-red-500 text-sm">
                   {errors.location.message}
                 </p>
               )} */}
+              </div>
             </div>
-          </div>
 
-          {/* Submit */}
-          <div className="my-4 mx-3">
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Saving Changes......... " : "Save Changes "}
-            </Button>
+            {/* Submit */}
+            <div className="my-4 mx-3">
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Saving Changes......... " : "Save Changes "}
+              </Button>
+            </div>
           </div>
         </div>
       </form>

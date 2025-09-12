@@ -7,6 +7,7 @@ import { CardContent } from "@/components/ui/card";
 import Spinner from "@/components/ui/spinner";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { authClient } from "@/lib/auth-client";
+import UpgradePlanBanner from "@/components/banners/store-banners/upgrade-plan-banner";
 
 export default function PlansandBillingsV1() {
   // Fetching user session data
@@ -19,9 +20,7 @@ export default function PlansandBillingsV1() {
 
   // Sign up for a subscription plan
   const signUpForPlan = async (plan_code) => {
-    const firstName = session?.user?.firstName;
-    const lastName = session?.user?.lastName;
-    const email = session?.user?.email;
+    const { firstName, lastName, email } = session?.user;
 
     const { data } = await backendUrl.post(
       "/api/paystack/initialize-transaction-with-plan",
@@ -36,6 +35,7 @@ export default function PlansandBillingsV1() {
     // Payment Link
     const authorizationUrl = data?.authorization_url;
 
+    // Payment link opened in new window
     if (authorizationUrl) {
       window.open(authorizationUrl, "_blank");
     }
@@ -47,30 +47,29 @@ export default function PlansandBillingsV1() {
   //   const { data } = await backendUrl.get(
   //     `api/paystack/update-payment-method?subscription_code=${sub.subscription_code}`
   //   );
+  // Link to manage subsscription
   //   if (data?.link) {
   //     window.location.href = data.link;
   //   }
   // };
 
-  // Loading state
-  // if (loadingSubscription || loadingPlans) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-screen">
-  //       <Spinner />
-  //     </div>
-  //   );
-  // }
-
   // If user has an active subscription
   return (
     <>
       <div>
+        {/* Banner for various information */}
+        <div>
+          <span>
+            <UpgradePlanBanner />
+          </span>
+        </div>
+        {/* Page title or header */}
         <div className="m-3 text-2xl text-center font-bold">
           <h1>PLAN AND BILLING</h1>
         </div>
 
         <div>
-          <Tabs defaultValue="plans">
+          <Tabs defaultValue="subscriptions">
             <TabsList className="m-3 border border-blue-700">
               <TabsTrigger value="plans">Plans</TabsTrigger>
               <TabsTrigger value="subscriptions">Subscription</TabsTrigger>

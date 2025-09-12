@@ -9,6 +9,7 @@ const addProduct = async (req, res) => {
   const {
     name,
     price,
+    costPrice,
     description,
     shortDescription,
     discountPrice,
@@ -30,6 +31,7 @@ const addProduct = async (req, res) => {
       data: {
         name,
         price,
+        costPrice,
         description,
         shortDescription,
         discountPrice,
@@ -72,6 +74,7 @@ const updateProduct = async (req, res) => {
   const {
     name,
     price,
+    costPrice,
     description,
     shortDescription,
     discountPrice,
@@ -95,6 +98,7 @@ const updateProduct = async (req, res) => {
       data: {
         name,
         price,
+        costPrice,
         description,
         shortDescription,
         discountPrice,

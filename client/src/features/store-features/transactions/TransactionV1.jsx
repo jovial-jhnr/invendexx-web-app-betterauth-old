@@ -1,4 +1,4 @@
-import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard";
+import { StatCard } from "@/components/metrics/store-metrics/cards/stat-card";
 import SettlementTable from "@/components/tables/store-tables/transactions-table/settlements-table";
 import TransactionTable from "@/components/tables/store-tables/transactions-table/transaction-table";
 import { Button } from "@/components/ui/button";

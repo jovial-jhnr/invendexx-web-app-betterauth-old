@@ -1,9 +1,9 @@
-import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
+import ModeToggle from "@/components/general-features/mode-toggle";
 import { Outlet, Link } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { HardDrive } from "lucide-react";
-import { AppAdminSidebar } from "@/components/DashFeature/SyntaxFeatures/app-admin-sidebar";
-import { NavAdminUser } from "@/components/DashFeature/SyntaxFeatures/syntaxComp.jsx/nav-admin-user";
+import { AppAdminSidebar } from "@/components/DashFeature/admin-sidebar/app-admin-sidebar";
+import { NavAdminUser } from "@/components/DashFeature/admin-sidebar/nav-admin-user";
 import { Separator } from "@/components/ui/separator";
 
 import {

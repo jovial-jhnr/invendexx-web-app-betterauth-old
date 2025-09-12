@@ -28,7 +28,7 @@ export default function ImpersonateUserBanner() {
     <>
       <div>
         {session?.session?.impersonatedBy && (
-          <Banner className="bg-indigo-600">
+          <Banner className="bg-indigo-600 font-roboto font-semibold">
             <BannerIcon icon={UserCog} className="dark: text-white" />
             <BannerTitle className="dark: text-white">
               You (App Owner) are signed as{" "}

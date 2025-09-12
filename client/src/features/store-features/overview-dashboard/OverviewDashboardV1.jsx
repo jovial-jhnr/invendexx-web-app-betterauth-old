@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 // import { useSession } from "@/hooks/useSession.jsx";
-import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard.jsx";
-import TotalCustomers from "@/components/DashFeature/StoreFeatures/storeCharts/TotalCustomers";
-import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/AdminSalesCard";
-import StoreSwitcher from "@/components/GeneralFeatures/store-swittcher";
+import { StatCard } from "@/components/metrics/store-metrics/cards/stat-card.jsx";
+import TotalCustomers from "@/components/metrics/store-metrics/charts/total-customers";
+import AdminSalesCard from "@/components/metrics/admin-metrics/cards/admin-sales-card";
+import StoreSwitcher from "@/components/general-features/store-swittcher";
 import { authClient } from "@/lib/auth-client";
 import MainStoreDashStats from "@/dashboard-stats/store-dashstats/main-store-dashstats";
 import ImpersonateUserBanner from "@/components/banners/admin-banners/impersonate-user-banner";
+import UpgradePlanBanner from "@/components/banners/store-banners/upgrade-plan-banner";
 
 export default function OverviewDashboardV1() {
   // Navigation
@@ -21,9 +22,14 @@ export default function OverviewDashboardV1() {
     <>
       <div>
         {/* Impersonate User Banner */}
-        <div>
+        <span>
           <ImpersonateUserBanner />
-        </div>
+        </span>
+
+        {/* Upgrade Store Plan banner */}
+        <span>
+          <UpgradePlanBanner />
+        </span>
       </div>
       <div className="flex flex-row justify-between ml-2 ">
         {/* Signed In user details here */}

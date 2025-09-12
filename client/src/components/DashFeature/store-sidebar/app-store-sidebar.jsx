@@ -38,10 +38,10 @@ import {
 
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { NavStoreMain } from "@/components/DashFeature/StoreFeatures/nav-store-main";
+import { NavStoreMain } from "@/components/DashFeature/store-sidebar/nav-store-main";
 // import { NavProjects } from "@/components/nav-projects"
-import { NavStoreSecondary } from "@/components/DashFeature/StoreFeatures/nav-store-secondary";
-import { NavStoreUser } from "@/components/DashFeature/StoreFeatures/storeComponent/nav-store-user";
+import { NavStoreSecondary } from "@/components/DashFeature/store-sidebar/nav-store-secondary";
+import { NavStoreUser } from "@/components/DashFeature/store-sidebar/nav-store-user";
 import ImpersonateUserBar from "@/features/admin-features/user-management/impersonate-user-bar";
 import permAccess from "@/hooks/permAccess";
 import { authClient } from "@/lib/auth-client";
@@ -56,7 +56,7 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import SidebarOptInForm from "@/components/GeneralFeatures/sidebar-opt-in-form";
+import SidebarOptInForm from "@/components/general-features/sidebar-opt-in-form";
 
 const data = {
   // user: {

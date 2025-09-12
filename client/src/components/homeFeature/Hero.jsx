@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Inven_dpage_mac from "../../assets/Inven_dpage_mac.png";
 
-function Hero() {
+export default function Hero() {
   return (
     <>
       <div
@@ -42,5 +42,3 @@ function Hero() {
     </>
   );
 }
-
-export default Hero;

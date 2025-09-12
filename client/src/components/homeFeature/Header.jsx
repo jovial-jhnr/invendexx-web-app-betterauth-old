@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { X, Menu } from "lucide-react";
 import { Separator } from "../ui/separator";
-import ModeToggle from "../GeneralFeatures/mode-toggle";
+import ModeToggle from "../general-features/mode-toggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

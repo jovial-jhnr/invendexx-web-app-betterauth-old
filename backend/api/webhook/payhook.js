@@ -129,7 +129,7 @@ router.post("/paystack", async (req, res) => {
             },
           });
 
-          await prisma.store.update({
+          await prisma.organization.update({
             where: {
               id: storeId,
             },
@@ -267,7 +267,7 @@ router.post("/paystack", async (req, res) => {
           // Send email to user to update their cards about their card expiring
           // and need to change it.
           await sendEmail(
-            user.email,
+            user.members.email,
             "Card Expiring Soon",
             "Your payment card is expiring. Please update it to avoid service interruptions."
           );
@@ -288,7 +288,9 @@ router.post("/paystack", async (req, res) => {
     // console.log(error);
     return res.status(500).json({
       status: false,
-      message: "Error!!! Could not get the webhook events and data",
+      message: "Error!!! Could not get the webhook events and data, ",
+      data: "Nigga 🤯🤯 go and fix it. 12 Sept, 2025-Update-date",
+      note: "We are loosing money 💵💵💵",
       error: error.message,
     });
   }

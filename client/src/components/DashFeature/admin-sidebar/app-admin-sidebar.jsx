@@ -20,11 +20,11 @@ import {
 } from "lucide-react";
 
 import { ScrollArea } from "../../ui/scroll-area";
-import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
-import { NavAdminMain } from "@/components/DashFeature/SyntaxFeatures/nav-admin-main";
+import ModeToggle from "@/components/general-features/mode-toggle";
+import { NavAdminMain } from "@/components/DashFeature/admin-sidebar/nav-admin-main";
 // import { NavProjects } from "@/components/nav-projects"
-import { NavAdminSecondary } from "@/components/DashFeature/SyntaxFeatures/nav-admin-secondary";
-import { NavAdminUser } from "@/components/DashFeature/SyntaxFeatures/syntaxComp.jsx/nav-admin-user";
+import { NavAdminSecondary } from "@/components/DashFeature/admin-sidebar/nav-admin-secondary";
+import { NavAdminUser } from "@/components/DashFeature/admin-sidebar/nav-admin-user";
 import permAccess from "@/hooks/permAccess";
 import { authClient } from "@/lib/auth-client";
 // import { useSession } from "@/hooks/useSession";

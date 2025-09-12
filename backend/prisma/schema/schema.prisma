@@ -160,7 +160,7 @@ model OrganizationRole {
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   role           String
-  permission     String
+  permission     Json
   // Custom section
   roleColor      String
   createdAt      DateTime     @default(now())

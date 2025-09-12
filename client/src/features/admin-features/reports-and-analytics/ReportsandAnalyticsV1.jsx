@@ -1,4 +1,3 @@
-import ReportsDashCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ReportsDashCard";
 import { Button } from "@/components/ui/button";
 
 export default function ReportsandAnalyticsV1() {
@@ -23,9 +22,7 @@ export default function ReportsandAnalyticsV1() {
             </Button>
           </div>
 
-          <div className="m-0">
-            <ReportsDashCard />
-          </div>
+          <div className="m-0"></div>
         </div>
       </div>
     </>

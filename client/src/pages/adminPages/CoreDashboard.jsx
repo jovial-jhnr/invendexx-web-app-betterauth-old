@@ -1,8 +1,8 @@
-import { StatCard } from "@/components/DashFeature/StoreFeatures/storeCharts/StatCard";
-import TotalCustomers from "@/components/DashFeature/StoreFeatures/storeCharts/TotalCustomers";
-import AdminSalesCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/AdminSalesCard";
-import ProductCategoryChart from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/ProductCategoryChart";
-import SystemHealthCard from "@/components/DashFeature/SyntaxFeatures/syntaxCharts/SystemHealthCard";
+import { StatCard } from "@/components/metrics/store-metrics/cards/stat-card";
+import TotalCustomers from "@/components/metrics/store-metrics/charts/total-customers";
+import AdminSalesCard from "@/components/metrics/admin-metrics/cards/admin-sales-card";
+import ProductCategoryChart from "@/components/metrics/admin-metrics/charts/product-category-chart";
+import SystemHealthCard from "@/components/metrics/admin-metrics/cards/system-health-card";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/useSession";

@@ -1,6 +1,7 @@
 import EditModalLayout from "../../modal-layouts/EditModalLayout";
 import NormalModalLayout from "../../modal-layouts/NormalModalLayout";
 import StoreAddRoleForm from "@/Forms/roles-setup/store-roles/store-add-role-form";
+import { UserCheck } from "lucide-react";
 
 export default function StoreAddRoleModal() {
   const stats = [
@@ -8,6 +9,7 @@ export default function StoreAddRoleModal() {
       title: "Add Role Form",
       action_button: "Add New Role",
       description: "Add new roles here",
+      icon: <UserCheck />,
     },
   ];
 
@@ -19,6 +21,7 @@ export default function StoreAddRoleModal() {
           title={stat.title}
           description={stat.description}
           action_button={stat.action_button}
+          icon={stat.icon}
           className="text-green-500 bg-blue-600"
         >
           <div className="text-xl mx-1">

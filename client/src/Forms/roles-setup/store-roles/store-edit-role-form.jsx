@@ -23,14 +23,19 @@ import {
 import backendUrl from "@/lib/backendUrl";
 import Spinner from "@/components/ui/spinner";
 
-const storeAddRoleSchema = z.object({
+const storeEditRoleSchema = z.object({
   role: z.string().min(1, "Role Name is required or more letters"),
   roleColor: z.string().nullable(),
   permission: z.record(z.string(), z.array(z.string())).optional(),
 });
 
 //         =====MAIN FUNCTION=====
-export default function StoreAddRoleForm({ className }) {
+export default function StoreEditRoleForm({
+  className,
+  open,
+  openChange,
+  roles,
+}) {
   // User details
   //   const { data: session } = authClient.useSession();
   //   const rolle = session?.user?.role;
@@ -58,22 +63,39 @@ export default function StoreAddRoleForm({ className }) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(storeAddRoleSchema),
+    resolver: zodResolver(storeEditRoleSchema),
   });
+
+  // Populate form with existing role data
+  React.useEffect(() => {
+    if (open && roles) {
+      // console.log("Have Roles", roles);
+      reset({
+        roleName: roles?.role,
+        roleColor: roles?.roleColor,
+        description: roles?.description || "",
+      });
+    }
+  }, [open, roles, reset]);
 
   const onSubmit = async (data) => {
     console.log("Sub Role", data);
     const { role, roleColor, permission } = data;
-    // const { id: userId } = user;
+    const { id: roleId } = roles;
 
     try {
       // Create user role here
-      await authClient.organization.createRole(
+      await authClient.organization.updateRole(
         {
-          role, // required
-          roleColor,
-          permission,
+          roleName: role,
+          roleId: roleId,
           organizationId: storeId,
+          data: {
+            // required
+            permission,
+            roleName: role,
+            roleColor,
+          },
         },
         {
           onSuccess(ctx) {
@@ -84,6 +106,7 @@ export default function StoreAddRoleForm({ className }) {
           },
         }
       );
+      onSuccess?.();
     } catch (error) {
       toast.error("Failed to change user role");
     }
@@ -171,10 +194,10 @@ export default function StoreAddRoleForm({ className }) {
               {isSubmitting ? (
                 <>
                   <Spinner />
-                  <span>"Adding New Role......... " </span>
+                  <span>"Update Role......... " </span>
                 </>
               ) : (
-                "Add New Role "
+                "Update Role "
               )}
             </Button>
           </div>

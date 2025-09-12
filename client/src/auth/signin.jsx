@@ -57,56 +57,65 @@ export default function SignIn({ className, ...props }) {
     resolver: zodResolver(signInSchema),
   });
 
-  // Function to handle form submission
-  const onSubmit = async (data) => {
-    const { email, password } = data;
-
-    // Send the signin credentials to the backend with the CSRF Token
-    const response = await authClient.signIn.email({
-      email: email,
-      password: password,
-    });
-
-    const userResponse = await backendUrl.get(
-      "/api/auth/get-session",
-
-      { withCredentials: true }
-    );
-
-    /* This fetches the user session data after login
-      specifically, the user role */
-    const userRole = userResponse.data?.user?.role;
-    const storeId = userResponse?.data?.session?.activeOrganizationId;
-    // Redirection logic based on user role
-
-    if (userRole === "admin") {
-      navigate("/coredashboard");
-      toast.success("💰💰Syntax Admin Logged in Successfully!💰💰");
-
-      // Admin staff
-    } else if (userRole === "app_member") {
-      navigate("/coredashboard");
-
-      toast.success("🧨🧨Syntax Team Logged in Successfully!💰💰");
-    } else if (
-      (storeId && userRole === "owner") ||
-      (storeId && userRole === "staff")
-    ) {
-      navigate("/storedashboard");
-
-      toast.success("✅✅Store Logged in Successfully!✅✅");
-    } else {
-      toast.error("You need a store. Go and create one.");
-      navigate("/create-store");
-    }
-  };
-
   // Google SignIn
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
       callbackURL: "/verify-email",
     });
+  };
+
+  // Function to handle form submission
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+
+    try {
+      // Send the signin credentials to the backend with the CSRF Token
+      const response = await authClient.signIn.email(
+        {
+          email: email,
+          password: password,
+        },
+
+        // When signin is successful
+        {
+          onSuccess: async (ctx) => {
+            // Fetch session/user data after login
+            const userResponse = await backendUrl.get("/api/auth/get-session", {
+              withCredentials: true,
+            });
+
+            const userRole = userResponse.data?.user?.role;
+            const storeId = userResponse?.data?.session?.activeOrganizationId;
+
+            // Redirection logic
+            if (userRole === "admin") {
+              navigate("/coredashboard");
+              toast.success("💰 Syntax Admin Logged in Successfully!");
+            } else if (userRole === "app_member") {
+              navigate("/coredashboard");
+              toast.success("🧨 System Team Logged in Successfully!");
+            } else if (
+              (storeId && userRole === "owner") ||
+              (storeId && userRole === "staff")
+            ) {
+              navigate("/storedashboard");
+              toast.success("✅ Store Logged in Successfully!");
+            } else {
+              toast.error("You need a store. Go and create one.");
+              navigate("/create-store");
+            }
+          },
+
+          onError: (ctx) => {
+            console.log("CTX", ctx);
+            toast.error(ctx?.error?.message);
+          },
+        }
+      );
+    } catch (error) {
+      toast.error("Error in the system. Contact support");
+    }
   };
 
   return (

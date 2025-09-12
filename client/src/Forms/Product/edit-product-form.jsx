@@ -77,6 +77,7 @@ export default function EditProductForm({
         name: product?.name,
         stock: product?.stock,
         price: product?.price,
+        costPrice: product?.costPrice,
         sku: product?.sku,
         discountPrice: product?.discountPrice,
         description: product?.description,
@@ -110,6 +111,7 @@ export default function EditProductForm({
     const {
       name,
       price,
+      costPrice,
       description,
       shortDescription,
       discountPrice,
@@ -131,6 +133,7 @@ export default function EditProductForm({
         {
           name,
           price,
+          costPrice,
           description,
           shortDescription,
           discountPrice,
@@ -251,28 +254,25 @@ export default function EditProductForm({
           <div className="">
             <div className="field my-2">
               <Label htmlFor="price"> Product Price</Label>
-              <Input
-                type="number"
-                id="price"
-                {...register("price", { valueAsNumber: true })}
-              />
+              <Input type="number" id="price" {...register("price")} />
             </div>
             <div className="field">
               <Label htmlFor="discountPrice">Discount Price</Label>
               <Input
                 type="number"
                 id="discountPrice"
-                {...register("discountPrice", { valueAsNumber: true })}
+                {...register("discountPrice")}
               />
             </div>
 
             <div className="field my-2">
+              <Label htmlFor="price"> Product Cost Price</Label>
+              <Input type="number" id="costPrice" {...register("price")} />
+            </div>
+
+            <div className="field my-2">
               <Label htmlFor="stock">Product Stock</Label>
-              <Input
-                type="number"
-                id="stock"
-                {...register("stock", { valueAsNumber: true })}
-              />
+              <Input type="number" id="stock" {...register("stock")} />
               {/* {errors.stock && (
                 <p className="text-red-500 text-sm">{errors.stock.message}</p>
               )} */}
@@ -309,15 +309,17 @@ export default function EditProductForm({
                   </Select>
                 )}
               />
-              {errors.productStatus && (
+              {/* {errors.productStatus && (
                 <p className="text-red-500 text-sm">
                   {errors.productStatus.message}
                 </p>
-              )}
+              )} */}
             </div>
           </div>
 
-          <h1 className="m-3 text-lg font-bold text-center">Product Weight</h1>
+          <h1 className="m-3 text-lg font-bold text-center">
+            Product Weight and Measurements
+          </h1>
 
           {/* Product Weight */}
           <div>
@@ -367,29 +369,17 @@ export default function EditProductForm({
           <div className="grid grid-cols-3 gap-3 my-3">
             <div className="field my-2">
               <Label htmlFor="length">Length</Label>
-              <Input
-                type="number"
-                id="length"
-                {...register("length", { valueAsNumber: true })}
-              />
+              <Input type="number" id="length" {...register("length")} />
             </div>
 
             <div className="field my-2">
               <Label htmlFor="width">Width</Label>
-              <Input
-                type="number"
-                id="width"
-                {...register("width", { valueAsNumber: true })}
-              />
+              <Input type="number" id="width" {...register("width")} />
             </div>
 
             <div className="field my-2">
               <Label htmlFor="height">Height</Label>
-              <Input
-                type="number"
-                id="height"
-                {...register("height", { valueAsNumber: true })}
-              />
+              <Input type="number" id="height" {...register("height")} />
             </div>
           </div>
 
@@ -437,7 +427,8 @@ export default function EditProductForm({
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Location">
-                        {field.value || "location"}
+                        {locations.find((loc) => loc.id === field.value)
+                          ?.name || "location"}
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
@@ -453,9 +444,9 @@ export default function EditProductForm({
                   </Select>
                 )}
               />
-              {errors.location && (
+              {errors.locationId && (
                 <p className="text-red-500 text-sm">
-                  {errors.location.message}
+                  {errors.locationId.message}
                 </p>
               )}
             </div>

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { AppStoreSidebar } from "@/components/DashFeature/StoreFeatures/app-store-sidebar";
+import { AppStoreSidebar } from "@/components/DashFeature/store-sidebar/app-store-sidebar";
 import useStoreLocation from "@/hooks/storeHooks/use-store-location";
 
 import {
@@ -24,7 +24,7 @@ import {
   SelectValue,
   SelectGroup,
 } from "@/components/ui/select";
-import ModeToggle from "@/components/GeneralFeatures/mode-toggle";
+import ModeToggle from "@/components/general-features/mode-toggle";
 
 // const getLocation = async ({ queryKey }) => {
 //   const [_key, storeId] = queryKey;
